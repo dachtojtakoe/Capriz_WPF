@@ -1,0 +1,329 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Capriz_WPF"
+        xmlns:CustomControls="clr-namespace:Capriz_WPF.CustomControls" x:Class="Capriz_WPF.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize" >
+
+    <Window.Resources>
+        <BitmapImage x:Key="sett1" UriSource="/Resources/sett1.png"/>
+        <BitmapImage x:Key="search1" UriSource="/Resources/search1.png"/>
+        <BitmapImage x:Key="usb2" UriSource="/Resources/usb2.png"/>
+        <BitmapImage x:Key="jrnl1" UriSource="/Resources/jrnl1.png"/>
+        <BitmapImage x:Key="temp1" UriSource="/Resources/temp1.png"/>
+        <BitmapImage x:Key="hum1" UriSource="/Resources/hum11.png"/>
+        <BitmapImage x:Key="press1" UriSource="/Resources/press1.png"/>
+        <BitmapImage x:Key="Wind1" UriSource="/Resources/speedWind1.png"/>
+        <BitmapImage x:Key="vis1" UriSource="/Resources/vis1.png"/>
+        <BitmapImage x:Key="terminal2" UriSource="/Resources/terminal2.png"/>
+        <BitmapImage x:Key="print31" UriSource="/Resources/print31.png"/>
+        <BitmapImage x:Key="info21" UriSource="/Resources/info21.png"/>
+        
+        <BitmapImage x:Key="saveChart" UriSource="/Resources/SaveChart.png"/>
+
+
+        <RoutedCommand x:Key="btnTablo_Click"/>
+        <RoutedCommand x:Key="btnOpen_Click"/>
+        <RoutedCommand x:Key="btnSave_Click"/>
+        <RoutedCommand x:Key="btnGrid_Click"/>
+        <RoutedCommand x:Key="btnChT_Click"/>
+        <RoutedCommand x:Key="btnChH_Click"/>
+        <RoutedCommand x:Key="btnChP_Click"/>
+        <RoutedCommand x:Key="btnChW_Click"/>
+        <RoutedCommand x:Key="btnChOp_Click"/>
+        <RoutedCommand x:Key="btnTerm_Click"/>
+        <RoutedCommand x:Key="btnPrint_Click"/>
+        <RoutedCommand x:Key="btnVers_Click"/>
+
+        <RoutedCommand x:Key="btnOk_Click"/>
+        <RoutedCommand x:Key="btnSetOk_Click"/>
+
+        <RoutedCommand x:Key="btnDateFrom_Click"/>
+        <RoutedCommand x:Key="btnDateTo_Click"/>
+
+        <RoutedCommand x:Key="btnlblDateFrom_Click"/>
+        <RoutedCommand x:Key="btnlblDateTo_Click"/>
+
+        <RoutedCommand x:Key="btnCancel_Click"/>
+        <RoutedCommand x:Key="btnApprove_Click"/>
+
+        <Style x:Key="CustomButtonStyle" TargetType="CustomControls:CustomButton">
+            <EventSetter Event="MouseEnter" Handler="CustomButton_MouseEnter"/>
+            <EventSetter Event="MouseLeave" Handler="CustomButton_MouseLeave"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+
+
+        <ControlTemplate x:Key="ItemsControlTemplate">
+            <Border BorderThickness="3" CornerRadius="10" Margin="0,1,0,0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF1E465B"/>
+                            <GradientStop Offset="1" Color="#FF3D6087"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF3D6087"/>
+                            <GradientStop Offset="1" Color="#FF002852"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ItemsPresenter/>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ItemsControlTemplate2">
+            <Border BorderThickness="3" CornerRadius="10" Margin="0,1,0,0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF1E465B"/>
+                            <GradientStop Offset="1" Color="#FF3D6087"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <SolidColorBrush Color="#0d345d"/>
+                </Border.Background>
+                <ItemsPresenter/>
+            </Border>
+        </ControlTemplate>
+
+
+        <ControlTemplate x:Key="ItemsControlTemplateSolidBackground">
+            <Border BorderThickness="3" CornerRadius="10" Margin="0,1,0,0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF1E465B"/>
+                            <GradientStop Offset="1" Color="#FF3D6087"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <SolidColorBrush Color="#0d345d" />
+                </Border.Background>
+                <ItemsPresenter/>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
+            <Border x:Name="Border" BorderThickness="3" CornerRadius="10">
+                <Border.BorderBrush>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF1E465B"/>
+                            <GradientStop Offset="1" Color="#FF3D6087"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF3D6087"/>
+                            <GradientStop Offset="1" Color="#FF002852"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FFFFE0C0"/>
+                                    <GradientStop Offset="1" Color="#FFFF8100"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="Border" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="1" Color="#FF002852"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="CheckboxStyle" TargetType="CheckBox">
+                <Setter Property="Foreground" Value="AliceBlue"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="MicrosoftSansSerif"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="CheckBorder" Background="Transparent" BorderBrush="AliceBlue" BorderThickness="1" Width="16" Height="16">
+                                <TextBlock x:Name="CheckGlyph" Text="x" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="AliceBlue"/>
+                            </Border>
+                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckGlyph" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="CheckGlyph" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource btnTablo_Click}" Executed="btnTablo_Click"/>
+        <CommandBinding Command="{StaticResource btnOpen_Click}" Executed="btnOpen_Click"/>
+        <CommandBinding Command="{StaticResource btnSave_Click}" Executed="btnSave_Click"/>
+        <CommandBinding Command="{StaticResource btnGrid_Click}" Executed="btnGrid_Click"/>
+        <CommandBinding Command="{StaticResource btnChT_Click}" Executed="btnChT_Click"/>
+        <CommandBinding Command="{StaticResource btnChH_Click}" Executed="btnChH_Click"/>
+        <CommandBinding Command="{StaticResource btnChP_Click}" Executed="btnChP_Click"/>
+        <CommandBinding Command="{StaticResource btnChW_Click}" Executed="btnChW_Click"/>
+        <CommandBinding Command="{StaticResource btnChOp_Click}" Executed="btnChOp_Click"/>
+        <CommandBinding Command="{StaticResource btnTerm_Click}" Executed="btnTerm_Click"/>
+        <CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>
+        <CommandBinding Command="{StaticResource btnVers_Click}" Executed="btnVers_Click"/>
+
+        <CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>
+        <CommandBinding Command="{StaticResource btnSetOk_Click}" Executed="btnSetOk_Click"/>
+
+        <CommandBinding Command="{StaticResource btnDateFrom_Click}" Executed="btnDateFrom_Click"/>
+        <CommandBinding Command="{StaticResource btnDateTo_Click}" Executed="btnDateTo_Click"/>
+
+        <CommandBinding Command="{StaticResource btnlblDateFrom_Click}" Executed="btnlblDateFrom_Click"/>
+        <CommandBinding Command="{StaticResource btnlblDateTo_Click}" Executed="btnlblDateTo_Click"/>
+
+        <CommandBinding Command="{StaticResource btnApprove_Click}" Executed="btnApprove_Click"/>
+        <CommandBinding Command="{StaticResource btnCancel_Click}" Executed="btnCancel_Click"/>
+    </Window.CommandBindings>
+
+
+    <Grid x:Name="grid" Background="#FF00283D">
+        <RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="600" Width="750" FontSize="17" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>
+        <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="600" Visibility="Visible"/>
+
+        <ItemsControl HorizontalAlignment="Right" Width="49">
+            <CustomControls:CustomButton x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>
+            <CustomControls:CustomButton x:Name="searchBtn" Tag="CustomToolTip2" ImageSource="{StaticResource search1}" Command="{StaticResource btnOpen_Click}" Style="{StaticResource CustomButtonStyle}"/>
+            <CustomControls:CustomButton x:Name="usbBtn" Tag="CustomToolTip3" ImageSource="{StaticResource usb2}" Command="{StaticResource btnSave_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="36" ImageHeight="36" />
+            <CustomControls:CustomButton x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnGrid_Click}" Style="{StaticResource CustomButtonStyle}" />
+            <CustomControls:CustomButton x:Name="tempBtn" Tag="CustomToolTip5" ImageSource="{StaticResource temp1}" Command="{StaticResource btnChT_Click}" Style="{StaticResource CustomButtonStyle}" />
+            <CustomControls:CustomButton x:Name="humBtn" Tag="CustomToolTip6" ImageSource="{StaticResource hum1}" Command="{StaticResource btnChH_Click}" Style="{StaticResource CustomButtonStyle}"/>
+            <CustomControls:CustomButton x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
+            <CustomControls:CustomButton x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
+            <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
+            <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
+            <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
+            <CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="34" ImageHeight="34"/>
+        </ItemsControl>
+
+        <CustomControls:CustomToolTip x:Name="CustomToolTip1" ToolTipText="Табло с текущими&#x0d;метеоданными" Margin="0,2,54,0" ToolTipWidth ="118" ToolTipHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip2" ToolTipText="Просмотр&#x0d;данных" Margin="0,51,54,0" ToolTipWidth ="74" ToolTipHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip3" ToolTipText="Сохранение данных&#x0d;на USB накопитель" Margin="0,101,54,0" ToolTipWidth ="130" ToolTipHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip4" ToolTipText="Отображение данных&#x0d;в табличном виде" Margin="0,151,54,0" ToolTipWidth ="137" ToolTipHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip5" ToolTipText="График&#x0d;температуры&#x0d;воздуха" Margin="0,201,54,0" ToolTipWidth ="90" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip6" ToolTipText="График&#x0d;влажности&#x0d;воздуха" Margin="0,251,54,0" ToolTipWidth ="80" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip7" ToolTipText="График&#x0d;атмосферного&#x0d;давления" Margin="0,301,54,0" ToolTipWidth ="100" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip8" ToolTipText="График&#x0d;скорости&#x0d;ветра" Margin="0,351,54,0" ToolTipWidth ="70" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip9" ToolTipText="График&#x0d;метеорологической&#x0d;видимости" Margin="0,401,54,0" ToolTipWidth ="125" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip10" ToolTipText="Терминальное&#x0d;отображение&#x0d;данных" Margin="0,451,54,0" ToolTipWidth ="100" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip11" ToolTipText="Сохранение&#x0d;графика" Margin="0,501,54,0" ToolTipWidth ="80" ToolTipHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+        <CustomControls:CustomToolTip x:Name="CustomToolTip12" ToolTipText="Версия&#x0d;программы" Margin="0,546,54,0" ToolTipWidth ="80" ToolTipHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+
+        <ItemsControl x:Name="panelInformation" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="350" Visibility="Hidden">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="214">
+                <TextBlock x:Name="lblText" TextAlignment="Left" Text="Имя файла" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14pt" Foreground="White" FontWeight="Bold" Width="319" Height="130" FontFamily="Microsoft Sans Serif" Margin="0,30,0,0"/>
+                <CustomControls:CustomButtonText HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="10,10" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="50" Height="40"/>
+            </Grid>
+        </ItemsControl>
+
+        <ItemsControl x:Name="dateTimePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="300" Width="350" Visibility="Hidden">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="300">
+                <TextBlock x:Name="lblDateTimeText"  Text="Укажите пожалуйста диапазон дат для отображения данных" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14pt" Foreground="White" FontWeight="Bold" Width="319" Height="50" FontFamily="Microsoft Sans Serif" Margin="0,10,0,0"/>
+
+                <Button x:Name="btn6H" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="6ч" Click="btn6H_Click" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="47,65,0,0" Cursor="Hand" />
+                <Button x:Name="btn1D" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="1д" Click="btn1D_Click" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="112,65,0,0" Cursor="Hand" />
+                <Button x:Name="btn7D" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="7д" Click="btn7D_Click" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="178,65,0,0" Cursor="Hand" />
+                <Button x:Name="btn1M" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="1мес" Click="btn1M_Click" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="247,65,0,0" Cursor="Hand" />
+
+                <Label Content="От:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,0,200,0"/>
+                <Label Content="До:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,110,200,0"/>
+                <CustomControls:CustomButtonText x:Name="btnDateFrom" HorizontalAlignment="Center" Width="200" Height="40" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="40,0,0,0" CommandText="{StaticResource btnDateFrom_Click}" Cursor="Hand"/>
+                <CustomControls:CustomButtonText x:Name="btnDateTo" HorizontalAlignment="Center" Width="200" Height="40" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="40,110,0,0" CommandText="{StaticResource btnDateTo_Click}" Cursor="Hand"/>
+
+                <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="120" Height="40" VerticalAlignment="Bottom" BtnText="Применить" Margin="0,0,130,10" CommandText="{StaticResource btnApprove_Click}" Cursor="Hand"/>
+                <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="120" Height="40" VerticalAlignment="Bottom" BtnText="Отмена" Margin="130,0,0,10" CommandText="{StaticResource btnCancel_Click}" Cursor="Hand"/>
+            </Grid>
+        </ItemsControl>
+
+        <CustomControls:CustomCalendar x:Name="customCalendar1" Height="470" Width="350" Visibility="Hidden" />
+
+        <ItemsControl x:Name="panelCustomGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="549" Width="750" Visibility="Hidden">
+            <CustomControls:CustomGridOld x:Name="customGrid1" VerticalAlignment="Top" Height="530" Width="737" HorizontalAlignment="Left" Visibility="Visible" Margin="5,5,0,5"/>
+        </ItemsControl>
+
+        <ItemsControl x:Name="panelDates" HorizontalAlignment="Left" VerticalAlignment="Bottom" Template="{StaticResource ItemsControlTemplate2}" Height="49" Width="750" Visibility="Hidden" Margin="0,0,0,1">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="49">
+                <TextBlock x:Name="lblCount" TextAlignment="Left" Text="Количество записей:" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="White"  Width="280" Height="30" FontFamily="Microsoft Sans Serif" Margin="10,4,0,0"/>
+                <TextBlock x:Name="lblDateFrom" TextAlignment="Left" Text="От:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="20" FontWeight="Bold"  Foreground="White"  Width="40" Height="30" FontFamily="Microsoft Sans Serif" Margin="0,0,125,0"/>
+                <TextBlock x:Name="lblDateTo" TextAlignment="Left" Text="До:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="20" FontWeight="Bold"  Foreground="White"  Width="40" Height="30" FontFamily="Microsoft Sans Serif" Margin="340,0,0,0"/>
+                <CustomControls:CustomButtonText x:Name="btnlblDateFrom" HorizontalAlignment="Center" Width="180" Height="34" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="90,0,5,7" CommandText="{StaticResource btnlblDateFrom_Click}" Cursor="Hand"/>
+                <CustomControls:CustomButtonText x:Name="btnlblDateTo" HorizontalAlignment="Right" Width="180" Height="34" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="0,0,5,7" CommandText="{StaticResource btnlblDateTo_Click}" Cursor="Hand"/>
+            </Grid>
+        </ItemsControl>
+
+        <ItemsControl x:Name="panelCustomChart" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="549" Width="750" Visibility="Hidden">
+            <CustomControls:CustomChart x:Name="customChart1" Width="740" Height="540" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible" />
+        </ItemsControl>
+
+
+        <ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="350" Visibility="Hidden">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="214">
+
+                <ItemsControl HorizontalAlignment="Left" Width="100" VerticalAlignment="Top"  Margin="20,30,0,0">
+                    <CheckBox x:Name="DSNV1Check" Content="DSNV1" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DSNV2Check" Content="DSNV2" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DSNV3Check" Content="DSNV3" Style="{StaticResource CheckboxStyle}"/>
+                </ItemsControl>
+
+                <ItemsControl HorizontalAlignment="Center" Width="100" VerticalAlignment="Top"  Margin="0,30,0,0">
+                    <CheckBox x:Name="DTVV1Check" Content="DTVV1" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DTVV2Check" Content="DTVV2" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DADCheck" Content="DAD" Style="{StaticResource CheckboxStyle}"/>
+                </ItemsControl>
+
+                <ItemsControl HorizontalAlignment="Right" Width="100" VerticalAlignment="Top"  Margin="0,30,20,0">
+                    <CheckBox x:Name="DVGOCheck" Content="DVGO" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DMDVCheck" Content="DMDV" Style="{StaticResource CheckboxStyle}"/>
+                </ItemsControl>
+
+                <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="12" Foreground="White" FontWeight="Bold" Width="160" Height="18" FontFamily="Microsoft Sans Serif"/>
+                <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="50" Height="40"/>
+            </Grid>
+        </ItemsControl>
+    </Grid>
+</Window>

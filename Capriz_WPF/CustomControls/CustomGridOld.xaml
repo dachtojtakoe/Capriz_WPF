@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Capriz_WPF.CustomControls.CustomGridOld"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
+             mc:Ignorable="d" 
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+            d:DesignHeight="530" d:DesignWidth="732">
+    <Grid Background="Transparent">
+        <wfi:WindowsFormsHost Background="Black">
+            <wf:DataGridView x:Name="dataGridView1" AutoGenerateColumns="True"
+                                 AllowUserToAddRows="False"
+                                 AllowUserToDeleteRows="False"
+                                 AllowUserToResizeColumns="False"
+                                 AllowUserToResizeRows="False"
+                             >
+            </wf:DataGridView>
+        </wfi:WindowsFormsHost>
+    </Grid>
+</UserControl>

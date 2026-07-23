@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Capriz_WPF.CustomControls.CustomBottomDataPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="36" d:DesignWidth="742" Background="Transparent">
+
+    <UserControl.Resources>
+        <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="FontSize" Value="9.75pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="NoDataTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="FontSize" Value="14.25pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Н.Д."/>
+        </Style>
+
+        <Style x:Key="CustomToolTipStyle" TargetType="ToolTip">
+            <Setter Property="Background" Value="#8292a9"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+        </Style>
+
+
+    </UserControl.Resources>
+
+    <Grid>
+        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="24,0,0,0" TextWrapping="Wrap" Text="Курс, °" VerticalAlignment="Center"/>
+        <TextBlock x:Name="DataCurs" Style="{StaticResource NoDataTextBlock}" HorizontalAlignment="Left" Margin="74,0,0,0" TextWrapping="Wrap"/>
+        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="136,0,0,0" TextWrapping="Wrap" Text="Скорость, уз" VerticalAlignment="Center"/>
+        <TextBlock x:Name="DataSpeed" Style="{StaticResource NoDataTextBlock}" HorizontalAlignment="Left" Margin="226,0,0,0" TextWrapping="Wrap"/>
+        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="299,0,0,0" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center"/>
+        <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="340,0,0,0" MouseDown="DataTime_MouseDown"/>
+        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="462,0,0,0" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center"/>
+        
+        <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" HorizontalAlignment="Left" Margin="512,0,0,0" TextWrapping="Wrap" Text="XX:XX:XX" MouseDown="DataTime_MouseDown"/>
+        
+        <TextBlock  Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="630,0,0,0" TextWrapping="Wrap" Text="Состояние" VerticalAlignment="Center"/>
+
+
+        <Ellipse x:Name="DataSost" Width="29" Height="29" Stroke="AliceBlue" StrokeThickness="4" Margin="0,0,10,0" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" />
+
+
+
+        <Popup x:Name="CustomToolTipPopup" Width="125" Height="30" PlacementRectangle="-95,-33,0,0" Placement="Relative" PlacementTarget="{Binding ElementName=DataSost}" IsOpen="False" AllowsTransparency="True">
+                <local:CustomToolTip x:Name="CustomToolTip1" ToolTipWidth ="125" ToolTipHeight="30" ToolTipText="Нет данных с БПР-1" ToolTipTextForeground="red" ToolTipBorderColor="red" Visibility="Hidden"/>
+        </Popup>
+
+
+    </Grid>
+</UserControl>
