@@ -109,7 +109,7 @@ namespace Capriz_WPF.CustomControls
             this.dataGridView1.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(4, 44, 86);
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.AliceBlue;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(82)))));
@@ -127,18 +127,18 @@ namespace Capriz_WPF.CustomControls
 
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(13, 52, 93);
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(1);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(82)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.ColumnHeadersHeight = 80;
+            this.dataGridView1.ColumnHeadersHeight = 106;
 
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(57, 92, 132);
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.AliceBlue;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(82)))));
@@ -158,7 +158,7 @@ namespace Capriz_WPF.CustomControls
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
 
-            this.dataGridView1.RowTemplate.Height = 40;
+            this.dataGridView1.RowTemplate.Height = 53;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.ShowCellErrors = false;
@@ -201,13 +201,13 @@ namespace Capriz_WPF.CustomControls
                         col.HeaderText = col.HeaderText.Replace("ЗА 10", "\r\nЗА 10");
                 }
 
-                dataGridView1.Columns[0].Width = 94;
-                dataGridView1.Columns[1].Width = 74;
-                dataGridView1.Columns[2].Width = 106;
-                dataGridView1.Columns[3].Width = 98;
-                dataGridView1.Columns[4].Width = 122;
-                dataGridView1.Columns[5].Width = 92;
-                dataGridView1.Columns[6].Width = 164;
+                dataGridView1.Columns[0].Width = 125;
+                dataGridView1.Columns[1].Width = 98;
+                dataGridView1.Columns[2].Width = 141;
+                dataGridView1.Columns[3].Width = 130;
+                dataGridView1.Columns[4].Width = 162;
+                dataGridView1.Columns[5].Width = 122;
+                dataGridView1.Columns[6].Width = 218;
             }
         }
 
@@ -230,12 +230,12 @@ namespace Capriz_WPF.CustomControls
                 }
 
                 dataGridView1.Columns[0].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm:ss";
-                dataGridView1.Columns[0].Width = 164;
-                dataGridView1.Columns[1].Width = 102;
-                dataGridView1.Columns[2].Width = 94;
-                dataGridView1.Columns[3].Width = 118;
-                dataGridView1.Columns[4].Width = 88;
-                dataGridView1.Columns[5].Width = 161;
+                dataGridView1.Columns[0].Width = 218;   // 164→218
+                dataGridView1.Columns[1].Width = 135;   // 102→135
+                dataGridView1.Columns[2].Width = 125;   // 94→125
+                dataGridView1.Columns[3].Width = 157;   // 118→157
+                dataGridView1.Columns[4].Width = 117;   // 88→117
+                dataGridView1.Columns[5].Width = 214;   // 161→214
 
                 //dataGridView1.Columns[0].Width = 92;
                 //dataGridView1.Columns[1].Width = 72;
@@ -284,13 +284,13 @@ namespace Capriz_WPF.CustomControls
                         col.HeaderText = col.HeaderText.Replace("ЗА 10", "\r\nЗА 10");
                 }
 
-                dataGridView1.Columns[0].Width = 92;
-                dataGridView1.Columns[1].Width = 72;
-                dataGridView1.Columns[2].Width = 102;
-                dataGridView1.Columns[3].Width = 94;
-                dataGridView1.Columns[4].Width = 118;
-                dataGridView1.Columns[5].Width = 88;
-                dataGridView1.Columns[6].Width = 161;
+                dataGridView1.Columns[0].Width = 122;   // 92→122
+                dataGridView1.Columns[1].Width = 96;    // 72→96
+                dataGridView1.Columns[2].Width = 135;   // 102→135
+                dataGridView1.Columns[3].Width = 125;   // 94→125
+                dataGridView1.Columns[4].Width = 157;   // 118→157
+                dataGridView1.Columns[5].Width = 117;   // 88→117
+                dataGridView1.Columns[6].Width = 214;   // 161→214
 
             }
         }

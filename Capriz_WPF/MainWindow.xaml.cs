@@ -209,7 +209,7 @@ namespace Capriz_WPF
 
         public void WriteFile(string param)
         {
-            if ((DateTime.Now.Minute) % 8 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
+            if ((DateTime.Now.Minute) % 10 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
             //if (DateTime.Now.Second % 5 == 0)   //Записываем в файл каждые 10 минут
             {
                 try
@@ -224,20 +224,20 @@ namespace Capriz_WPF
                         //    _nameCurrentFile = $"C:\\Users\\dachtojtakoe\\Documents\\Capriz\\Log-{currentTime.ToString("dd.MM.yyyy HH.mm.ss")}.txt";
                         //    DataFile.WriteDataToFileALot(_nameCurrentFile, param, i);
                         //}
-                        for (int i = 1; i < 92; i++)
+                        //for (int i = 1; i < 92; i++)
+                        //{
+                        //    DB.WriteDataToDBALot2(param, i);
+                        //}
+                        try
                         {
-                            DB.WriteDataToDBALot2(param, i);
+                            DataFile.WriteDataToFile(_nameCurrentFile, param);
                         }
-                        //try
-                        //{
-                        //    DataFile.WriteDataToFile(_nameCurrentFile, param);
-                        //}
-                        //catch
-                        //{
-                        //    _nameCurrentFile = DataFile.LogsPath();
-                        //    DataFile.WriteDataToFile(_nameCurrentFile, param);
-                        //}
-                        //DB.WriteDataToDB(param);
+                        catch
+                        {
+                            _nameCurrentFile = DataFile.LogsPath();
+                            DataFile.WriteDataToFile(_nameCurrentFile, param);
+                        }
+                        DB.WriteDataToDB(param);
                     });
                 }
                 catch { }

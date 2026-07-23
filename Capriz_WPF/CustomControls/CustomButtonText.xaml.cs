@@ -39,7 +39,7 @@ namespace Capriz_WPF.CustomControls
         }
 
         public static readonly DependencyProperty BtnFontSizeProperty =
-            DependencyProperty.Register("BtnFontSize", typeof(double), typeof(CustomButtonText), new PropertyMetadata(16.0));
+            DependencyProperty.Register("BtnFontSize", typeof(double), typeof(CustomButtonText), new PropertyMetadata(21.0));
 
         public double BtnFontSize
         {

@@ -5,35 +5,80 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="162" d:DesignWidth="716">
+             d:DesignHeight="215" d:DesignWidth="950">
     <Grid Background="Transparent">
-        <TextBlock x:Name="lblTemp" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="165" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Температура  "/><LineBreak/><Run Text="воздуха, °C"/></TextBlock>
-        <TextBlock x:Name="DataTemp" HorizontalAlignment="Left" Margin="0,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="165" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblHum" HorizontalAlignment="Left" Margin="0,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="165" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Влажность  "/><LineBreak/><Run Text="воздуха, %"/></TextBlock>
-        <TextBlock x:Name="DataHum" HorizontalAlignment="Left" Margin="0,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="165" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblPressMm" HorizontalAlignment="Left" Margin="0,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="165" Height="32" FontFamily="Microsoft Sans Serif" ><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, мм рт. ст."/></TextBlock>
-        <TextBlock x:Name="DataPressMm" HorizontalAlignment="Left" Margin="0,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="165" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
 
-        <TextBlock x:Name="lblPressGPa" HorizontalAlignment="Left" Margin="165,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="187" Height="32" FontFamily="Microsoft Sans Serif" ><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, гПа"/></TextBlock>
-        <TextBlock x:Name="DataPressGPa" HorizontalAlignment="Left" Margin="165,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="187" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblBarT" HorizontalAlignment="Left" Margin="165,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="187" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Барическая тенденция  "/><LineBreak/><Run Text="за 3 ч., гПа"/></TextBlock>
-        <TextBlock x:Name="DataBarT" HorizontalAlignment="Left" Margin="165,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="187" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblTrend" HorizontalAlignment="Left" Margin="165,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="187" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Ход барической  "/><LineBreak/><Run Text="тенденции"/></TextBlock>
-        <TextBlock x:Name="DataTrend" HorizontalAlignment="Left" Margin="165,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="187" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <!-- Блок 1: Температура воздуха -->
+        <TextBlock x:Name="lblTemp" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="220" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Температура  "/><LineBreak/><Run Text="воздуха, °C"/>
+        </TextBlock>
+        <TextBlock x:Name="DataTemp" HorizontalAlignment="Left" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="220" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
 
-        <TextBlock x:Name="lblDMDV1" HorizontalAlignment="Left" Margin="352,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="249" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 1 мин, м"/></TextBlock>
-        <TextBlock x:Name="DataDMDV1" HorizontalAlignment="Left" Margin="352,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="249" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblDMDV10" HorizontalAlignment="Left" Margin="352,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="249" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 10 мин, м"/></TextBlock>
-        <TextBlock x:Name="DataDMDV10" HorizontalAlignment="Left" Margin="352,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="249" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblClouds" HorizontalAlignment="Left" Margin="352,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="249" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Количество слоев"/><LineBreak/><Run Text="облаков"/></TextBlock>
-        <TextBlock x:Name="DataClouds" HorizontalAlignment="Left" Margin="352,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="249" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <!-- Блок 2: Влажность воздуха -->
+        <TextBlock x:Name="lblHum" HorizontalAlignment="Left" Margin="0,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="220" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Влажность  "/><LineBreak/><Run Text="воздуха, %"/>
+        </TextBlock>
+        <TextBlock x:Name="DataHum" HorizontalAlignment="Left" Margin="0,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="220" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
 
-        <TextBlock x:Name="lblNGO1" HorizontalAlignment="Left" Margin="601,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="115" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="НГО нижнего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
-        <TextBlock x:Name="DataNgo1" HorizontalAlignment="Left" Margin="601,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="115" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblNgo2" HorizontalAlignment="Left" Margin="601,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="115" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="НГО среднего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
-        <TextBlock x:Name="DataNgo2" HorizontalAlignment="Left" Margin="601,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="115" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblNgo3" HorizontalAlignment="Left" Margin="601,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="115" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="НГО верхнего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
-        <TextBlock x:Name="DataNgo3" HorizontalAlignment="Left" Margin="601,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="115" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <!-- Блок 3: Атм. давление, мм рт. ст. -->
+        <TextBlock x:Name="lblPressMm" HorizontalAlignment="Left" Margin="0,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="220" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, мм рт. ст."/>
+        </TextBlock>
+        <TextBlock x:Name="DataPressMm" HorizontalAlignment="Left" Margin="0,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="220" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 4: Атм. давление, гПа -->
+        <TextBlock x:Name="lblPressGPa" HorizontalAlignment="Left" Margin="220,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="248" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, гПа"/>
+        </TextBlock>
+        <TextBlock x:Name="DataPressGPa" HorizontalAlignment="Left" Margin="220,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="248" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 5: Барическая тенденция -->
+        <TextBlock x:Name="lblBarT" HorizontalAlignment="Left" Margin="220,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="248" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Барическая тенденция  "/><LineBreak/><Run Text="за 3 ч., гПа"/>
+        </TextBlock>
+        <TextBlock x:Name="DataBarT" HorizontalAlignment="Left" Margin="220,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="248" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 6: Ход барической тенденции -->
+        <TextBlock x:Name="lblTrend" HorizontalAlignment="Left" Margin="220,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="248" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Ход барической  "/><LineBreak/><Run Text="тенденции"/>
+        </TextBlock>
+        <TextBlock x:Name="DataTrend" HorizontalAlignment="Left" Margin="220,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="248" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 7: МДВ за 1 мин -->
+        <TextBlock x:Name="lblDMDV1" HorizontalAlignment="Left" Margin="468,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="330" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 1 мин, м"/>
+        </TextBlock>
+        <TextBlock x:Name="DataDMDV1" HorizontalAlignment="Left" Margin="468,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="330" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 8: МДВ за 10 мин -->
+        <TextBlock x:Name="lblDMDV10" HorizontalAlignment="Left" Margin="468,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="330" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 10 мин, м"/>
+        </TextBlock>
+        <TextBlock x:Name="DataDMDV10" HorizontalAlignment="Left" Margin="468,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="330" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 9: Количество слоёв облаков -->
+        <TextBlock x:Name="lblClouds" HorizontalAlignment="Left" Margin="468,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="330" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="Количество слоев"/><LineBreak/><Run Text="облаков"/>
+        </TextBlock>
+        <TextBlock x:Name="DataClouds" HorizontalAlignment="Left" Margin="468,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="330" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 10: НГО верхнего слоя -->
+        <TextBlock x:Name="lblNgo3" HorizontalAlignment="Left" Margin="798,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="152" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="НГО верхнего"/><LineBreak/><Run Text="слоя, м"/>
+        </TextBlock>
+        <TextBlock x:Name="DataNgo3" HorizontalAlignment="Left" Margin="798,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="152" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 11: НГО среднего слоя -->
+        <TextBlock x:Name="lblNgo2" HorizontalAlignment="Left" Margin="798,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="152" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="НГО среднего"/><LineBreak/><Run Text="слоя, м"/>
+        </TextBlock>
+        <TextBlock x:Name="DataNgo2" HorizontalAlignment="Left" Margin="798,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="152" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+
+        <!-- Блок 12: НГО нижнего слоя -->
+        <TextBlock x:Name="lblNgo1" HorizontalAlignment="Left" Margin="798,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="152" Height="42" FontFamily="Microsoft Sans Serif">
+            <Run Text="НГО нижнего"/><LineBreak/><Run Text="слоя, м"/>
+        </TextBlock>
+        <TextBlock x:Name="DataNgo1" HorizontalAlignment="Left" Margin="798,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="152" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
 
     </Grid>
 </UserControl>

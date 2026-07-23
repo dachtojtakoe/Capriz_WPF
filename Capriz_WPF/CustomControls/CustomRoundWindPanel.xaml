@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="369" d:DesignWidth="369">
+             d:DesignHeight="490" d:DesignWidth="490">
 
     <UserControl.Resources>
         <x:Array x:Key="Angles" Type="sys:Double">
@@ -67,14 +67,14 @@
 
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="AliceBlue"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="21"/>
             <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style x:Key="NoDataTextBlock" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Orange"/>
-            <Setter Property="FontSize" Value="14.25pt"/>
+            <Setter Property="FontSize" Value="19pt"/>
             <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -86,49 +86,49 @@
 
 
     <Grid>
-        <Path Stroke="#58d758" StrokeThickness="14" Data="{Binding WindDirectionPath2}" Opacity="0.7" Panel.ZIndex="5">
+        <Path Stroke="#58d758" StrokeThickness="18" Data="{Binding WindDirectionPath2}" Opacity="0.7" Panel.ZIndex="5">
             <Path.RenderTransform>
                 <RotateTransform Angle="0" />
             </Path.RenderTransform>
         </Path>
 
-        <Path Stroke="Green" StrokeThickness="13" Data="{Binding WindDirectionPath10}" Opacity="0.7" Panel.ZIndex="5">
+        <Path Stroke="Green" StrokeThickness="17" Data="{Binding WindDirectionPath10}" Opacity="0.7" Panel.ZIndex="5">
             <Path.RenderTransform>
                 <RotateTransform Angle="0" />
             </Path.RenderTransform>
         </Path>
 
-        <Path Stroke="Red" StrokeThickness="2" Data="{Binding AverageLine2}" Panel.ZIndex="7">
+        <Path Stroke="Red" StrokeThickness="3" Data="{Binding AverageLine2}" Panel.ZIndex="7">
             <Path.RenderTransform>
-                <RotateTransform x:Name="AverageAngle2" Angle="0" CenterX="184.5" CenterY="184.5"/>
+                <RotateTransform x:Name="AverageAngle2" Angle="0" CenterX="245" CenterY="245"/>
             </Path.RenderTransform>
         </Path>
 
-        <Path Stroke="Red" StrokeThickness="2" Data="{Binding AverageLine10}" Panel.ZIndex="7">
+        <Path Stroke="Red" StrokeThickness="3" Data="{Binding AverageLine10}" Panel.ZIndex="7">
             <Path.RenderTransform>
-                <RotateTransform x:Name="AverageAngle10" Angle="0" CenterX="184.5" CenterY="184.5"/>
+                <RotateTransform x:Name="AverageAngle10" Angle="0" CenterX="245" CenterY="245"/>
             </Path.RenderTransform>
         </Path>
 
-        <Ellipse Width="290" Height="290" Stroke="AliceBlue" StrokeThickness="3"/>
-        <Ellipse Width="260" Height="260" Stroke="AliceBlue" StrokeThickness="2"/>
-        <Ellipse Width="230" Height="230" Stroke="AliceBlue" StrokeThickness="3"/>
+        <Ellipse Width="383" Height="383" Stroke="AliceBlue" StrokeThickness="3"/>
+        <Ellipse Width="343.5" Height="343.5" Stroke="AliceBlue" StrokeThickness="2"/>
+        <Ellipse Width="305" Height="305" Stroke="AliceBlue" StrokeThickness="3"/>
 
         <Grid x:Name="TypicalAngles">
-            <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0"/>
-            <TextBlock Text="90" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,17,0"/>
-            <TextBlock Text="180" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,17"/>
-            <TextBlock Text="270" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0"/>
+            <TextBlock Text="90" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,23,0"/>
+            <TextBlock Text="180" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,23"/>
+            <TextBlock Text="270" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="13,0,0,0"/>
 
-            <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,95,0"/>
-            <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,95,35,0"/>
-            <TextBlock Text="120" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,95"/>
-            <TextBlock Text="150" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,89,39"/>
+            <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,46,126,0"/>
+            <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,126,46,0"/>
+            <TextBlock Text="120" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,126"/>
+            <TextBlock Text="150" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,118,52"/>
 
-            <TextBlock Text="210" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="89,0,0,39"/>
-            <TextBlock Text="240" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,95"/>
-            <TextBlock Text="300" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,95,0,0"/>
-            <TextBlock Text="330" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,35,0,0"/>
+            <TextBlock Text="210" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="118,0,0,52"/>
+            <TextBlock Text="240" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="40,0,0,126"/>
+            <TextBlock Text="300" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,126,0,0"/>
+            <TextBlock Text="330" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,46,0,0"/>
         </Grid>
 
         <Grid x:Name="SplitAngles" Visibility="Collapsed">
@@ -151,7 +151,7 @@
 
         <Path Stroke="Orange" StrokeThickness="3">
             <Path.Data>
-                <LineGeometry StartPoint="160,185" EndPoint="207,185"/>
+                <LineGeometry StartPoint="212.8,246" EndPoint="275.31,246"/>
             </Path.Data>
         </Path>
 
@@ -169,7 +169,7 @@
                 <DataTemplate>
                     <Path Stroke="AliceBlue" StrokeThickness="4">
                         <Path.Data>
-                            <LineGeometry StartPoint="0,-144" EndPoint="0,-114"/>
+                            <LineGeometry StartPoint="0,-191" EndPoint="0,-151"/>
                         </Path.Data>
                         <Path.RenderTransform>
                             <RotateTransform CenterX="0" CenterY="0" Angle="{Binding}"/>
@@ -188,9 +188,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Path Stroke="AliceBlue" StrokeThickness="1">
+                       <Path Stroke="AliceBlue" StrokeThickness="1">
                         <Path.Data>
-                            <LineGeometry StartPoint="0,-144" EndPoint="0,-114"/>
+                            <LineGeometry StartPoint="0,-191" EndPoint="0,-151"/>
                         </Path.Data>
                         <Path.RenderTransform>
                             <RotateTransform CenterX="0" CenterY="0" Angle="{Binding}"/>
@@ -202,7 +202,7 @@
 
 
         <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Path Stroke="AliceBlue" StrokeThickness="3" Data="M-25,-0 L0,-80 L25,0 L15,80 L-15,80  Z" RenderTransformOrigin="0,0">
+            <Path Stroke="AliceBlue" StrokeThickness="3" Data="M-33,-0 L0,-106 L33,0 L20,106 L-20,106  Z" RenderTransformOrigin="0,0">
                 <Path.RenderTransform>
                     <RotateTransform x:Name="ShipRotateTransform" Angle="0"/>
                 </Path.RenderTransform>

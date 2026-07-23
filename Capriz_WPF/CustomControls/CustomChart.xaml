@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              mc:Ignorable="d" 
              xmlns:oxy="http://oxyplot.org/wpf"
-             d:DesignHeight="540" d:DesignWidth="740"
+             d:DesignHeight="717" d:DesignWidth="983"
              x:Name="PlotWindow"
              xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
@@ -23,13 +23,14 @@
         <RoutedCommand x:Key="PanCenter_Click"/>
 
         <Style x:Key="CommonButtonStyle" TargetType="local:CustomButtonText">
-            <Setter Property="BtnFontSize" Value="20"/>
+            <Setter Property="BtnFontSize" Value="27"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Height" Value="48"/>
-            <Setter Property="Width" Value="48"/>
+            <Setter Property="Height" Value="64"/>
+            <Setter Property="Width" Value="64"/>
         </Style>
     </UserControl.Resources>
+
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource ZoomIn_Click}" Executed="ZoomIn_Click"/>
         <CommandBinding Command="{StaticResource ZoomOut_Click}" Executed="ZoomOut_Click"/>
@@ -39,24 +40,23 @@
         <CommandBinding Command="{StaticResource PanTop_Click}" Executed="PanTop_Click"/>
         <CommandBinding Command="{StaticResource PanBottom_Click}" Executed="PanBottom_Click"/>
         <CommandBinding Command="{StaticResource PanCenter_Click}" Executed="PanCenter_Click"/>
-
     </UserControl.CommandBindings>
 
     <Grid>
-        <!--<oxy:PlotView  Width="680" Height="540" HorizontalAlignment="Left" Margin="3,1,0,0" x:Name="PlotViewWPF" Model="{Binding PlotModel}"/>-->
-        <wfi:WindowsFormsHost Width="680" Height="540" HorizontalAlignment="Left" Margin="3,1,0,0" >
-            <local:WinFormsOxyPlot x:Name="PlotViewWinForms" Width="680" Height="540"/>
+        <wfi:WindowsFormsHost Width="903" Height="717" HorizontalAlignment="Left" Margin="4,1,0,0">
+            <local:WinFormsOxyPlot x:Name="PlotViewWinForms" Width="903" Height="717"/>
         </wfi:WindowsFormsHost>
 
-        <!--<oxy:PlotView x:Name="PlotView" Model="{Binding PlotModel}" Width="690" Height="548" VerticalAlignment="Top" HorizontalAlignment="Left" IsVisibleChanged="PlotView_IsVisibleChanged" Background="Transparent" />-->
-        <local:CustomButtonText x:Name="ZoomIn" Style="{StaticResource CommonButtonStyle}" BtnText="+"  CommandText="{StaticResource ZoomIn_Click}"  VerticalAlignment="Top" Margin="0,23,0,0"/>
-        <local:CustomButtonText x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-"  CommandText="{StaticResource ZoomOut_Click}"  VerticalAlignment="Top" Margin="0,73,0,0" />
-        <local:CustomButtonText x:Name ="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}"   VerticalAlignment="Top" Margin="0,123,0,0" BtnFontSize="16" BtnFontWeight="Normal"/>
-        
-        <local:CustomButtonText x:Name ="PanTop" Style="{StaticResource CommonButtonStyle}"  BtnText="↑" CommandText="{StaticResource PanTop_Click}"     Margin="0,0,0,220"  />
-        <local:CustomButtonText x:Name ="PanLeft" Style="{StaticResource CommonButtonStyle}" BtnText="←"  CommandText="{StaticResource PanLeft_Click}"   Margin="0,0,0,170"  />
-        <local:CustomButtonText x:Name ="PanCenter" Style="{StaticResource CommonButtonStyle}" BtnText="○" CommandText="{StaticResource PanCenter_Click}"    Margin="0,0,0,120"  />
-        <local:CustomButtonText x:Name ="PanRight" Style="{StaticResource CommonButtonStyle}" BtnText="→"  CommandText="{StaticResource PanRight_Click}"   Margin="0,0,0,70"  />
-        <local:CustomButtonText x:Name ="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓"  CommandText="{StaticResource PanBottom_Click}"   Margin="0,0,0,20   "  />
+        <!-- Верхние кнопки (Zoom) -->
+        <local:CustomButtonText x:Name="ZoomIn" Style="{StaticResource CommonButtonStyle}" BtnText="+" CommandText="{StaticResource ZoomIn_Click}" VerticalAlignment="Top" Margin="0,31,0,0"/>
+        <local:CustomButtonText x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-" CommandText="{StaticResource ZoomOut_Click}" VerticalAlignment="Top" Margin="0,97,0,0"/>
+        <local:CustomButtonText x:Name="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}" VerticalAlignment="Top" Margin="0,163,0,0" BtnFontSize="21" BtnFontWeight="Normal"/>
+
+        <!-- Нижние кнопки панорамирования -->
+        <local:CustomButtonText x:Name="PanTop" Style="{StaticResource CommonButtonStyle}" BtnText="↑" CommandText="{StaticResource PanTop_Click}" Margin="0,0,0,292"/>
+        <local:CustomButtonText x:Name="PanLeft" Style="{StaticResource CommonButtonStyle}" BtnText="←" CommandText="{StaticResource PanLeft_Click}" Margin="0,0,0,226"/>
+        <local:CustomButtonText x:Name="PanCenter" Style="{StaticResource CommonButtonStyle}" BtnText="○" CommandText="{StaticResource PanCenter_Click}" Margin="0,0,0,159"/>
+        <local:CustomButtonText x:Name="PanRight" Style="{StaticResource CommonButtonStyle}" BtnText="→" CommandText="{StaticResource PanRight_Click}" Margin="0,0,0,93"/>
+        <local:CustomButtonText x:Name="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓" CommandText="{StaticResource PanBottom_Click}" Margin="0,0,0,27"/>
     </Grid>
 </UserControl>

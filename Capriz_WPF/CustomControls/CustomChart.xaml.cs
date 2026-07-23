@@ -67,6 +67,7 @@ namespace Capriz_WPF.CustomControls
             DataContext = this;
 
             plotModel = new PlotModel { Title = "Data Chart" };
+            plotModel.TitleFontSize = 24;
             PlotViewWinForms.PlotView.Model = plotModel;
             PlotViewWinForms.PlotView.Model.Background = OxyColor.FromRgb(13, 52, 93);
             ChangeCursor();
@@ -85,7 +86,7 @@ namespace Capriz_WPF.CustomControls
                 MajorGridlineThickness = 0.5,
                 MajorGridlineStyle = LineStyle.Dash,
                 FontWeight = OxyPlot.FontWeights.Bold,
-
+                FontSize = 18
             };  
             plotModel.Axes.Add(valueAxis);
 
@@ -99,8 +100,8 @@ namespace Capriz_WPF.CustomControls
                 MajorGridlineThickness = 0.5,
                 MajorGridlineStyle = LineStyle.Dash,
                 FontWeight = OxyPlot.FontWeights.Bold,
-                IntervalLength = 75,
-                
+                IntervalLength = 100,
+                FontSize = 18
 
             };
 
@@ -115,8 +116,8 @@ namespace Capriz_WPF.CustomControls
                 MarkerStroke = OxyColors.Black,
                 MarkerFill = OxyColors.AliceBlue,
                 Color = OxyColors.Orange,
-                StrokeThickness = 2,
-                MarkerSize = 4,
+                StrokeThickness = 3,
+                MarkerSize = 6,
                 
             };
 
@@ -292,7 +293,7 @@ namespace Capriz_WPF.CustomControls
                     MarkerFill = OxyColors.AliceBlue,
                     Color = OxyColors.Orange,
                     //StrokeThickness = 3,
-                    MarkerSize = 4,
+                    MarkerSize = 6,
                 };
 
                 foreach (var pair in dateValuePairs)
@@ -452,21 +453,21 @@ namespace Capriz_WPF.CustomControls
             {
                 myController.BindMouseDown(OxyMouseButton.Left, OxyPlot.PlotCommands.PanAt);
                 CursorMode.BtnText = "↔";
-                CursorMode.BtnFontSize = 24;
+                CursorMode.BtnFontSize = 31.5;
                 cursorMode = 2;
             }
             else if (cursorMode == 2)
             {
                 myController.BindMouseDown(OxyMouseButton.Left, OxyPlot.PlotCommands.ZoomRectangle);
                 CursorMode.BtnText = "▯";
-                CursorMode.BtnFontSize = 20;
+                CursorMode.BtnFontSize = 26;
                 cursorMode = 3;
             }
             else if (cursorMode == 3)
             {
                 myController.BindMouseDown(OxyMouseButton.Left, OxyPlot.PlotCommands.PointsOnlyTrack);
                 CursorMode.BtnText = "XY";
-                CursorMode.BtnFontSize = 16;
+                CursorMode.BtnFontSize = 21;
 
                 cursorMode = 1;
             }

@@ -27,10 +27,10 @@ namespace Capriz_WPF.CustomControls
             DependencyProperty.Register("Command", typeof(ICommand), typeof(CustomButton), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ImageWidthProperty =
-            DependencyProperty.Register("ImageWidth", typeof(double), typeof(CustomButton), new PropertyMetadata(42.0));
+            DependencyProperty.Register("ImageWidth", typeof(double), typeof(CustomButton), new PropertyMetadata(55.0));
 
         public static readonly DependencyProperty ImageHeightProperty =
-            DependencyProperty.Register("ImageHeight", typeof(double), typeof(CustomButton), new PropertyMetadata(42.0));
+            DependencyProperty.Register("ImageHeight", typeof(double), typeof(CustomButton), new PropertyMetadata(55.0));
 
         public ImageSource ImageSource
         {

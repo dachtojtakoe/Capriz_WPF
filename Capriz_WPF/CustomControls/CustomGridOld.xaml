@@ -7,15 +7,14 @@
              mc:Ignorable="d" 
              xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
-            d:DesignHeight="530" d:DesignWidth="732">
+             d:DesignHeight="704" d:DesignWidth="972">
     <Grid Background="Transparent">
         <wfi:WindowsFormsHost Background="Black">
             <wf:DataGridView x:Name="dataGridView1" AutoGenerateColumns="True"
-                                 AllowUserToAddRows="False"
-                                 AllowUserToDeleteRows="False"
-                                 AllowUserToResizeColumns="False"
-                                 AllowUserToResizeRows="False"
-                             >
+                             AllowUserToAddRows="False"
+                             AllowUserToDeleteRows="False"
+                             AllowUserToResizeColumns="False"
+                             AllowUserToResizeRows="False">
             </wf:DataGridView>
         </wfi:WindowsFormsHost>
     </Grid>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="750">
+             d:DesignHeight="800" d:DesignWidth="997.5">
     
     <UserControl.Resources>
         <ControlTemplate x:Key="ItemsControlTemplate">
@@ -33,33 +33,33 @@
 
 
     <Grid>
-        <ItemsControl HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplate}" Height="373" Width="374">
+        <ItemsControl HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplate}" Height="494" Width="496">
             <Grid Margin="0,10">
-                <TextBlock x:Name="DataWindName1" Text="КАЖУЩИЙСЯ ВЕТЕР БОРТОВОЙ" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="18" FontFamily="Microsoft Sans Serif"/>
-                <local:CustomRoundWindPanel IsSplitAngles="False" x:Name="customRoundWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="369" Width="369"/>
+                <TextBlock x:Name="DataWindName1" Text="КАЖУЩИЙСЯ ВЕТЕР БОРТОВОЙ" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="420" Height="23" FontFamily="Microsoft Sans Serif"/>
+                <local:CustomRoundWindPanel IsSplitAngles="False" x:Name="customRoundWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="490" Width="490"/>
             </Grid>
         </ItemsControl>
 
-        <ItemsControl HorizontalAlignment="Right" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplate}" Height="373" Width="374">
+        <ItemsControl HorizontalAlignment="Right" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplate}" Height="494" Width="496">
             <Grid Margin="0,10">
-                <TextBlock x:Name="DataWindName2" Text="ИСТИННЫЙ ВЕТЕР БОРТОВОЙ" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="18" FontFamily="Microsoft Sans Serif"/>
-                <local:CustomRoundWindPanel x:Name="customRoundWindPanel2" Height="369" Width="369"/>
-                <TextBlock x:Name="NorthLabel" Text="С" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Margin="80" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="18" Height="18" FontFamily="Microsoft Sans Serif"/>
-                <TextBlock x:Name="SouthLabel" Text="Ю" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" Margin="80" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="18" Height="18" FontFamily="Microsoft Sans Serif"/>
-                <TextBlock x:Name="WestLabel" Text="З" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Margin="80" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="18" Height="18" FontFamily="Microsoft Sans Serif"/>
-                <TextBlock x:Name="EastLabel" Text="В" HorizontalAlignment="Right" TextWrapping="Wrap"  VerticalAlignment="Center" Margin="80" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="18" Height="18" FontFamily="Microsoft Sans Serif"/>
+                <TextBlock x:Name="DataWindName2" Text="ИСТИННЫЙ ВЕТЕР БОРТОВОЙ" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="420" Height="23" FontFamily="Microsoft Sans Serif"/>
+                <local:CustomRoundWindPanel x:Name="customRoundWindPanel2" Height="490" Width="490"/>
+                <TextBlock x:Name="NorthLabel" Text="С" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
+                <TextBlock x:Name="SouthLabel" Text="Ю" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
+                <TextBlock x:Name="WestLabel" Text="З" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
+                <TextBlock x:Name="EastLabel" Text="В" HorizontalAlignment="Right" TextWrapping="Wrap"  VerticalAlignment="Center" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
             </Grid>
         </ItemsControl>
 
-        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="750" Height="175" Margin="0,0,0,51" Template="{StaticResource ItemsControlTemplate}" Cursor="Hand" >
+        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="997.5" Height="232.75" Margin="0,0,0,70" Template="{StaticResource ItemsControlTemplate}" Cursor="Hand" >
             <Grid>
-                <local:CustomDataPanel x:Name="customDataPanel1" Height="175" Width="742" MouseLeftButtonDown="customDataPanel_MouseLeftButtonDown" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <local:CustomWindDataNew x:Name="customWindDataNew1" Height="175" Width="742" MouseLeftButtonDown="customWindDataNew1_MouseLeftButtonDown" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <local:CustomDataPanel x:Name="customDataPanel1" Height="232.75" Width="986.86" MouseLeftButtonDown="customDataPanel_MouseLeftButtonDown" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <local:CustomWindDataNew x:Name="customWindDataNew1" Height="232.75" Width="986.86" MouseLeftButtonDown="customWindDataNew1_MouseLeftButtonDown" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Grid>
         </ItemsControl>
 
-        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,1"  Width="750" Height="49" Template="{StaticResource ItemsControlTemplate}">
-            <local:CustomBottomDataPanel x:Name="customBottomDataPanel1" HorizontalAlignment="Center" Margin="0,6,0,0" Width="742"/>
+        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,1"  Width="997.5" Height="65.17" Template="{StaticResource ItemsControlTemplate}">
+            <local:CustomBottomDataPanel x:Name="customBottomDataPanel1" HorizontalAlignment="Center" Margin="0,9,0,0" Width="997.5"/>
         </ItemsControl>
     </Grid>
 </UserControl>

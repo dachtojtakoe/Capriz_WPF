@@ -9,7 +9,7 @@
 
     <Grid  Width="{Binding ToolTipWidth}" MinHeight="30" MinWidth="30" Height="{Binding ToolTipHeight}">
         <Border CornerRadius="10" Background="#8292a9" BorderBrush="{Binding ToolTipBorderColor}" BorderThickness="1">
-            <TextBlock  Text="{Binding ToolTipText}" Padding="5" FontSize="12" Foreground = "{Binding ToolTipTextForeground}" />
+            <TextBlock  Text="{Binding ToolTipText}" Padding="5" FontSize="16" Foreground = "{Binding ToolTipTextForeground}" />
             <Border.Effect>
                 <DropShadowEffect BlurRadius="15" ShadowDepth="3" Color="black" Opacity="0.7"/>
             </Border.Effect>

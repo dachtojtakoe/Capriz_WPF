@@ -234,9 +234,9 @@ namespace Capriz_WPF.CustomControls
                     {
                         bool isLargeArc = begin_sec > end_sec ? Math.Abs(360 - (begin_sec - end_sec)) > 180 : Math.Abs(begin_sec - end_sec) > 180;
 
-                        var centerX = 184.5;
-                        var centerY = 184.5;
-                        var radius = 121;
+                        var centerX = 245;
+                        var centerY = 245;
+                        var radius = 161;
 
                         var startPoint = new Point(centerX + radius * Math.Cos((begin_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((begin_sec - 90) * Math.PI / 180));
                         var endPoint = new Point(centerX + radius * Math.Cos((end_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((end_sec - 90) * Math.PI / 180));
@@ -306,9 +306,9 @@ namespace Capriz_WPF.CustomControls
                     {
                         bool isLargeArc = begin_sec > end_sec ? Math.Abs(360 - (begin_sec - end_sec)) > 180 : Math.Abs(begin_sec - end_sec) > 180;
 
-                        var centerX = 184.5;
-                        var centerY = 184.5;
-                        var radius = 136;
+                        var centerX = 245;
+                        var centerY = 245;
+                        var radius = 180.5;
 
                         var startPoint = new Point(centerX + radius * Math.Cos((begin_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((begin_sec - 90) * Math.PI / 180));
                         var endPoint = new Point(centerX + radius * Math.Cos((end_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((end_sec - 90) * Math.PI / 180));
@@ -374,7 +374,7 @@ namespace Capriz_WPF.CustomControls
                 Int32.TryParse(_valueDir_2mid.Trim(), out result);
                 if (result >= 0)
                 {
-                    var averageLineGeometry2 = new LineGeometry(new Point(184.5, 69), new Point(184.5, 57));
+                    var averageLineGeometry2 = new LineGeometry(new Point(245, 91.5), new Point(245, 75.5));
                     AverageAngle2.Angle = result;
                     AverageLine2 = averageLineGeometry2;
                 }
@@ -392,7 +392,7 @@ namespace Capriz_WPF.CustomControls
                 Int32.TryParse(_valueDir_10mid.Trim(), out result);
                 if (result >= 0)
                 {
-                    var averageLineGeometry10 = new LineGeometry(new Point(184.5, 55), new Point(184.5, 43));
+                    var averageLineGeometry10 = new LineGeometry(new Point(245, 73), new Point(245, 57));
                     AverageAngle10.Angle = result;
                     AverageLine10 = averageLineGeometry10;
                 }
