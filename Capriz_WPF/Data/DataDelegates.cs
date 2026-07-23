@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Capriz_WPF.Data
 {
-    class DataDelegates
+    class DataDelegates 
     {
         public delegate void MyEventStr(string data);
         public static MyEventStr EventHandlerStr;
@@ -13,7 +13,7 @@ namespace Capriz_WPF.Data
         public delegate void WriteFEventStr(string data);
         public static WriteFEventStr WriteFHandlerStr;
 
-        public delegate void MyEventStrParam(string data);
+        public delegate void MyEventStrParam(DataLite data);
         public static MyEventStrParam EventHandlerStrParam;
     }
 }

@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Media.Imaging  ;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -18,23 +18,6 @@ namespace Capriz_WPF.CustomControls
 {
     public partial class CustomRoundWindPanel : INotifyPropertyChanged //UserControl
     {
-        public static readonly DependencyProperty IsSplitAnglesProperty =
-            DependencyProperty.Register("IsSplitAngles", typeof(bool), typeof(CustomToolTip), new PropertyMetadata(false));
-
-        public bool IsSplitAngles
-        {
-            get { return (bool)GetValue(IsSplitAnglesProperty); }
-            set
-            {
-                SetValue(IsSplitAnglesProperty, value);
-                if (value)
-                {
-                    TypicalAngles.Visibility = Visibility.Collapsed;
-                    SplitAngles.Visibility = Visibility.Visible;
-                }
-            }
-        }
-
         private Geometry _windDirectionPath2;
         private Geometry _windDirectionPath10;
         private Geometry _averageLine2;
@@ -50,6 +33,13 @@ namespace Capriz_WPF.CustomControls
         private string _valueDir_10mid = "Н.Д.";
         private string _valueDir_10min = "Н.Д.";
         private string _valueDir_10max = "Н.Д.";
+
+        public void SetDataToFields(List<string> data)
+        {
+            ValueSpeed = data[0];
+            ValueDir = data[1];
+            ValueCurs = data[2];
+        }
 
         public string ValueSpeed
         {
@@ -74,23 +64,7 @@ namespace Capriz_WPF.CustomControls
                 if (_valueDir != value)
                 {
                     if (value != "Н.Д.")
-                    {
-                        if (IsSplitAngles)
-                        {
-                            if (Convert.ToInt32(value) > 180)
-                            {
-                                value = (360 - Convert.ToInt32(value)).ToString();
-                                _valueDir = value + "° ЛБ";
-                            }
-                            else
-                            {
-                                _valueDir = value + "° ПБ";
-                            }
-                        }
-                        else
-                            _valueDir = value + "°";
-
-                    }
+                        _valueDir = value + "°";
                     else
                         _valueDir = value;
                     OnPropertyChanged(nameof(ValueDir));
@@ -232,60 +206,23 @@ namespace Capriz_WPF.CustomControls
                     Int32.TryParse(_valueDir_2max.Trim(), out end_sec);
                     if ((begin_sec >= 0) && (end_sec >= 0))
                     {
-                        bool isLargeArc = begin_sec > end_sec ? Math.Abs(360 - (begin_sec - end_sec)) > 180 : Math.Abs(begin_sec - end_sec) > 180;
+                        begin_sec -= 90;
+                        end_sec -= 90;
 
                         var centerX = 184.5;
                         var centerY = 184.5;
                         var radius = 121;
 
-                        var startPoint = new Point(centerX + radius * Math.Cos((begin_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((begin_sec - 90) * Math.PI / 180));
-                        var endPoint = new Point(centerX + radius * Math.Cos((end_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((end_sec - 90) * Math.PI / 180));
+                        var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
+                        var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
 
 
                         var pathGeometry = new PathGeometry();
                         var pathFigure = new PathFigure { StartPoint = startPoint };
-                        pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = isLargeArc, SweepDirection = SweepDirection.Clockwise });
+                        pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
                         pathGeometry.Figures.Add(pathFigure);
 
                         WindDirectionPath2 = pathGeometry;
-                        #region oldUpdate
-                        //begin_sec -= 90;
-                        //end_sec -= 90;
-
-                        //if (begin_sec < 0)
-                        //    begin_sec += 360;
-                        //if (end_sec < 0)
-                        //    end_sec += 360;
-
-                        //if (end_sec < begin_sec)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //if (Math.Abs(begin_sec - end_sec) > 180)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //var centerX = 184.5;
-                        //var centerY = 184.5;
-                        //var radius = 121;
-
-                        //var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
-                        //var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
-
-
-                        //var pathGeometry = new PathGeometry();
-                        //var pathFigure = new PathFigure { StartPoint = startPoint };
-                        //pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
-                        //pathGeometry.Figures.Add(pathFigure);
-
-                        //WindDirectionPath2 = pathGeometry;
-                        #endregion
                     }
                 }
             }
@@ -304,60 +241,23 @@ namespace Capriz_WPF.CustomControls
                     Int32.TryParse(_valueDir_10max.Trim(), out end_sec);
                     if ((begin_sec >= 0) && (end_sec >= 0))
                     {
-                        bool isLargeArc = begin_sec > end_sec ? Math.Abs(360 - (begin_sec - end_sec)) > 180 : Math.Abs(begin_sec - end_sec) > 180;
+                        begin_sec -= 90;
+                        end_sec -= 90;
 
                         var centerX = 184.5;
                         var centerY = 184.5;
                         var radius = 136;
 
-                        var startPoint = new Point(centerX + radius * Math.Cos((begin_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((begin_sec - 90) * Math.PI / 180));
-                        var endPoint = new Point(centerX + radius * Math.Cos((end_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((end_sec - 90) * Math.PI / 180));
+                        var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
+                        var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
 
 
                         var pathGeometry = new PathGeometry();
                         var pathFigure = new PathFigure { StartPoint = startPoint };
-                        pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = isLargeArc, SweepDirection = SweepDirection.Clockwise });
+                        pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
                         pathGeometry.Figures.Add(pathFigure);
 
                         WindDirectionPath10 = pathGeometry;
-                        #region oldUpdate 
-                        //begin_sec -= 90;
-                        //end_sec -= 90;
-
-                        //if (begin_sec < 0)
-                        //    begin_sec += 360;
-                        //if (end_sec < 0)
-                        //    end_sec += 360;
-
-                        //if (end_sec < begin_sec)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //if (Math.Abs(begin_sec - end_sec) > 180)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //var centerX = 184.5;
-                        //var centerY = 184.5;
-                        //var radius = 136;
-
-                        //var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
-                        //var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
-
-
-                        //var pathGeometry = new PathGeometry();
-                        //var pathFigure = new PathFigure { StartPoint = startPoint };
-                        //pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
-                        //pathGeometry.Figures.Add(pathFigure);
-
-                        //WindDirectionPath10 = pathGeometry;
-                        #endregion 
                     }
                 }
             }
@@ -415,12 +315,7 @@ namespace Capriz_WPF.CustomControls
 
         protected void OnPropertyChanged(string propertyName)
         {
-            try
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-            catch
-            {   }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

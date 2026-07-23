@@ -33,11 +33,5 @@ namespace Capriz_WPF.CustomControls
             for (int i = 0; i < textBlocks.Count; i++)
                 textBlocks[i].Text = data[i];
         }
-
-        public void ClearFields()
-        {
-            for (int i = 0; i < textBlocks.Count; i++)
-                textBlocks[i].Text = "Н.Д.";
-        }
     }
 }

@@ -99,13 +99,21 @@ namespace Capriz_WPF.CustomControls
                 Dispatcher.BeginInvoke((MethodInvoker)delegate
                 {
                     customBottomDataPanel1.SetDataToSost(SetStatus(null));
+                    List<string> data1 = new List<string>() { "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д." };
+                    customWindDataNew1.SetDataToFields(data1);
 
-                    customWindDataNew1.ClearFields();
-
-                    customDataPanel1.ClearFields();
-
-                    customBottomDataPanel1.ClearShipFields();
-
+                    //Data2Min, Data10Min, Data2Mid, Data10Mid, Data2Max, Data10Max
+                    //List<string> data1 = new List<string>() { "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д." };
+                    //customWindData1.SetDataToFields(data1);
+                    //List<string> data2 = new List<string>() { "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д." };
+                    //customWindData2.SetDataToFields(data2);
+                    //DataTemp, DataHum, DataPressMm, DataPressGPa, DataBarT, DataTrend, DataClouds, DataDMDV1,
+                    //DataDMDV10, DataNgo1, DataNgo2, DataNgo3
+                    List<string> data3 = new List<string>() { "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д.", "Н.Д." };
+                    customDataPanel1.SetDataToFields(data3);
+                    //DataCurs, DataSpeed 
+                    List<string> data4 = new List<string>() { "Н.Д.", "Н.Д." };
+                    customBottomDataPanel1.SetDataToFields(data4);
                     customRoundWindPanel1.ValueSpeed = ("Н.Д.");
                     customRoundWindPanel2.ValueSpeed = ("Н.Д.");
                     customRoundWindPanel1.ValueDir = ("Н.Д.");
@@ -134,48 +142,118 @@ namespace Capriz_WPF.CustomControls
             catch { }
         }
 
-        public void ShowDataTablo(string str)
+        public void ShowDataTablo(DataLite data)
         {
             try
             {
                 Dispatcher.BeginInvoke((MethodInvoker)delegate
                 {
-                    msg = DataToTable.DataToList(str);
-                    foreach (var data in msg)
+                    //msg = DataToTable.DataToList(str);
+                    //foreach (var data in msg)
+                    //{
+                    customBottomDataPanel1.SetDataToSost(SetStatus(data));
+                    cleanData = 0;
+                    List<string> data1 = new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax, data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax };
+                    customWindDataNew1.SetDataToFields(data1);
+                    //Data2Min, Data10Min, Data2Mid, Data10Mid, Data2Max, Data10Max
+                    //List<string> data1 = new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax };
+                    //customWindData1.SetDataToFields(data1);
+                    //List<string> data2 = new List<string>() { data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax };
+                    //customWindData2.SetDataToFields(data2);
+                    //DataTemp, DataHum, DataPressMm, DataPressGPa, DataBarT, DataTrend, DataClouds, DataDMDV1,
+                    //DataDMDV10, DataNgo1, DataNgo2, DataNgo3
+                    List<string> data3 = new List<string>(){ data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa,
+                        data.BarTend, data.Trend/*, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3*/};
+                    customDataPanel1.SetDataToFields(data3);
+                    //DataCurs, DataSpeed
+                    //System.Windows.Forms.MessageBox.Show("" + data.ShipSpeed + " " + Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1));
+
+                    if (data.ShipSpeed != "Н.Д.") data.ShipSpeed = (Convert.ToString(Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1)));
+                    List<string> data4 = new List<string>() { data.ShipCourse, data.ShipSpeed };
+                    customBottomDataPanel1.SetDataToFields(data4);
+
+                    //DataSpeedK, DataSpeedI
+
+                    List<string> data5 = new List<string>() { data.Speed_K, data.Direction_K, "0" };
+                    customRoundWindPanel1.SetDataToFields(data5);
+
+                    //customRoundWindPanel1.ValueSpeed = data.Speed_K;
+                    //customRoundWindPanel2.ValueSpeed = data.Speed_I;
+                    //customRoundWindPanel1.ValueDir = data.Direction_K;
+                    //customRoundWindPanel2.ValueDir = data.Direction_I;
+                    //customRoundWindPanel1.ValueCurs = "0";
+                    //customRoundWindPanel2.ValueCurs = data.ShipCourse;
+                    List<string> data6 = new List<string>() { data.Speed_I, data.Direction_I, data.ShipCourse };
+                    customRoundWindPanel2.SetDataToFields(data6);
+
+                    customRoundWindPanel1.ValueDir_2mid = data.Direction_2Kmid;
+
+                    int dir2kmin = 0;
+                    int dir2kmax = 0;
+                    int.TryParse(data.Direction_2Kmin.Trim(), out dir2kmin);
+                    int.TryParse(data.Direction_2Kmax.Trim(), out dir2kmax);
+                    if (dir2kmin < dir2kmax)
                     {
-                        customBottomDataPanel1.SetDataToSost(SetStatus(data));
-                        cleanData = 0;
-                        customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax, data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax });
-
-                        customDataPanel1.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3 });
-
-                        if (data.ShipSpeed != "Н.Д.") data.ShipSpeed = (Convert.ToString(Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1)));
-                        
-                        customBottomDataPanel1.SetDataToFields(new List<string>() { data.CourseShip, data.ShipSpeed });
-
-                        customRoundWindPanel1.ValueSpeed = data.Speed_K.Trim();
-                        customRoundWindPanel2.ValueSpeed = data.Speed_I.Trim();
-                        customRoundWindPanel1.ValueDir = data.Direction_K.Trim();
-                        customRoundWindPanel2.ValueDir = data.Direction_I.Trim();
-                        customRoundWindPanel1.ValueCurs = "0";
-                        customRoundWindPanel2.ValueCurs = data.CourseShip.Trim();
-
-                        customRoundWindPanel1.ValueDir_2mid = data.Direction_2Kmid.Trim();
                         customRoundWindPanel1.ValueDir_2min = data.Direction_2Kmin.Trim();
                         customRoundWindPanel1.ValueDir_2max = data.Direction_2Kmax.Trim();
+                    }
+                    else
+                    {
+                        customRoundWindPanel1.ValueDir_2max = data.Direction_2Kmin.Trim();
+                        customRoundWindPanel1.ValueDir_2min = data.Direction_2Kmax.Trim();
+                    }
 
-                        customRoundWindPanel1.ValueDir_10mid = data.Direction_10Kmid.Trim();
+                    customRoundWindPanel1.ValueDir_10mid = data.Direction_10Kmid.Trim();
+
+                    int dir10kmin = 0;
+                    int dir10kmax = 0;
+                    int.TryParse(data.Direction_10Kmin.Trim(), out dir10kmin);
+                    int.TryParse(data.Direction_10Kmax.Trim(), out dir10kmax);
+                    if (dir10kmin < dir10kmax)
+                    {
                         customRoundWindPanel1.ValueDir_10min = data.Direction_10Kmin.Trim();
                         customRoundWindPanel1.ValueDir_10max = data.Direction_10Kmax.Trim();
+                    }
+                    else
+                    {
+                        customRoundWindPanel1.ValueDir_10min = data.Direction_10Kmax.Trim();
+                        customRoundWindPanel1.ValueDir_10max = data.Direction_10Kmin.Trim();
+                    }
 
-                        customRoundWindPanel2.ValueDir_2mid = data.Direction_2Imid.Trim();
+                    customRoundWindPanel2.ValueDir_2mid = data.Direction_2Imid.Trim();
+
+                    int dir2Imin = 0;
+                    int dir2Imax = 0;
+                    int.TryParse(data.Direction_2Imin.Trim(), out dir2Imin);
+                    int.TryParse(data.Direction_2Imax.Trim(), out dir2Imax);
+                    if (dir2Imin < dir2Imax)
+                    {
                         customRoundWindPanel2.ValueDir_2min = data.Direction_2Imin.Trim();
                         customRoundWindPanel2.ValueDir_2max = data.Direction_2Imax.Trim();
+                    }
+                    else
+                    {
+                        customRoundWindPanel2.ValueDir_2min = data.Direction_2Imax.Trim();
+                        customRoundWindPanel2.ValueDir_2max = data.Direction_2Imin.Trim();
+                    }
 
-                        customRoundWindPanel2.ValueDir_10mid = data.Direction_10Imid.Trim();
+                    customRoundWindPanel2.ValueDir_10mid = data.Direction_10Imid.Trim();
+
+                    int dir10Imin = 0;
+                    int dir10Imax = 0;
+                    int.TryParse(data.Direction_10Imin.Trim(), out dir10Imin);
+                    int.TryParse(data.Direction_10Imax.Trim(), out dir10Imax);
+                    if (dir10Imin < dir10Imax)
+                    {
                         customRoundWindPanel2.ValueDir_10min = data.Direction_10Imin.Trim();
                         customRoundWindPanel2.ValueDir_10max = data.Direction_10Imax.Trim();
                     }
+                    else
+                    {
+                        customRoundWindPanel2.ValueDir_10min = data.Direction_10Imax.Trim();
+                        customRoundWindPanel2.ValueDir_10max = data.Direction_10Imin.Trim();
+                    }
+                    //}
                 });
             }
             catch
@@ -185,112 +263,112 @@ namespace Capriz_WPF.CustomControls
 
         }
 
-        private List<string> SetStatus(Data.Data data)
+        private List<string> SetStatus(DataLite data)
         {
-            status = "1";
-            toolTipText = "";
-            if (data == null)
-            {
-                status = "/";
-                toolTipText = "Нет данных с БПР-1";
-                return new List<string> { status, toolTipText };
-            }
+            //status = "1";
+            //toolTipText = "";
+            //if (data == null)
+            //{
+            //    status = "/";
+            //    toolTipText = "Нет данных с БПР-1";
+            //    return new List<string> { status, toolTipText };
+            //}
 
-            if ((conf.DSNV1 == "1") && (conf.DSNV2 == "1"))
-            {
-                if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
-                toolTipText += (data.StatusSpeed1 == "/") ? "Отключен основной канал скорости ветра;\r\n" :
-                    (data.StatusSpeed1 == "0") ? "Авария по основному каналу скорости ветра;\r\n" : "";
-                if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
-                toolTipText += (data.StatusDirect1 == "/") ? "Отключен основной канал направления ветра;\r\n" :
-                    (data.StatusDirect1 == "0") ? "Авария по основному каналу направления ветра;\r\n" : "";
+            //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "1"))
+            //{
+            //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
+            //    toolTipText += (data.StatusSpeed1 == "/") ? "Отключен основной канал скорости ветра;\r\n" :
+            //        (data.StatusSpeed1 == "0") ? "Авария по основному каналу скорости ветра;\r\n" : "";
+            //    if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
+            //    toolTipText += (data.StatusDirect1 == "/") ? "Отключен основной канал направления ветра;\r\n" :
+            //        (data.StatusDirect1 == "0") ? "Авария по основному каналу направления ветра;\r\n" : "";
 
-                if (data.StatusSpeed2 == "/" || data.StatusSpeed2 == "0") status = "0";
-                toolTipText += (data.StatusSpeed2 == "/") ? "Отключен резервный канал скорости ветра;\r\n" :
-                    (data.StatusSpeed2 == "0") ? "Авария по резервному каналу скорости ветра;\r\n" : "";
-                if (data.StatusDirect2 == "/" || data.StatusDirect2 == "0") status = "0";
-                toolTipText += (data.StatusDirect2 == "/") ? "Отключен резервный канал направления ветра;\r\n" :
-                    (data.StatusDirect2 == "0") ? "Авария по резервному каналу направления ветра;\r\n" : "";
-            }
+            //    if (data.StatusSpeed2 == "/" || data.StatusSpeed2 == "0") status = "0";
+            //    toolTipText += (data.StatusSpeed2 == "/") ? "Отключен резервный канал скорости ветра;\r\n" :
+            //        (data.StatusSpeed2 == "0") ? "Авария по резервному каналу скорости ветра;\r\n" : "";
+            //    if (data.StatusDirect2 == "/" || data.StatusDirect2 == "0") status = "0";
+            //    toolTipText += (data.StatusDirect2 == "/") ? "Отключен резервный канал направления ветра;\r\n" :
+            //        (data.StatusDirect2 == "0") ? "Авария по резервному каналу направления ветра;\r\n" : "";
+            //}
 
-            if (conf.DSNV3 == "1")
-            {
-                if (data.StatusSpeedNasal == "/" || data.StatusSpeedNasal == "0") status = "0";
-                toolTipText += (data.StatusSpeedNasal == "/") ? "Отключен канал скорости ветра ВПП;\r\n" :
-                    (data.StatusSpeedNasal == "0") ? "Авария по каналу скорости ветра ВПП;\r\n" : "";
-                if (data.StatusDirectNasal == "/" || data.StatusDirectNasal == "0") status = "0";
-                toolTipText += (data.StatusDirectNasal == "/") ? "Отключен канал направления ветра ВПП;\r\n" :
-                    (data.StatusDirectNasal == "0") ? "Авария по каналу направления ветра ВПП;\r\n" : "";
-            }
+            //if (conf.DSNV3 == "1")
+            //{
+            //    if (data.StatusSpeedNasal == "/" || data.StatusSpeedNasal == "0") status = "0";
+            //    toolTipText += (data.StatusSpeedNasal == "/") ? "Отключен канал скорости ветра ВПП;\r\n" :
+            //        (data.StatusSpeedNasal == "0") ? "Авария по каналу скорости ветра ВПП;\r\n" : "";
+            //    if (data.StatusDirectNasal == "/" || data.StatusDirectNasal == "0") status = "0";
+            //    toolTipText += (data.StatusDirectNasal == "/") ? "Отключен канал направления ветра ВПП;\r\n" :
+            //        (data.StatusDirectNasal == "0") ? "Авария по каналу направления ветра ВПП;\r\n" : "";
+            //}
 
-            if ((conf.DSNV1 == "1") && (conf.DSNV2 == "0") && (conf.DSNV3 == "0"))
-            {
-                if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
-                toolTipText += (data.StatusSpeed1 == "/") ? "Отключен канал скорости ветра;\r\n" :
-                    (data.StatusSpeed1 == "0") ? "Авария по каналу скорости ветра;\r\n" : "";
-                if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
-                toolTipText += (data.StatusDirect1 == "/") ? "Отключен канал направления ветра;\r\n" :
-                    (data.StatusDirect1 == "0") ? "Авария по каналу направления ветра;\r\n" : "";
-            }
+            //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "0") && (conf.DSNV3 == "0"))
+            //{
+            //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
+            //    toolTipText += (data.StatusSpeed1 == "/") ? "Отключен канал скорости ветра;\r\n" :
+            //        (data.StatusSpeed1 == "0") ? "Авария по каналу скорости ветра;\r\n" : "";
+            //    if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
+            //    toolTipText += (data.StatusDirect1 == "/") ? "Отключен канал направления ветра;\r\n" :
+            //        (data.StatusDirect1 == "0") ? "Авария по каналу направления ветра;\r\n" : "";
+            //}
 
-            if ((conf.DTVV1 == "1") && (conf.DTVV2 == "1"))
-            {
-                if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
-                toolTipText += (data.StatusTemp1 == "/") ? "Отключен основной канал температуры;\r\n" :
-                    (data.StatusTemp1 == "0") ? "Авария по основному каналу температуры;\r\n" : "";
-                if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
-                toolTipText += (data.StatusHum1 == "/") ? "Отключен основной канал влажности;\r\n" :
-                    (data.StatusHum1 == "0") ? "Авария по основнову каналу влажности;\r\n" : "";
+            //if ((conf.DTVV1 == "1") && (conf.DTVV2 == "1"))
+            //{
+            //    if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
+            //    toolTipText += (data.StatusTemp1 == "/") ? "Отключен основной канал температуры;\r\n" :
+            //        (data.StatusTemp1 == "0") ? "Авария по основному каналу температуры;\r\n" : "";
+            //    if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
+            //    toolTipText += (data.StatusHum1 == "/") ? "Отключен основной канал влажности;\r\n" :
+            //        (data.StatusHum1 == "0") ? "Авария по основнову каналу влажности;\r\n" : "";
 
-                if (data.StatusTemp2 == "/" || data.StatusTemp2 == "0") status = "0";
-                toolTipText += (data.StatusTemp2 == "/") ? "Отключен резервный канал температуры;\r\n" :
-                    (data.StatusTemp2 == "0") ? "Авария по резервному каналу температуры;\r\n" : "";
-                if (data.StatusHum2 == "/" || data.StatusHum2 == "0") status = "0";
-                toolTipText += (data.StatusHum2 == "/") ? "Отключен резервный канал влажности;\r\n" :
-                    (data.StatusHum2 == "0") ? "Авария по резервному каналу влажности;\r\n" : "";
-            }
+            //    if (data.StatusTemp2 == "/" || data.StatusTemp2 == "0") status = "0";
+            //    toolTipText += (data.StatusTemp2 == "/") ? "Отключен резервный канал температуры;\r\n" :
+            //        (data.StatusTemp2 == "0") ? "Авария по резервному каналу температуры;\r\n" : "";
+            //    if (data.StatusHum2 == "/" || data.StatusHum2 == "0") status = "0";
+            //    toolTipText += (data.StatusHum2 == "/") ? "Отключен резервный канал влажности;\r\n" :
+            //        (data.StatusHum2 == "0") ? "Авария по резервному каналу влажности;\r\n" : "";
+            //}
 
-            if ((conf.DTVV1 == "1") && (conf.DTVV2 == "0"))
-            {
-                if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
-                toolTipText += (data.StatusTemp1 == "/") ? "Отключен канал температуры ;\r\n" :
-                    (data.StatusTemp1 == "0") ? "Авария по каналу температуры;\r\n" : "";
-                if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
-                toolTipText += (data.StatusHum1 == "/") ? "Отключен канал влажности;\r\n" :
-                    (data.StatusHum1 == "0") ? "Авария по каналу влажности;\r\n" : "";
-            }
+            //if ((conf.DTVV1 == "1") && (conf.DTVV2 == "0"))
+            //{
+            //    if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
+            //    toolTipText += (data.StatusTemp1 == "/") ? "Отключен канал температуры ;\r\n" :
+            //        (data.StatusTemp1 == "0") ? "Авария по каналу температуры;\r\n" : "";
+            //    if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
+            //    toolTipText += (data.StatusHum1 == "/") ? "Отключен канал влажности;\r\n" :
+            //        (data.StatusHum1 == "0") ? "Авария по каналу влажности;\r\n" : "";
+            //}
 
-            if (conf.DAD == "1")
-            {
-                if (data.StatusPressure == "/" || data.StatusPressure == "0") status = "0";
-                toolTipText += (data.StatusPressure == "/") ? "Отключен канал атмосферного давления;\r\n" :
-                    (data.StatusPressure == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
-            }
+            //if (conf.DAD == "1")
+            //{
+            //    if (data.StatusPressure == "/" || data.StatusPressure == "0") status = "0";
+            //    toolTipText += (data.StatusPressure == "/") ? "Отключен канал атмосферного давления;\r\n" :
+            //        (data.StatusPressure == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
+            //}
 
-            if (conf.DVGO == "1")
-            {
-                if (data.StatusDVGO == "/" || data.StatusDVGO == "A" || data.StatusDVGO == "W") status = "0";
-                toolTipText += (data.StatusDVGO == "/") ? "Отключен датчик верхней границы облаков;\r\n" :
-                    (data.StatusDVGO == "A") ? "Авария по датчику верхней границы облаков;\r\n" :
-                    (data.StatusDVGO == "W") ? "Тревога по датчику верхней границы облаков;\r\n" : "";
-            }
+            //if (conf.DVGO == "1")
+            //{
+            //    if (data.StatusDVGO == "/" || data.StatusDVGO == "A" || data.StatusDVGO == "W") status = "0";
+            //    toolTipText += (data.StatusDVGO == "/") ? "Отключен датчик верхней границы облаков;\r\n" :
+            //        (data.StatusDVGO == "A") ? "Авария по датчику верхней границы облаков;\r\n" :
+            //        (data.StatusDVGO == "W") ? "Тревога по датчику верхней границы облаков;\r\n" : "";
+            //}
 
-            if (conf.DMDV == "1")
-            {
-                if (data.StatusDMDV == "/" || data.StatusDMDV == "1" || data.StatusDMDV == "2" || data.StatusDMDV == "3" || data.StatusDMDV == "4") status = "0";
-                toolTipText += (data.StatusDMDV == "/") ? "Отключен датчик метеорологической\r\nдальности видимости;\r\n" :
-                    (data.StatusDMDV == "1") ? "Ошибка оборудования по датчику\r\nметеорологической дальности видимости;\r\n" :
-                    (data.StatusDMDV == "2") ? "Предупреждение по оборудованию датчика\r\nметеорологической дальности видимости;\r\n" :
-                    (data.StatusDMDV == "3") ? "Тревога по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" :
-                    (data.StatusDMDV == "4") ? "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" : "";
-            }
+            //if (conf.DMDV == "1")
+            //{
+            //    if (data.StatusDMDV == "/" || data.StatusDMDV == "1" || data.StatusDMDV == "2" || data.StatusDMDV == "3" || data.StatusDMDV == "4") status = "0";
+            //    toolTipText += (data.StatusDMDV == "/") ? "Отключен датчик метеорологической\r\nдальности видимости;\r\n" :
+            //        (data.StatusDMDV == "1") ? "Ошибка оборудования по датчику\r\nметеорологической дальности видимости;\r\n" :
+            //        (data.StatusDMDV == "2") ? "Предупреждение по оборудованию датчика\r\nметеорологической дальности видимости;\r\n" :
+            //        (data.StatusDMDV == "3") ? "Тревога по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" :
+            //        (data.StatusDMDV == "4") ? "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" : "";
+            //}
 
 
-            if (data.ShipSpeed == "Н.Д.") status = "0";
-            toolTipText += (data.ShipSpeed == "Н.Д.") ? "Нет скорости корабля;\r\n" : "";
+            //if (data.ShipSpeed == "Н.Д.") status = "0";
+            //toolTipText += (data.ShipSpeed == "Н.Д.") ? "Нет скорости корабля;\r\n" : "";
 
-            if (data.CourseShip == "Н.Д.") status = "0";
-            toolTipText += (data.CourseShip == "Н.Д.") ? "Нет курса корабля;\r\n" : "";
+            //if (data.CourseShip == "Н.Д.") status = "0";
+            //toolTipText += (data.CourseShip == "Н.Д.") ? "Нет курса корабля;\r\n" : "";
 
             return new List<string> { status, toolTipText };
         }

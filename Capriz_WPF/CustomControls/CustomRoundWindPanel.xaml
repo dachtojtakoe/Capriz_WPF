@@ -114,39 +114,21 @@
         <Ellipse Width="260" Height="260" Stroke="AliceBlue" StrokeThickness="2"/>
         <Ellipse Width="230" Height="230" Stroke="AliceBlue" StrokeThickness="3"/>
 
-        <Grid x:Name="TypicalAngles">
-            <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0"/>
-            <TextBlock Text="90" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,17,0"/>
-            <TextBlock Text="180" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,17"/>
-            <TextBlock Text="270" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0"/>
+        <TextBlock Text="90" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,17,0"/>
+        <TextBlock Text="180" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,17"/>
+        <TextBlock Text="270" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
 
-            <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,95,0"/>
-            <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,95,35,0"/>
-            <TextBlock Text="120" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,95"/>
-            <TextBlock Text="150" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,89,39"/>
+        <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,95,0"/>
+        <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,95,35,0"/>
+        <TextBlock Text="120" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,95"/>
+        <TextBlock Text="150" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,89,39"/>
 
-            <TextBlock Text="210" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="89,0,0,39"/>
-            <TextBlock Text="240" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,95"/>
-            <TextBlock Text="300" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,95,0,0"/>
-            <TextBlock Text="330" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,35,0,0"/>
-        </Grid>
+        <TextBlock Text="210" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="89,0,0,39"/>
+        <TextBlock Text="240" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,95"/>
+        <TextBlock Text="300" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,95,0,0"/>
+        <TextBlock Text="330" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,35,0,0"/>
 
-        <Grid x:Name="SplitAngles" Visibility="Collapsed">
-            <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,17,0,0"/>
-            <TextBlock Text="90" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,17,0"/>
-            <TextBlock Text="180" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,17"/>
-            <TextBlock Text="90" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-
-            <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,95,0"/>
-            <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,95,35,0"/>
-            <TextBlock Text="120" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,95"/>
-            <TextBlock Text="150" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,89,39"/>
-
-            <TextBlock Text="150" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="89,0,0,39"/>
-            <TextBlock Text="120" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,95"/>
-            <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,95,0,0"/>
-            <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,35,0,0"/>
-        </Grid>
         <TextBlock Text="{Binding ValueDir}" Margin="0,0,0,25" Style="{StaticResource NoDataTextBlock}" Panel.ZIndex="10" Background="#0d345d" />
 
         <Path Stroke="Orange" StrokeThickness="3">

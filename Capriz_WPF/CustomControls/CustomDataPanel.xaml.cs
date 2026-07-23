@@ -31,14 +31,8 @@ namespace Capriz_WPF.CustomControls
 
         public void SetDataToFields(List<string> data)
         {
-            for (int i = 0; i < textBlocks.Count; i++)
+            for (int i = 0; i < data.Count; i++)
                 textBlocks[i].Text = data[i];
-        }
-
-        public void ClearFields()
-        {
-            for (int i = 0; i < textBlocks.Count; i++)
-                textBlocks[i].Text = "Н.Д.";
         }
     }
 }

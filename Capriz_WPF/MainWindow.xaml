@@ -35,7 +35,7 @@
         <RoutedCommand x:Key="btnChP_Click"/>
         <RoutedCommand x:Key="btnChW_Click"/>
         <RoutedCommand x:Key="btnChOp_Click"/>
-        <RoutedCommand x:Key="btnTerm_Click"/>
+        <RoutedCommand x:Key="btn_Click"/>
         <RoutedCommand x:Key="btnPrint_Click"/>
         <RoutedCommand x:Key="btnVers_Click"/>
 
@@ -204,7 +204,7 @@
         <CommandBinding Command="{StaticResource btnChP_Click}" Executed="btnChP_Click"/>
         <CommandBinding Command="{StaticResource btnChW_Click}" Executed="btnChW_Click"/>
         <CommandBinding Command="{StaticResource btnChOp_Click}" Executed="btnChOp_Click"/>
-        <CommandBinding Command="{StaticResource btnTerm_Click}" Executed="btnTerm_Click"/>
+        <CommandBinding Command="{StaticResource btn_Click}" Executed="btn_Click"/>
         <CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>
         <CommandBinding Command="{StaticResource btnVers_Click}" Executed="btnVers_Click"/>
 
@@ -236,7 +236,7 @@
             <CustomControls:CustomButton x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
             <CustomControls:CustomButton x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
             <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
-            <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
+            <CustomControls:CustomButton x:Name="teminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btn_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
             <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
             <CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="34" ImageHeight="34"/>
         </ItemsControl>
