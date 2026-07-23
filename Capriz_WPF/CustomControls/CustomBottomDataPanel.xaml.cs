@@ -58,12 +58,13 @@ namespace Capriz_WPF.CustomControls
             for (int i = 0; i < _textBlocksShip.Count; i++)
                 _textBlocksShip[i].Text = data[i];
         }
-        
+
         public void ClearShipFields()
         {
             for (int i = 0; i < _textBlocksShip.Count; i++)
                 _textBlocksShip[i].Text = "Н.Д.";
         }
+
 
         public void SetDateTime(List<string> data)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace Capriz_WPF.CustomControls
             get { return (bool)GetValue(IsSplitAnglesProperty); }
             set
             {
-                SetValue(IsSplitAnglesProperty, value);
+                SetValue(IsSplitAnglesProperty, value);     
                 if (value)
                 {
                     TypicalAngles.Visibility = Visibility.Collapsed;
@@ -248,44 +249,6 @@ namespace Capriz_WPF.CustomControls
                         pathGeometry.Figures.Add(pathFigure);
 
                         WindDirectionPath2 = pathGeometry;
-                        #region oldUpdate
-                        //begin_sec -= 90;
-                        //end_sec -= 90;
-
-                        //if (begin_sec < 0)
-                        //    begin_sec += 360;
-                        //if (end_sec < 0)
-                        //    end_sec += 360;
-
-                        //if (end_sec < begin_sec)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //if (Math.Abs(begin_sec - end_sec) > 180)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //var centerX = 184.5;
-                        //var centerY = 184.5;
-                        //var radius = 121;
-
-                        //var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
-                        //var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
-
-
-                        //var pathGeometry = new PathGeometry();
-                        //var pathFigure = new PathFigure { StartPoint = startPoint };
-                        //pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
-                        //pathGeometry.Figures.Add(pathFigure);
-
-                        //WindDirectionPath2 = pathGeometry;
-                        #endregion
                     }
                 }
             }
@@ -320,44 +283,6 @@ namespace Capriz_WPF.CustomControls
                         pathGeometry.Figures.Add(pathFigure);
 
                         WindDirectionPath10 = pathGeometry;
-                        #region oldUpdate 
-                        //begin_sec -= 90;
-                        //end_sec -= 90;
-
-                        //if (begin_sec < 0)
-                        //    begin_sec += 360;
-                        //if (end_sec < 0)
-                        //    end_sec += 360;
-
-                        //if (end_sec < begin_sec)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //if (Math.Abs(begin_sec - end_sec) > 180)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //var centerX = 184.5;
-                        //var centerY = 184.5;
-                        //var radius = 136;
-
-                        //var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
-                        //var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
-
-
-                        //var pathGeometry = new PathGeometry();
-                        //var pathFigure = new PathFigure { StartPoint = startPoint };
-                        //pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
-                        //pathGeometry.Figures.Add(pathFigure);
-
-                        //WindDirectionPath10 = pathGeometry;
-                        #endregion 
                     }
                 }
             }
@@ -415,12 +340,7 @@ namespace Capriz_WPF.CustomControls
 
         protected void OnPropertyChanged(string propertyName)
         {
-            try
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-            catch
-            {   }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

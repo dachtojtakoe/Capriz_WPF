@@ -59,7 +59,6 @@ namespace Capriz_WPF.CustomControls
             set { SetValue(ToolTipTextForegroundProperty, value); }
         }
 
-
         public Brush ToolTipBorderColor
         {
             get { return (Brush)GetValue(ToolTipBorderColorProperty); }

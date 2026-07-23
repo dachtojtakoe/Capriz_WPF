@@ -31,7 +31,7 @@ namespace Capriz_WPF.CustomControls
 
 
         List<Data.Data> msg = new List<Data.Data>();
-        Configuration conf;
+        Configuration _conf;
         private DispatcherTimer timerClock;
 
         public CustomWindPanel()
@@ -46,7 +46,8 @@ namespace Capriz_WPF.CustomControls
 
         public void SetConf(Configuration _conf)
         {
-            conf = _conf;
+            this._conf = _conf;
+            customDataPanel1.SetConfig(_conf);
         }
 
         private void timerClock_Tick(object sender, EventArgs e)
@@ -145,12 +146,19 @@ namespace Capriz_WPF.CustomControls
                     {
                         customBottomDataPanel1.SetDataToSost(SetStatus(data));
                         cleanData = 0;
+
                         customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax, data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax });
+   
+                        if(_conf.SEELEVEL == "1")
+                        {
+                            data.PressureGPa = (Math.Round(double.Parse(data.PressureGPa) * Math.Pow(288.15/ (288.15 - 0.0065 * double.Parse(_conf.HEIGHT)), 5.255), 1)).ToString();
+                            data.PressureRtSt = (Math.Round(double.Parse(data.PressureRtSt) * Math.Pow(288.15/ (288.15 - 0.0065 * double.Parse(_conf.HEIGHT)), 5.255), 1)).ToString();
+                        }
 
                         customDataPanel1.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3 });
 
                         if (data.ShipSpeed != "Н.Д.") data.ShipSpeed = (Convert.ToString(Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1)));
-                        
+
                         customBottomDataPanel1.SetDataToFields(new List<string>() { data.CourseShip, data.ShipSpeed });
 
                         customRoundWindPanel1.ValueSpeed = data.Speed_K.Trim();
@@ -196,7 +204,7 @@ namespace Capriz_WPF.CustomControls
                 return new List<string> { status, toolTipText };
             }
 
-            if ((conf.DSNV1 == "1") && (conf.DSNV2 == "1"))
+            if ((_conf.DSNV1 == "1") && (_conf.DSNV2 == "1"))
             {
                 if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
                 toolTipText += (data.StatusSpeed1 == "/") ? "Отключен основной канал скорости ветра;\r\n" :
@@ -213,7 +221,7 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusDirect2 == "0") ? "Авария по резервному каналу направления ветра;\r\n" : "";
             }
 
-            if (conf.DSNV3 == "1")
+            if (_conf.DSNV3 == "1")
             {
                 if (data.StatusSpeedNasal == "/" || data.StatusSpeedNasal == "0") status = "0";
                 toolTipText += (data.StatusSpeedNasal == "/") ? "Отключен канал скорости ветра ВПП;\r\n" :
@@ -223,7 +231,7 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusDirectNasal == "0") ? "Авария по каналу направления ветра ВПП;\r\n" : "";
             }
 
-            if ((conf.DSNV1 == "1") && (conf.DSNV2 == "0") && (conf.DSNV3 == "0"))
+            if ((_conf.DSNV1 == "1") && (_conf.DSNV2 == "0") && (_conf.DSNV3 == "0"))
             {
                 if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
                 toolTipText += (data.StatusSpeed1 == "/") ? "Отключен канал скорости ветра;\r\n" :
@@ -233,7 +241,7 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusDirect1 == "0") ? "Авария по каналу направления ветра;\r\n" : "";
             }
 
-            if ((conf.DTVV1 == "1") && (conf.DTVV2 == "1"))
+            if ((_conf.DTVV1 == "1") && (_conf.DTVV2 == "1"))
             {
                 if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
                 toolTipText += (data.StatusTemp1 == "/") ? "Отключен основной канал температуры;\r\n" :
@@ -250,7 +258,7 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusHum2 == "0") ? "Авария по резервному каналу влажности;\r\n" : "";
             }
 
-            if ((conf.DTVV1 == "1") && (conf.DTVV2 == "0"))
+            if ((_conf.DTVV1 == "1") && (_conf.DTVV2 == "0"))
             {
                 if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
                 toolTipText += (data.StatusTemp1 == "/") ? "Отключен канал температуры ;\r\n" :
@@ -260,14 +268,14 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusHum1 == "0") ? "Авария по каналу влажности;\r\n" : "";
             }
 
-            if (conf.DAD == "1")
+            if (_conf.DAD == "1")
             {
                 if (data.StatusPressure == "/" || data.StatusPressure == "0") status = "0";
                 toolTipText += (data.StatusPressure == "/") ? "Отключен канал атмосферного давления;\r\n" :
                     (data.StatusPressure == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
             }
 
-            if (conf.DVGO == "1")
+            if (_conf.DVGO == "1")
             {
                 if (data.StatusDVGO == "/" || data.StatusDVGO == "A" || data.StatusDVGO == "W") status = "0";
                 toolTipText += (data.StatusDVGO == "/") ? "Отключен датчик верхней границы облаков;\r\n" :
@@ -275,7 +283,7 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusDVGO == "W") ? "Тревога по датчику верхней границы облаков;\r\n" : "";
             }
 
-            if (conf.DMDV == "1")
+            if (_conf.DMDV == "1")
             {
                 if (data.StatusDMDV == "/" || data.StatusDMDV == "1" || data.StatusDMDV == "2" || data.StatusDMDV == "3" || data.StatusDMDV == "4") status = "0";
                 toolTipText += (data.StatusDMDV == "/") ? "Отключен датчик метеорологической\r\nдальности видимости;\r\n" :

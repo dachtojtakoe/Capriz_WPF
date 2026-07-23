@@ -32,6 +32,11 @@ namespace Capriz_WPF.Common
         string dmdv = "1";
         public string DMDV { get => dmdv; set => dmdv = value; }
 
+        string seeLevel = "1";
+        public string SEELEVEL { get => seeLevel; set => seeLevel = value; }
+
+        string height = "0";
+        public string HEIGHT { get => height; set => height = value; }
 
         public void SetData(List<string> data)
         {
@@ -43,10 +48,12 @@ namespace Capriz_WPF.Common
             DAD = data[5];
             DVGO = data[6];
             DMDV = data[7];
+            SEELEVEL = data[8];
+            HEIGHT = data[9];
         }
         public List<string> GetData()
         {
-            return new List<string> { DSNV1, DSNV2, DSNV3, DTVV1, DTVV2, DAD, DVGO, DMDV };
+            return new List<string> { DSNV1, DSNV2, DSNV3, DTVV1, DTVV2, DAD, DVGO, DMDV, SEELEVEL, HEIGHT };
         }
     }
 }

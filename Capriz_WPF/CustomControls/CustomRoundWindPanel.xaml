@@ -147,6 +147,7 @@
             <TextBlock Text="60" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,95,0,0"/>
             <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,35,0,0"/>
         </Grid>
+
         <TextBlock Text="{Binding ValueDir}" Margin="0,0,0,25" Style="{StaticResource NoDataTextBlock}" Panel.ZIndex="10" Background="#0d345d" />
 
         <Path Stroke="Orange" StrokeThickness="3">
