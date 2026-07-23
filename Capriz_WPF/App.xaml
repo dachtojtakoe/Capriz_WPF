@@ -4,6 +4,29 @@
              xmlns:local="clr-namespace:Capriz_WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="DataTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14.25pt"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="Text" Value="Н.Д."/>
+        </Style>
+
+        <Style x:Key="LabelTextBLockStyle" TargetType="TextBlock">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="9.75pt"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
     </Application.Resources>
 </Application>

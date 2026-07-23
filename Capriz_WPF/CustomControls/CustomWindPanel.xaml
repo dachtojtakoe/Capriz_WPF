@@ -55,6 +55,7 @@
             <Grid>
                 <local:CustomDataPanel x:Name="customDataPanel1" Height="175" Width="742" MouseLeftButtonDown="customDataPanel_MouseLeftButtonDown" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <local:CustomWindDataNew x:Name="customWindDataNew1" Height="175" Width="742" MouseLeftButtonDown="customWindDataNew1_MouseLeftButtonDown" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <local:CustomDadDataPanel x:Name="customDadDataPanel1" Height="175" Width="742" MouseLeftButtonDown="customDadDataPanel1_MouseLeftButtonDown" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </ItemsControl>
 

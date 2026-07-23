@@ -7,33 +7,42 @@
              mc:Ignorable="d" 
              d:DesignHeight="162" d:DesignWidth="716">
     <Grid Background="Transparent">
-        <TextBlock x:Name="lblTemp" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="165" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Температура  "/><LineBreak/><Run Text="воздуха, °C"/></TextBlock>
-        <TextBlock x:Name="DataTemp" HorizontalAlignment="Left" Margin="0,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="165" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblHum" HorizontalAlignment="Left" Margin="0,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="165" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Влажность  "/><LineBreak/><Run Text="воздуха, %"/></TextBlock>
-        <TextBlock x:Name="DataHum" HorizontalAlignment="Left" Margin="0,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="165" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblPressMm" HorizontalAlignment="Left" Margin="0,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="165" Height="32" FontFamily="Microsoft Sans Serif" ><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, мм рт. ст."/></TextBlock>
-        <TextBlock x:Name="DataPressMm" HorizontalAlignment="Left" Margin="0,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="165" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width = "1.2*"/>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width = "*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="lblPressGPa" HorizontalAlignment="Left" Margin="165,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="187" Height="32" FontFamily="Microsoft Sans Serif" ><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, гПа"/></TextBlock>
-        <TextBlock x:Name="DataPressGPa" HorizontalAlignment="Left" Margin="165,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="187" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblBarT" HorizontalAlignment="Left" Margin="165,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="187" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Барическая тенденция  "/><LineBreak/><Run Text="за 3 ч., гПа"/></TextBlock>
-        <TextBlock x:Name="DataBarT" HorizontalAlignment="Left" Margin="165,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="187" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblTrend" HorizontalAlignment="Left" Margin="165,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="187" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Ход барической  "/><LineBreak/><Run Text="тенденции"/></TextBlock>
-        <TextBlock x:Name="DataTrend" HorizontalAlignment="Left" Margin="165,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="187" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <StackPanel Name="FirstColumn" Grid.Column="0" VerticalAlignment="Center">
+            <TextBlock x:Name="lblTemp" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Температура  "/><LineBreak/><Run Text="воздуха, °C"/></TextBlock>
+            <TextBlock x:Name="DataTemp" Style="{StaticResource DataTextBlockStyle}"/>
+            <TextBlock x:Name="lblHum" Margin="0,10,0,0" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Влажность  "/><LineBreak/><Run Text="воздуха, %"/></TextBlock>
+            <TextBlock x:Name="DataHum" Style="{StaticResource DataTextBlockStyle}"/>
+        </StackPanel>
 
-        <TextBlock x:Name="lblDMDV1" HorizontalAlignment="Left" Margin="352,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="249" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 1 мин, м"/></TextBlock>
-        <TextBlock x:Name="DataDMDV1" HorizontalAlignment="Left" Margin="352,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="249" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblDMDV10" HorizontalAlignment="Left" Margin="352,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="249" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 10 мин, м"/></TextBlock>
-        <TextBlock x:Name="DataDMDV10" HorizontalAlignment="Left" Margin="352,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="249" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblClouds" HorizontalAlignment="Left" Margin="352,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="249" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="Количество слоев"/><LineBreak/><Run Text="облаков"/></TextBlock>
-        <TextBlock x:Name="DataClouds" HorizontalAlignment="Left" Margin="352,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="249" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <StackPanel x:Name="SecondColumn" Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock x:Name="lblDMDV1" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 1 мин, м"/></TextBlock>
+            <TextBlock x:Name="DataDMDV1" Style="{StaticResource DataTextBlockStyle}"/>
+            <TextBlock x:Name="lblDMDV10" Margin="0,10,0,0" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 10 мин, м"/></TextBlock>
+            <TextBlock x:Name="DataDMDV10" Style="{StaticResource DataTextBlockStyle}"/>
+        </StackPanel>
 
-        <TextBlock x:Name="lblNGO1" HorizontalAlignment="Left" Margin="601,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="115" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="НГО нижнего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
-        <TextBlock x:Name="DataNgo1" HorizontalAlignment="Left" Margin="601,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="115" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblNgo2" HorizontalAlignment="Left" Margin="601,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="115" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="НГО среднего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
-        <TextBlock x:Name="DataNgo2" HorizontalAlignment="Left" Margin="601,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="115" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-        <TextBlock x:Name="lblNgo3" HorizontalAlignment="Left" Margin="601,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="115" Height="32" FontFamily="Microsoft Sans Serif"><Run Text="НГО верхнего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
-        <TextBlock x:Name="DataNgo3" HorizontalAlignment="Left" Margin="601,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="115" Height="22" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <StackPanel x:Name="ThirdColumn" Grid.Column="2" VerticalAlignment="Center">
+            <TextBlock x:Name="lblNgo3" Style="{StaticResource LabelTextBLockStyle}"><Run Text="НГО верхнего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
+            <TextBlock x:Name="DataNgo3" Style="{StaticResource DataTextBlockStyle}"/>
+            <TextBlock x:Name="lblNgo2" Margin="0,10,0,0" Style="{StaticResource LabelTextBLockStyle}"><Run Text="НГО среднего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
+            <TextBlock x:Name="DataNgo2" Style="{StaticResource DataTextBlockStyle}"/>
+        </StackPanel>
+
+        <StackPanel x:Name="FourthColumn" Grid.Column="3" VerticalAlignment="Center">
+            <TextBlock x:Name="lblNGO1" Style="{StaticResource LabelTextBLockStyle}"><Run Text="НГО нижнего"/><LineBreak/><Run Text="слоя, м"/></TextBlock>
+            <TextBlock x:Name="DataNgo1" Style="{StaticResource DataTextBlockStyle}"/>
+            <TextBlock x:Name="lblClouds" Margin="0,10,0,0" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Количество слоев"/><LineBreak/><Run Text="облаков"/></TextBlock>
+            <TextBlock x:Name="DataClouds" Style="{StaticResource DataTextBlockStyle}"/>
+        </StackPanel>
+
+        <TextBlock x:Name="SkydexIndex" Visibility="Hidden" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Style="{StaticResource DataTextBlockStyle}" Height="auto"/>
 
     </Grid>
 </UserControl>

@@ -225,20 +225,21 @@ namespace Capriz_WPF.Data
                     AmountPrecipitation = columns[37].Contains("/") ? "Н.Д." : columns[37],
                     ShipSpeed = columns[38].Contains("/") ? "Н.Д." : columns[38],
                     CourseShip = columns[39].Contains("/") ? "Н.Д." : columns[39],
-                    NGO1 = columns[40].Contains("/") ? "Н.Д." : columns[40],
-                    NGO2 = columns[41].Contains("/") ? "Н.Д." : columns[41],
-                    NGO3 = columns[42].Contains("/") ? "Н.Д." : columns[42],
+                    NGO1 = columns[40].Contains("/") ? "Не определена" : columns[40],
+                    NGO2 = columns[41].Contains("/") ? "Не определена" : columns[41],
+                    NGO3 = columns[42].Contains("/") ? "Не определена" : columns[42],
                     StatusTemp1 = columns[43].Contains("/") ? "/" : columns[43],
-                    StatusTemp2 = columns[44].Contains("/") ? "/" : columns[44],
+                    //StatusTemp2 = columns[44].Contains("/") ? "/" : columns[44],
+                    StatusPressure2 = columns[44].Contains("/") ? "/" : columns[44],
                     StatusHum1 = columns[45].Contains("/") ? "/" : columns[45],
-                    StatusHum2 = columns[46].Contains("/") ? "/" : columns[46],
+                    //StatusHum2 = columns[46].Contains("/") ? "/" : columns[46],
                     StatusDirect1 = columns[47].Contains("/") ? "/" : columns[47],
                     StatusDirect2 = columns[48].Contains("/") ? "/" : columns[48],
                     StatusSpeed1 = columns[49].Contains("/") ? "/" : columns[49],
                     StatusSpeed2 = columns[50].Contains("/") ? "/" : columns[50],
                     StatusSpeedNasal = columns[51].Contains("/") ? "/" : columns[51],
                     StatusDirectNasal = columns[52].Contains("/") ? "/" : columns[52],
-                    StatusPressure = columns[53].Contains("/") ? "/" : columns[53],
+                    StatusPressure1 = columns[53].Contains("/") ? "/" : columns[53],
                     StatusDVGO = columns[54].Contains("/") ? "/" : columns[54],
 
                     AmountClouds = columns[55].Contains("/") ? "Н.Д." : columns[55],
@@ -266,6 +267,7 @@ namespace Capriz_WPF.Data
                     Speed_10Knasalmid = columns[76].Contains("/") ? "Н.Д." : columns[76],
                     Speed_10Knasalmin = columns[77].Contains("/") ? "Н.Д." : columns[77],
                     Speed_10Knasalmax = columns[78].Contains("/") ? "Н.Д." : columns[78]
+
 
                 });
             }

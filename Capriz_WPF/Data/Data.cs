@@ -65,16 +65,17 @@ namespace Capriz_WPF.Data
         public string NGO3 { get; set; } //[41] //int
 
         public string StatusTemp1 { get; set; } //[42] //int
-        public string StatusTemp2 { get; set; } //[43] //int
+        public string StatusPressure2 { get; set; } //[52] //int
+        //public string StatusTemp2 { get; set; } //[43] //int
         public string StatusHum1 { get; set; } //[44] //int
-        public string StatusHum2 { get; set; } //[45] //int
+        //public string StatusHum2 { get; set; } //[45] //int
         public string StatusDirect1 { get; set; } //[46] //int
         public string StatusDirect2 { get; set; } //[47] //int
         public string StatusSpeed1 { get; set; } //[48] //int
         public string StatusSpeed2 { get; set; } //[49] //int
         public string StatusSpeedNasal { get; set; } //[50] //int
         public string StatusDirectNasal { get; set; } //[51] //int
-        public string StatusPressure { get; set; } //[52] //int
+        public string StatusPressure1 { get; set; } //[52] //int
         public string StatusDVGO { get; set; } //[53] //char
         public string AmountClouds { get; set; } //[54] //int
         public string StatusDMDV { get; set; } //[55] //int

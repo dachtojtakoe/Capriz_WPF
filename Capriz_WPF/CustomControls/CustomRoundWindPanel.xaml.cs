@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Media.Imaging  ;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -415,12 +415,7 @@ namespace Capriz_WPF.CustomControls
 
         protected void OnPropertyChanged(string propertyName)
         {
-            try
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-            catch
-            {   }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -47,6 +47,7 @@ namespace Capriz_WPF.CustomControls
         public void SetConf(Configuration _conf)
         {
             conf = _conf;
+            customDadDataPanel1.SetConfig(_conf);
         }
 
         private void timerClock_Tick(object sender, EventArgs e)
@@ -60,24 +61,20 @@ namespace Capriz_WPF.CustomControls
 
         void changePanels()
         {
-            //SetDoubleBuffered(customDataPanel1);
-            //SetDoubleBuffered(customWindDataNew1);
-
-            //if (!customWindDataNew1.Visible)
             if (customWindDataNew1.Visibility == Visibility.Visible)
             {
-                //customWindDataNew1.Visible = true;
-                //customDataPanel1.Visible = false;                
-
                 customWindDataNew1.Visibility = Visibility.Hidden;
                 customDataPanel1.Visibility = Visibility.Visible;
             }
-            else
+            else if (customDataPanel1.Visibility == Visibility.Visible)
             {
-                //customDataPanel1.Visible = true;
-                //customWindDataNew1.Visible = false;
-                customWindDataNew1.Visibility = Visibility.Visible;
                 customDataPanel1.Visibility = Visibility.Hidden;
+                customDadDataPanel1.Visibility = Visibility.Visible;
+            }
+            else if (customDadDataPanel1.Visibility == Visibility.Visible)
+            {
+                customDadDataPanel1.Visibility = Visibility.Hidden;
+                customWindDataNew1.Visibility = Visibility.Visible;
             }
         }
 
@@ -91,6 +88,10 @@ namespace Capriz_WPF.CustomControls
             changePanels();
         }
 
+        private void customDadDataPanel1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            changePanels();
+        }
 
         public void CleanDataTablo()
         {
@@ -105,6 +106,8 @@ namespace Capriz_WPF.CustomControls
                     customDataPanel1.ClearFields();
 
                     customBottomDataPanel1.ClearShipFields();
+
+                    customDadDataPanel1.ClearFields();
 
                     customRoundWindPanel1.ValueSpeed = ("Н.Д.");
                     customRoundWindPanel2.ValueSpeed = ("Н.Д.");
@@ -145,12 +148,60 @@ namespace Capriz_WPF.CustomControls
                     {
                         customBottomDataPanel1.SetDataToSost(SetStatus(data));
                         cleanData = 0;
+
                         customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax, data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax });
 
-                        customDataPanel1.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3 });
+                        int skydexIndex = -1;
+                        try
+                        {
+                            skydexIndex = Convert.ToInt32(data.AmountClouds);
+                        }
+                        catch { }
+
+                        try
+                        {
+                            if(data.AmountClouds == "Н.Д.")
+                            {
+                                data.NGO1 = "Н.Д.";
+                                data.NGO2 = "Н.Д.";
+                                data.NGO3 = "Н.Д.";
+                            }
+                        }
+                        catch { }
+
+                        customDataPanel1.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3 }, skydexIndex );
+
+                        //Пересчет для высоты
+
+                        var tempPresGPA = 0.0;
+                        var tempPresRtSt = 0.0;
+                        try
+                        {
+                            //tempPresGPA = Convert.ToDouble(data.PressureGPa);
+                            //try
+                            //{
+                                tempPresGPA = Convert.ToDouble(data.PressureGPa) * Math.Exp((0.029 * 9.81 * Convert.ToDouble(conf.HEIGHT)) / (8.31 * (Convert.ToDouble(data.Temperature) + 273.15)));
+                            //}
+                            //catch { }
+
+                            tempPresRtSt = tempPresGPA * 0.750063755419211;
+                        }
+                        catch
+                        {
+
+                        }
+
+                        if (tempPresGPA == 0.0 && tempPresRtSt == 0.0)
+                        {
+                            customDadDataPanel1.SetDataToFields(new List<string>() { data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, "Н.Д.", "Н.Д."});
+                        }
+                        else
+                        {
+                            customDadDataPanel1.SetDataToFields(new List<string>() { data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, Math.Round(tempPresRtSt, 1).ToString("F1"), Math.Round(tempPresGPA, 1).ToString("F1") });
+                        }
 
                         if (data.ShipSpeed != "Н.Д.") data.ShipSpeed = (Convert.ToString(Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1)));
-                        
+
                         customBottomDataPanel1.SetDataToFields(new List<string>() { data.CourseShip, data.ShipSpeed });
 
                         customRoundWindPanel1.ValueSpeed = data.Speed_K.Trim();
@@ -233,24 +284,7 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusDirect1 == "0") ? "Авария по каналу направления ветра;\r\n" : "";
             }
 
-            if ((conf.DTVV1 == "1") && (conf.DTVV2 == "1"))
-            {
-                if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
-                toolTipText += (data.StatusTemp1 == "/") ? "Отключен основной канал температуры;\r\n" :
-                    (data.StatusTemp1 == "0") ? "Авария по основному каналу температуры;\r\n" : "";
-                if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
-                toolTipText += (data.StatusHum1 == "/") ? "Отключен основной канал влажности;\r\n" :
-                    (data.StatusHum1 == "0") ? "Авария по основнову каналу влажности;\r\n" : "";
-
-                if (data.StatusTemp2 == "/" || data.StatusTemp2 == "0") status = "0";
-                toolTipText += (data.StatusTemp2 == "/") ? "Отключен резервный канал температуры;\r\n" :
-                    (data.StatusTemp2 == "0") ? "Авария по резервному каналу температуры;\r\n" : "";
-                if (data.StatusHum2 == "/" || data.StatusHum2 == "0") status = "0";
-                toolTipText += (data.StatusHum2 == "/") ? "Отключен резервный канал влажности;\r\n" :
-                    (data.StatusHum2 == "0") ? "Авария по резервному каналу влажности;\r\n" : "";
-            }
-
-            if ((conf.DTVV1 == "1") && (conf.DTVV2 == "0"))
+            if (conf.DTVV == "1")
             {
                 if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
                 toolTipText += (data.StatusTemp1 == "/") ? "Отключен канал температуры ;\r\n" :
@@ -260,11 +294,22 @@ namespace Capriz_WPF.CustomControls
                     (data.StatusHum1 == "0") ? "Авария по каналу влажности;\r\n" : "";
             }
 
-            if (conf.DAD == "1")
+            if (conf.DAD1 == "1" && conf.DAD2 == "1")
             {
-                if (data.StatusPressure == "/" || data.StatusPressure == "0") status = "0";
-                toolTipText += (data.StatusPressure == "/") ? "Отключен канал атмосферного давления;\r\n" :
-                    (data.StatusPressure == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
+                if (data.StatusPressure1 == "/" || data.StatusPressure1 == "0") status = "0";
+                toolTipText += (data.StatusPressure1 == "/") ? "Отключен основной канал атмосферного\r\nдавления;\r\n" :
+                    (data.StatusPressure1 == "0") ? "Авария по основному каналу атмосферного\r\nдавления;\r\n" : "";
+
+                if (data.StatusPressure2 == "/" || data.StatusPressure2 == "0") status = "0";
+                toolTipText += (data.StatusPressure2 == "/") ? "Отключен резервный канал атмосферного\r\nдавления;\r\n" :
+                    (data.StatusPressure2 == "0") ? "Авария по резервному каналу атмосферного\r\nдавления;\r\n" : "";
+            }
+
+            if (conf.DAD1 == "1" && conf.DAD2 == "0")
+            {
+                if (data.StatusPressure1 == "/" || data.StatusPressure1 == "0") status = "0";
+                toolTipText += (data.StatusPressure1 == "/") ? "Отключен канал атмосферного давления;\r\n" :
+                    (data.StatusPressure1 == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
             }
 
             if (conf.DVGO == "1")
@@ -294,5 +339,7 @@ namespace Capriz_WPF.CustomControls
 
             return new List<string> { status, toolTipText };
         }
+
+
     }
 }

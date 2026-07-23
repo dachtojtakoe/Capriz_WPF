@@ -33,6 +33,7 @@ using PrintDialog = System.Windows.Controls.PrintDialog;
 
 using Point = System.Windows.Point;
 using System.Xml.Linq;
+using System.Printing;
 
 namespace Capriz_WPF
 {
@@ -64,7 +65,7 @@ namespace Capriz_WPF
             customChart1 = 2,
             customTerminal = 3
         };
-   
+
         private DispatcherTimer _timer;
         private CustomToolTip _currentToolTip;
 
@@ -77,12 +78,12 @@ namespace Capriz_WPF
 
         public MainWindow()
         {
-            if (Environment.OSVersion.Version.Major > 5)
-            {
-                NativeMethods.SetThreadExecutionState(NativeMethods.EXECUTION_STATE.ES_AWAYMODE_REQUIRED |
-                    NativeMethods.EXECUTION_STATE.ES_SYSTEM_REQUIRED |
-                    NativeMethods.EXECUTION_STATE.ES_CONTINUOUS);
-            }
+            //if (Environment.OSVersion.Version.Major > 5)
+            //{
+            //    NativeMethods.SetThreadExecutionState(NativeMethods.EXECUTION_STATE.ES_AWAYMODE_REQUIRED |
+            //        NativeMethods.EXECUTION_STATE.ES_SYSTEM_REQUIRED |
+            //        NativeMethods.EXECUTION_STATE.ES_CONTINUOUS);
+            //}
 
             Common.Settings.CCulture();
             Common.Settings.CreateFolder();
@@ -126,16 +127,20 @@ namespace Capriz_WPF
                 _iniFile.Write("DSNV1", "1");
                 _iniFile.Write("DSNV2", "1");
                 _iniFile.Write("DSNV3", "1");
-                _iniFile.Write("DTVV1", "1");
-                _iniFile.Write("DTVV2", "1");
-                _iniFile.Write("DAD", "1");
+                _iniFile.Write("DTVV", "1");
+                //_iniFile.Write("DTVV2", "1");
+                _iniFile.Write("DAD1", "1");
+                _iniFile.Write("DAD2", "1");
                 _iniFile.Write("DVGO", "1");
                 _iniFile.Write("DMDV", "1");
+                _iniFile.Write("HEIGHT", "0");
+                _iniFile.Write("NAVIGATION", "0");
             }
-               
+
             _iniFile.Read("DSNV1");
             _config.SetData(new List<string>{ _iniFile.Read("DSNV1"), _iniFile.Read("DSNV2"), _iniFile.Read("DSNV3"),
-                _iniFile.Read("DTVV1"), _iniFile.Read("DTVV2"), _iniFile.Read("DAD"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV")});
+                _iniFile.Read("DTVV"), _iniFile.Read("DAD1"), _iniFile.Read("DAD2"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV"),
+                _iniFile.Read("HEIGHT"), _iniFile.Read("NAVIGATION")});
             _customWindPanel1.SetConf(_config);
             ViewNow = (int)_typeWindow.customWindPanel1;
 
@@ -183,7 +188,7 @@ namespace Capriz_WPF
                         richTextboxClear();
                         richTextBoxMessage.AppendText(str);
                     }
-                   // richTextBoxMessage.AppendText(str);
+                    // richTextBoxMessage.AppendText(str);
 
                     //if (isScrollToEnd)
                     //    richTextBoxMessage.ScrollToEnd();
@@ -209,8 +214,7 @@ namespace Capriz_WPF
 
         public void WriteFile(string param)
         {
-            if ((DateTime.Now.Minute) % 8 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
-            //if (DateTime.Now.Second % 5 == 0)   //Записываем в файл каждые 10 минут
+            if ((DateTime.Now.Minute) % 10 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
             {
                 try
                 {
@@ -224,20 +228,20 @@ namespace Capriz_WPF
                         //    _nameCurrentFile = $"C:\\Users\\dachtojtakoe\\Documents\\Capriz\\Log-{currentTime.ToString("dd.MM.yyyy HH.mm.ss")}.txt";
                         //    DataFile.WriteDataToFileALot(_nameCurrentFile, param, i);
                         //}
-                        for (int i = 1; i < 92; i++)
+                        //for (int i = 1; i < 92; i++)
+                        //{
+                        //    DB.WriteDataToDBALot(param, i);
+                        //}
+                        try
                         {
-                            DB.WriteDataToDBALot2(param, i);
+                            DataFile.WriteDataToFile(_nameCurrentFile, param);
                         }
-                        //try
-                        //{
-                        //    DataFile.WriteDataToFile(_nameCurrentFile, param);
-                        //}
-                        //catch
-                        //{
-                        //    _nameCurrentFile = DataFile.LogsPath();
-                        //    DataFile.WriteDataToFile(_nameCurrentFile, param);
-                        //}
-                        //DB.WriteDataToDB(param);
+                        catch
+                        {
+                            _nameCurrentFile = DataFile.LogsPath();
+                            DataFile.WriteDataToFile(_nameCurrentFile, param);
+                        }
+                        DB.WriteDataToDB(param);
                     });
                 }
                 catch { }
@@ -257,7 +261,7 @@ namespace Capriz_WPF
             if (customGrid1.Visibility == Visibility.Visible)
             {
                 customGrid1.Visibility = Visibility.Hidden;
-            }            
+            }
             if (panelCustomGrid.Visibility == Visibility.Visible)
             {
                 panelCustomGrid.Visibility = Visibility.Hidden;
@@ -278,11 +282,11 @@ namespace Capriz_WPF
             {
                 dateTimePanel.Visibility = Visibility.Hidden;
             }
-            if(richTextBoxMessage.Visibility == Visibility.Visible)
+            if (richTextBoxMessage.Visibility == Visibility.Visible)
             {
                 richTextBoxMessage.Visibility = Visibility.Hidden;
-            }           
-            if(panelSettings.Visibility == Visibility.Visible)
+            }
+            if (panelSettings.Visibility == Visibility.Visible)
             {
                 panelSettings.Visibility = Visibility.Hidden;
             }
@@ -411,7 +415,7 @@ namespace Capriz_WPF
                     return temp;
                 }
             }
-            if(temp == "")
+            if (temp == "")
             {
                 foreach (DriveInfo drive in DriveInfo.GetDrives())
                 {
@@ -498,7 +502,7 @@ namespace Capriz_WPF
 
         public void ShowHideDatePanelOLD()
         {
-            if(dateTimePanel.Visibility == Visibility.Hidden)
+            if (dateTimePanel.Visibility == Visibility.Hidden)
             {
                 dateTimePanel.Visibility = Visibility.Visible;
                 btnDateFrom.BtnText = GetMinDateDt;
@@ -607,7 +611,7 @@ namespace Capriz_WPF
             {
                 _currentToolTip.Visibility = Visibility.Hidden;
                 _timer.Stop();
-                _currentToolTip = null; 
+                _currentToolTip = null;
             }
         }
 
@@ -851,7 +855,7 @@ namespace Capriz_WPF
         private void btnlblDateTo_Click(object sender, EventArgs e)
         {
             if (ViewNow == (int)_typeWindow.customChart1)
-            { 
+            {
                 panelCustomChart.Visibility = Visibility.Hidden;
                 //customChart1.Visibility = Visibility.Hidden;
             }
@@ -979,7 +983,7 @@ namespace Capriz_WPF
         }
 
 
-        private void btnTerm_Click(object sender, EventArgs e)
+        private void btn_Click(object sender, EventArgs e)
         {
             if (isPanelOpened)
             {
@@ -996,7 +1000,6 @@ namespace Capriz_WPF
                 }
             }
         }
-
         private void btnPrint_Click(object sender, EventArgs e)
         {
             if (isPanelOpened)
@@ -1096,25 +1099,21 @@ namespace Capriz_WPF
                 HideAllPanels();
 
                 _config.SetData(new List<string>{ _iniFile.Read("DSNV1"), _iniFile.Read("DSNV2"), _iniFile.Read("DSNV3"),
-                _iniFile.Read("DTVV1"), _iniFile.Read("DTVV2"), _iniFile.Read("DAD"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV")});
+                _iniFile.Read("DTVV"), _iniFile.Read("DAD1"), _iniFile.Read("DAD2"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV"),
+                _iniFile.Read("HEIGHT"), _iniFile.Read("NAVIGATION")});
 
                 DSNV1Check.IsChecked = _config.DSNV1 == "1" ? true : false;
                 DSNV2Check.IsChecked = _config.DSNV2 == "1" ? true : false;
                 DSNV3Check.IsChecked = _config.DSNV3 == "1" ? true : false;
-                DTVV1Check.IsChecked = _config.DTVV1 == "1" ? true : false;
-                DTVV2Check.IsChecked = _config.DTVV2 == "1" ? true : false;
-                DADCheck.IsChecked = _config.DAD == "1" ? true : false;
+                DTVVCheck.IsChecked = _config.DTVV == "1" ? true : false;
+                DAD1Check.IsChecked = _config.DAD1 == "1" ? true : false;
+                DAD2Check.IsChecked = _config.DAD2 == "1" ? true : false;
                 DVGOCheck.IsChecked = _config.DVGO == "1" ? true : false;
                 DMDVCheck.IsChecked = _config.DMDV == "1" ? true : false;
 
                 panelSettings.Visibility = Visibility.Visible;
                 isPanelOpened = false;
             }
-        }
-
-        private void btn_Click(object sender, ExecutedRoutedEventArgs e)
-        {
-
         }
 
         private void btnSetOk_Click(object sender, EventArgs e)
@@ -1135,16 +1134,16 @@ namespace Capriz_WPF
             _iniFile.Write("DSNV3", TTF);
             newConfig.Add(TTF);
 
-            TTF = (bool)DTVV1Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DTVV1", TTF);
+            TTF = (bool)DTVVCheck.IsChecked ? "1" : "0";
+            _iniFile.Write("DTVV", TTF);
             newConfig.Add(TTF);
 
-            TTF = (bool)DTVV2Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DTVV2", TTF);
+            TTF = (bool)DAD1Check.IsChecked ? "1" : "0";
+            _iniFile.Write("DAD1", TTF);
             newConfig.Add(TTF);
 
-            TTF = (bool)DADCheck.IsChecked ? "1" : "0";
-            _iniFile.Write("DAD", TTF);
+            TTF = (bool)DAD2Check.IsChecked ? "1" : "0";
+            _iniFile.Write("DAD2", TTF);
             newConfig.Add(TTF);
 
             TTF = (bool)DVGOCheck.IsChecked ? "1" : "0";
@@ -1155,6 +1154,9 @@ namespace Capriz_WPF
             _iniFile.Write("DMDV", TTF);
             newConfig.Add(TTF);
 
+            newConfig.Add(_config.HEIGHT);
+            newConfig.Add(_config.NAVIGATION);
+
             _config.SetData(newConfig);
             _customWindPanel1.SetConf(_config); //!!!!
 
@@ -1163,6 +1165,92 @@ namespace Capriz_WPF
             ViewNow = (int)_typeWindow.customWindPanel1;
             isPanelOpened = true;
         }
+
+        private void btnSetPresModif_Click(object sender, EventArgs e)
+        {
+            StationHeight.BtnText = _config.HEIGHT + " м";
+
+            panelSetPressureModification.Visibility = Visibility.Visible;
+        }
+
+        private void btnSetNavigation_Click(object sender, EventArgs e)
+        {
+            if (_config.NAVIGATION == "1")
+            {
+                GPSRB.IsChecked = true;
+            }
+            else
+            {
+                LAGRB.IsChecked = true;
+            }
+            panelSetNavigation.Visibility = Visibility.Visible;
+        }
+
+        private void btnApprovePresModif_Click(object sender, EventArgs e)
+        {
+            panelSetPressureModification.Visibility = Visibility.Hidden;
+
+            string TTF = double.Parse(StationHeight.BtnText.Substring(0, StationHeight.BtnText.Length - 2)).ToString();
+            _iniFile.Write("HEIGHT", TTF);
+            _config.HEIGHT = TTF;
+
+            _customWindPanel1.SetConf(_config);
+        }
+
+        private void odd1m_Click(object sender, RoutedEventArgs e)
+        {
+            double height = double.Parse(StationHeight.BtnText.Substring(0, StationHeight.BtnText.Length - 2));
+            if (height - 1 >= 0)
+            {
+                StationHeight.BtnText = (height - 1).ToString() + " м";
+            }
+        }
+
+        private void odd01m_Click(object sender, RoutedEventArgs e)
+        {
+            double height = double.Parse(StationHeight.BtnText.Substring(0, StationHeight.BtnText.Length - 2));
+            if (height - 0.1 >= 0)
+            {
+                StationHeight.BtnText = (height - 0.1).ToString() + " м";
+            }
+        }
+
+        private void add01m_Click(object sender, RoutedEventArgs e)
+        {
+            double height = double.Parse(StationHeight.BtnText.Substring(0, StationHeight.BtnText.Length - 2));
+            StationHeight.BtnText = (height + 0.1).ToString() + " м";
+        }
+
+        private void add1m_Click(object sender, RoutedEventArgs e)
+        {
+            double height = double.Parse(StationHeight.BtnText.Substring(0, StationHeight.BtnText.Length - 2));
+            StationHeight.BtnText = (height + 1).ToString() + " м";
+        }
+
+        private void btnCancelPresModif_Click(object sender, EventArgs e)
+        {
+            panelSetPressureModification.Visibility = Visibility.Hidden;
+        }
+
+        private void btnSetNavigationOk_Click(object sender, EventArgs e)
+        {
+            panelSetNavigation.Visibility = Visibility.Hidden;
+            string TTF;
+            if (LAGRB.IsChecked == true)
+            {
+                TTF = "0";
+            }
+            else
+            {
+                TTF = "1";
+            }
+
+            _iniFile.Write("NAVIGATION", TTF);
+            _config.NAVIGATION = TTF;
+
+            _customWindPanel1.SetConf(_config);
+        }
+
         #endregion
     }
 }

@@ -22,7 +22,7 @@
         <BitmapImage x:Key="terminal2" UriSource="/Resources/terminal2.png"/>
         <BitmapImage x:Key="print31" UriSource="/Resources/print31.png"/>
         <BitmapImage x:Key="info21" UriSource="/Resources/info21.png"/>
-        
+
         <BitmapImage x:Key="saveChart" UriSource="/Resources/SaveChart.png"/>
 
 
@@ -35,12 +35,18 @@
         <RoutedCommand x:Key="btnChP_Click"/>
         <RoutedCommand x:Key="btnChW_Click"/>
         <RoutedCommand x:Key="btnChOp_Click"/>
-        <RoutedCommand x:Key="btnTerm_Click"/>
+        <RoutedCommand x:Key="btn_Click"/>
         <RoutedCommand x:Key="btnPrint_Click"/>
         <RoutedCommand x:Key="btnVers_Click"/>
 
         <RoutedCommand x:Key="btnOk_Click"/>
         <RoutedCommand x:Key="btnSetOk_Click"/>
+        <RoutedCommand x:Key="btnSetNavigationOk_Click"/>
+
+        <RoutedCommand x:Key="btnSetPresModif_Click"/>
+        <RoutedCommand x:Key="btnSetNavigation_Click"/>
+        <RoutedCommand x:Key="btnApprovePresModif_Click"/>
+        <RoutedCommand x:Key="btnCancelPresModif_Click"/>
 
         <RoutedCommand x:Key="btnDateFrom_Click"/>
         <RoutedCommand x:Key="btnDateTo_Click"/>
@@ -162,11 +168,11 @@
         </ControlTemplate>
 
         <Style x:Key="CheckboxStyle" TargetType="CheckBox">
-                <Setter Property="Foreground" Value="AliceBlue"/>
-                <Setter Property="Margin" Value="10"/>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="FontFamily" Value="MicrosoftSansSerif"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="MicrosoftSansSerif"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
@@ -204,12 +210,18 @@
         <CommandBinding Command="{StaticResource btnChP_Click}" Executed="btnChP_Click"/>
         <CommandBinding Command="{StaticResource btnChW_Click}" Executed="btnChW_Click"/>
         <CommandBinding Command="{StaticResource btnChOp_Click}" Executed="btnChOp_Click"/>
-        <CommandBinding Command="{StaticResource btnTerm_Click}" Executed="btnTerm_Click"/>
+        <CommandBinding Command="{StaticResource btn_Click}" Executed="btn_Click"/>
         <CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>
         <CommandBinding Command="{StaticResource btnVers_Click}" Executed="btnVers_Click"/>
 
         <CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>
         <CommandBinding Command="{StaticResource btnSetOk_Click}" Executed="btnSetOk_Click"/>
+        <CommandBinding Command="{StaticResource btnSetNavigationOk_Click}" Executed="btnSetNavigationOk_Click"/>
+
+        <CommandBinding Command="{StaticResource btnSetPresModif_Click}" Executed="btnSetPresModif_Click"/>
+        <CommandBinding Command="{StaticResource btnSetNavigation_Click}" Executed="btnSetNavigation_Click"/>
+        <CommandBinding Command="{StaticResource btnApprovePresModif_Click}" Executed="btnApprovePresModif_Click"/>
+        <CommandBinding Command="{StaticResource btnCancelPresModif_Click}" Executed="btnCancelPresModif_Click"/>
 
         <CommandBinding Command="{StaticResource btnDateFrom_Click}" Executed="btnDateFrom_Click"/>
         <CommandBinding Command="{StaticResource btnDateTo_Click}" Executed="btnDateTo_Click"/>
@@ -236,7 +248,7 @@
             <CustomControls:CustomButton x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
             <CustomControls:CustomButton x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
             <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
-            <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
+            <CustomControls:CustomButton x:Name="teminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btn_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
             <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="30" ImageHeight="30"/>
             <CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="34" ImageHeight="34"/>
         </ItemsControl>
@@ -311,9 +323,10 @@
                 </ItemsControl>
 
                 <ItemsControl HorizontalAlignment="Center" Width="100" VerticalAlignment="Top"  Margin="0,30,0,0">
-                    <CheckBox x:Name="DTVV1Check" Content="DTVV1" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DTVV2Check" Content="DTVV2" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DADCheck" Content="DAD" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DTVVCheck" Content="DTVV" Style="{StaticResource CheckboxStyle}"/>
+                    <!--<CheckBox x:Name="DTVV2Check" Content="DTVV2" Style="{StaticResource CheckboxStyle}"/>-->
+                    <CheckBox x:Name="DAD1Check" Content="DAD1" Style="{StaticResource CheckboxStyle}"/>
+                    <CheckBox x:Name="DAD2Check" Content="DAD2" Style="{StaticResource CheckboxStyle}"/>
                 </ItemsControl>
 
                 <ItemsControl HorizontalAlignment="Right" Width="100" VerticalAlignment="Top"  Margin="0,30,20,0">
@@ -323,6 +336,51 @@
 
                 <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="12" Foreground="White" FontWeight="Bold" Width="160" Height="18" FontFamily="Microsoft Sans Serif"/>
                 <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="50" Height="40"/>
+
+                <CustomControls:CustomButtonText BtnText="Поправка" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetPresModif_Click}" Cursor="Hand" Width="100" Height="40"/>
+
+                <CustomControls:CustomButtonText BtnText="Навигация" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetNavigation_Click}" Cursor="Hand" Width="100" Height="40"/>
+            </Grid>
+        </ItemsControl>
+
+        <ItemsControl x:Name="panelSetPressureModification" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="400" Visibility="Hidden">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="220">
+                <TextBlock Text="Укажите разницу высот для расчета давления" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14pt" Foreground="White" FontWeight="Bold" Width="319" Height="50" FontFamily="Microsoft Sans Serif" Margin="0,10,0,0"/>
+
+                <CustomControls:CustomButtonText x:Name="StationHeight" HorizontalAlignment="Center" Width="120" Height="40" IsEnabled="False" VerticalAlignment="Center" BtnText="0 м" Margin="0,0,0,0" CommandText="{StaticResource btnApprovePresModif_Click}" Cursor="Hand"/>
+                <Button x:Name="odd1m" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="-1" Click="odd1m_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,320,0" Cursor="Hand" />
+                <Button x:Name="odd01m" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="-0.1" Click="odd01m_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,200,0" Cursor="Hand" />
+                <Button x:Name="add01m" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="+0.1" Click="add01m_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="200,0,0,0" Cursor="Hand" />
+                <Button x:Name="add1m" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="16"  Content="+1" Click="add1m_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="320,0,0,0" Cursor="Hand" />
+
+                <!--<CheckBox x:Name="SeeLevelPresCheck" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,85,0,0" Content="Приводить давление к уровню моря" Style="{StaticResource CheckboxStyle}"/>-->
+
+                <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="120" Height="40" VerticalAlignment="Bottom" BtnText="Применить" Margin="150,0,0,10" CommandText="{StaticResource btnApprovePresModif_Click}" Cursor="Hand"/>
+                <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="120" Height="40" VerticalAlignment="Bottom" BtnText="Отмена" Margin="0,0,150,10" CommandText="{StaticResource btnCancelPresModif_Click}" Cursor="Hand"/>
+            </Grid>
+        </ItemsControl>
+
+        <ItemsControl x:Name="panelSetNavigation" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="350" Visibility="Hidden">
+            <Grid Height="220">
+                <TextBlock Text="Выберите источник навигации" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14pt" Foreground="White" FontWeight="Bold" Width="319" Height="50" FontFamily="Microsoft Sans Serif" Margin="0,20,0,0"/>
+
+
+                <RadioButton x:Name="GPSRB" Content="GPS" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,90,20" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="14" Cursor="Hand">
+                    <RadioButton.RenderTransform>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    </RadioButton.RenderTransform>
+                </RadioButton>
+
+                <RadioButton x:Name="LAGRB" Content="LAG" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,0,0,20" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="14" Cursor="Hand">
+                    <RadioButton.RenderTransform>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    </RadioButton.RenderTransform>
+                </RadioButton>
+
+                <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetNavigationOk_Click}" Cursor="Hand" Width="50" Height="40"/>
+
+                <!--<CustomControls:CustomButtonText HorizontalAlignment="Center" Width="120" Height="40" VerticalAlignment="Bottom" BtnText="Применить" Margin="150,0,0,10" CommandText="{StaticResource btnApprovePresModif_Click}" Cursor="Hand"/>-->
+                <!--<CustomControls:CustomButtonText HorizontalAlignment="Center" Width="120" Height="40" VerticalAlignment="Bottom" BtnText="Отмена" Margin="0,0,150,10" CommandText="{StaticResource btnCancelPresModif_Click}" Cursor="Hand"/>-->
             </Grid>
         </ItemsControl>
     </Grid>

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Capriz_WPF.CustomControls.CustomDadDataPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="168" d:DesignWidth="716">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Давление" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="18" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock x:Name="HeightLabel" Grid.Row="0" Text="Давление на высоте -0 м" HorizontalAlignment="Right" Margin="0,0,60,0" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="200" FontFamily="Microsoft Sans Serif"/>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <TextBlock x:Name="lblPressMm" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, мм рт. ст."/></TextBlock>
+                <TextBlock x:Name="DataPressMm" Style="{StaticResource DataTextBlockStyle}"/>
+                <TextBlock x:Name="lblPressGPa" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, гПа"/></TextBlock>
+                <TextBlock x:Name="DataPressGPa" Style="{StaticResource DataTextBlockStyle}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock x:Name="lblBarT" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Барическая тенденция  "/><LineBreak/><Run Text="за 3 ч., гПа"/></TextBlock>
+                <TextBlock x:Name="DataBarT" Style="{StaticResource DataTextBlockStyle}"/>
+                <TextBlock x:Name="lblTrend" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Ход барической  "/><LineBreak/><Run Text="тенденции"/></TextBlock>
+                <TextBlock x:Name="DataTrend" Style="{StaticResource DataTextBlockStyle}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3">
+                <TextBlock x:Name="lblPressMmRes" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, мм рт. ст."/></TextBlock>
+                <TextBlock x:Name="DataPressMmRes" Style="{StaticResource DataTextBlockStyle}"/>
+                <TextBlock x:Name="lblPressGPaRes" Style="{StaticResource LabelTextBLockStyle}"><Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, гПа"/></TextBlock>
+                <TextBlock x:Name="DataPressGPaRes" Style="{StaticResource DataTextBlockStyle}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

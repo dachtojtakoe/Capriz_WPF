@@ -8,7 +8,7 @@
 
              xmlns:CustomControls="clr-namespace:Capriz_WPF.CustomControls"
              
-             d:DesignHeight="470" d:DesignWidth="350">
+             d:DesignHeight="470" d:DesignWidth="350" Cursor="Hand">
 
     <UserControl.Resources>
 

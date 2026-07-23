@@ -26,15 +26,14 @@ namespace Capriz_WPF.CustomControls
     public partial class CustomBottomDataPanel : System.Windows.Controls.UserControl
     {
         MainWindow mw = System.Windows.Application.Current.MainWindow as MainWindow;
+
         readonly List<TextBlock> _textBlocksShip;
         readonly List<TextBlock> _textBlocksDateTime;
+
         string _toolTipText = "";
-
-
         public string ToolTipText { get => _toolTipText; set => _toolTipText = value; }
 
-
-        List<string> mydata;
+        List<string> mydata; 
         bool isMouseEnter = false;
         DispatcherTimer timer;
 
@@ -58,7 +57,7 @@ namespace Capriz_WPF.CustomControls
             for (int i = 0; i < _textBlocksShip.Count; i++)
                 _textBlocksShip[i].Text = data[i];
         }
-        
+
         public void ClearShipFields()
         {
             for (int i = 0; i < _textBlocksShip.Count; i++)
@@ -166,7 +165,6 @@ namespace Capriz_WPF.CustomControls
 
         private void DataTime_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
             mw.customCalendar1.SetData(Convert.ToDateTime(DataDate.Text + " " + DataTime.Text));
             mw.customCalendar1.CalledBy = 5;
             mw.customCalendar1.Visibility = Visibility.Visible;
