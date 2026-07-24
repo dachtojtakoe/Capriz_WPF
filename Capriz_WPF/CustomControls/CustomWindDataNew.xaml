@@ -31,7 +31,7 @@
         <TextBlock x:Name="lbl10min2" Text="10 мин" HorizontalAlignment="Left" Margin="908,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
 
         <!-- Значения для первой группы (кажущийся ветер) -->
-        <TextBlock x:Name="Data2Min1" Text="Н.Д." HorizontalAlignment="Left" Margin="124,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock x:Name="Data2Min1" Text="Н.Д." HorizontalAlignment="Left" Margin="124,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
         <TextBlock x:Name="Data10Min1" Text="Н.Д." HorizontalAlignment="Left" Margin="124,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
         <TextBlock x:Name="Data2Mid1" Text="Н.Д." HorizontalAlignment="Left" Margin="248,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
         <TextBlock x:Name="Data10Mid1" Text="Н.Д." HorizontalAlignment="Left" Margin="248,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
