@@ -70,6 +70,7 @@ namespace Capriz_WPF.CustomControls
             for (int i = 0; i < _textBlocksDateTime.Count; i++)
                 _textBlocksDateTime[i].Text = data[i];
         }
+
         public void SetDataToSost(List<string> data)
         {
             mydata = data;
@@ -90,11 +91,11 @@ namespace Capriz_WPF.CustomControls
                 if (data[1] != "")
                 {
                     CustomToolTip1.Visibility = Visibility.Visible;
-                    Rect initialPlacementRectangle = new Rect(-95, -33, 0, 0);
-                    CustomToolTipPopup.Height = 30;
-                    CustomToolTipPopup.Width = 125;
-                    CustomToolTip1.ToolTipHeight = 30;
-                    CustomToolTip1.ToolTipWidth = 125;
+                    Rect initialPlacementRectangle = new Rect(-126, -44, 0, 0);
+                    CustomToolTipPopup.Height = 40;
+                    CustomToolTipPopup.Width = 166;
+                    CustomToolTip1.ToolTipHeight = 40;
+                    CustomToolTip1.ToolTipWidth = 166;
 
 
                     CustomToolTip1.ToolTipText = data[1];
@@ -102,12 +103,12 @@ namespace Capriz_WPF.CustomControls
                     int count = CountCarriageReturnNewLines(data[1]); //Подсчет количество строк (символов переноса строки)
                     if (count > 0)
                     {
-                        CustomToolTipPopup.Height += 16 * (count - 1);
-                        CustomToolTipPopup.Width += 175;
-                        initialPlacementRectangle.Y -= 16 * (count - 1);
-                        initialPlacementRectangle.X -= 175;
-                        CustomToolTip1.ToolTipHeight += 16 * (count - 1);
-                        CustomToolTip1.ToolTipWidth += 175;
+                        CustomToolTipPopup.Height += 21 * (count - 1);
+                        CustomToolTipPopup.Width += 232;
+                        initialPlacementRectangle.Y -= 21 * (count - 1);
+                        initialPlacementRectangle.X -= 232;
+                        CustomToolTip1.ToolTipHeight += 21 * (count - 1);
+                        CustomToolTip1.ToolTipWidth += 232;
                     }
 
                     CustomToolTipPopup.PlacementRectangle = initialPlacementRectangle;
