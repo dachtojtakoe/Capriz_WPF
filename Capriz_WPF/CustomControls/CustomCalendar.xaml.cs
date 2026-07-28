@@ -27,7 +27,7 @@ namespace Capriz_WPF.CustomControls
     {
         CultureInfo culture = new CultureInfo("ru-Ru");
 
-        private DateTime MinMaxDt;
+        //private DateTime MinMaxDt;
 
         int clickedTimeBtn = 0;
 
@@ -235,7 +235,7 @@ namespace Capriz_WPF.CustomControls
                     SystemTimeChanger.SetSystemTime(d);
                     //System.Windows.Forms.MessageBox.Show("System time has been changed: " + d);
                 }
-                catch (Exception ex)
+                catch
                 {
                     //System.Windows.Forms.MessageBox.Show("Failed to change system time: " + ex.Message + " " + d );
                 }

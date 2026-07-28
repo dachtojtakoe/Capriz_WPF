@@ -973,7 +973,7 @@ namespace Capriz_WPF.Database
 
         static public DataTable GetData(string column)
         {
-            command.CommandText = $"SELECT DateTime, {column} FROM Data Where {column} != \"Н.Д.\"";
+            command.CommandText = $"SELECT DateTime, {column} FROM Data Where {column} != 'Н.Д.'";
             DataTable data = new DataTable();
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(data);
@@ -1031,7 +1031,7 @@ namespace Capriz_WPF.Database
 
         static public string GetFirstDate(string column = null)
         {
-            command.CommandText = column == null ? $"SELECT DateTime FROM Data ORDER BY datetime ASC LIMIT 1" :  $"SELECT DateTime FROM Data Where {column} != \"Н.Д.\" ORDER BY datetime ASC LIMIT 1";
+            command.CommandText = column == null ? $"SELECT DateTime FROM Data ORDER BY datetime ASC LIMIT 1" :  $"SELECT DateTime FROM Data Where {column} != 'Н.Д.' ORDER BY datetime ASC LIMIT 1";
             object result = command.ExecuteScalar();
 
             if (result != null)
@@ -1042,7 +1042,7 @@ namespace Capriz_WPF.Database
 
         static public string GetLastDate(string column = null)
         {
-            command.CommandText = column == null ? $"SELECT DateTime FROM Data ORDER BY datetime DESC LIMIT 1" :  $"SELECT DateTime FROM Data Where {column} != \"Н.Д.\" ORDER BY datetime DESC LIMIT 1";
+            command.CommandText = column == null ? $"SELECT DateTime FROM Data ORDER BY datetime DESC LIMIT 1" :  $"SELECT DateTime FROM Data Where {column} != 'Н.Д.' ORDER BY datetime DESC LIMIT 1";
             object result = command.ExecuteScalar();
 
             if (result != null)
