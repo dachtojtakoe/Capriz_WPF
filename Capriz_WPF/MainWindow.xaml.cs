@@ -166,7 +166,6 @@ namespace Capriz_WPF
             _serial.OpenPort();
             DataDelegates.WriteFHandlerStr = new DataDelegates.WriteFEventStr(WriteFile);
             DataDelegates.EventHandlerStrParam = new DataDelegates.MyEventStrParam(_customWindPanel1.ShowDataTablo);
-            DataDelegates.EventHandlerStrParam = new DataDelegates.MyEventStrParam(_customWindPanel1.ShowDataTablo);
 
             DB.StartDb();
             panelCustomChart.Visibility = Visibility.Hidden;
