@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Capriz_WPF"
         xmlns:CustomControls="clr-namespace:Capriz_WPF.CustomControls" x:Class="Capriz_WPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Capriz" 
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize" >
+        <!--Topmost="True"-->
     <!--Height="800" Width="1280"-->
 
     <Window.Resources>
@@ -26,7 +27,6 @@
         <BitmapImage x:Key="info21" UriSource="/Resources/info21.png"/>
 
         <BitmapImage x:Key="saveChart" UriSource="/Resources/SaveChart.png"/>
-
 
         <RoutedCommand x:Key="btnTablo_Click"/>
         <RoutedCommand x:Key="btnOpen_Click"/>

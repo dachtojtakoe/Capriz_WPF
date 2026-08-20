@@ -166,9 +166,28 @@ namespace Capriz_WPF
             _serial.OpenPort();
             DataDelegates.WriteFHandlerStr = new DataDelegates.WriteFEventStr(WriteFile);
             DataDelegates.EventHandlerStrParam = new DataDelegates.MyEventStrParam(_customWindPanel1.ShowDataTablo);
+            DataDelegates.EventHandlerStrParam = new DataDelegates.MyEventStrParam(_customWindPanel1.ShowDataTablo);
 
             DB.StartDb();
             panelCustomChart.Visibility = Visibility.Hidden;
+
+            //Task.Delay(500);
+
+            //Process[] explorers = Process.GetProcessesByName("explorer");
+
+            //foreach (Process explorer in explorers)
+            //{
+            //    try
+            //    {
+            //        explorer.Kill();
+            //        explorer.WaitForExit(); // Ожидать завершения процесса
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        // Обработка ошибок, если процесс не может быть закрыт
+            //        Console.WriteLine($"Ошибка при закрытии explorer.exe: {ex.Message}");
+            //    }
+            //}
         }
 
         #region RichTextBox Терминал
@@ -291,20 +310,22 @@ namespace Capriz_WPF
 
         private void OpenDataFile()
         {
-            Process[] explorers = Process.GetProcessesByName("explorer");
-            foreach (Process explorer in explorers)
-            {
-                try
-                {
-                    explorer.Kill();
-                    explorer.WaitForExit(); // Ожидать завершения процесса
-                }
-                catch (Exception ex)
-                {
-                    // Обработка ошибок, если процесс не может быть закрыт
-                    Console.WriteLine($"Ошибка при закрытии explorer.exe: {ex.Message}");
-                }
-            }
+            //Process[] explorers = Process.GetProcessesByName("explorer");
+
+            //foreach (Process explorer in explorers)
+            //{
+            //    try
+            //    {
+            //        //explorer.Kill();
+            //        //explorer.WaitForExit(); // Ожидать завершения процесса
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        // Обработка ошибок, если процесс не может быть закрыт
+            //        Console.WriteLine($"Ошибка при закрытии explorer.exe: {ex.Message}");
+            //    }
+            //}
+
             Process.Start("explorer.exe", DataFile.CurrentDirectory());
             //OpenFileDialog openFileDialog = new OpenFileDialog();
             //openFileDialog.ShowDialog();
@@ -1112,10 +1133,15 @@ namespace Capriz_WPF
             }
         }
 
-        private void btn_Click(object sender, ExecutedRoutedEventArgs e)
-        {
+        //private void btn_Click(object sender, ExecutedRoutedEventArgs e)
+        //{
 
-        }
+        //}
+
+        //private void btnOpen_Click(object sender, ExecutedRoutedEventArgs e)
+        //{
+
+        //}
 
         private void btnSetOk_Click(object sender, EventArgs e)
         {
