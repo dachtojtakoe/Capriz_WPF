@@ -167,8 +167,8 @@
 
         <Style x:Key="CheckboxStyle" TargetType="CheckBox">
             <Setter Property="Foreground" Value="AliceBlue"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="13"/>
+            <Setter Property="FontSize" Value="21"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="MicrosoftSansSerif"/>
             <Setter Property="Template">
@@ -179,10 +179,10 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="CheckBorder" Background="Transparent" BorderBrush="AliceBlue" BorderThickness="1" Width="16" Height="16">
+                            <Border x:Name="CheckBorder" Background="Transparent" BorderBrush="AliceBlue" BorderThickness="1" Width="23" Height="23">
                                 <TextBlock x:Name="CheckGlyph" Text="x" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="AliceBlue"/>
                             </Border>
-                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,0,0,0"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
@@ -319,28 +319,28 @@
         </ItemsControl>
 
 
-        <ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="350" Visibility="Hidden">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="214">
+        <ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden" d:Visibility="Visible">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
 
-                <ItemsControl HorizontalAlignment="Left" Width="100" VerticalAlignment="Top"  Margin="20,30,0,0">
+                <ItemsControl HorizontalAlignment="Left" Width="133" VerticalAlignment="Top"  Margin="27,40,0,0">
                     <CheckBox x:Name="DSNV1Check" Content="DSNV1" Style="{StaticResource CheckboxStyle}"/>
                     <CheckBox x:Name="DSNV2Check" Content="DSNV2" Style="{StaticResource CheckboxStyle}"/>
                     <CheckBox x:Name="DSNV3Check" Content="DSNV3" Style="{StaticResource CheckboxStyle}"/>
                 </ItemsControl>
 
-                <ItemsControl HorizontalAlignment="Center" Width="100" VerticalAlignment="Top"  Margin="0,30,0,0">
+                <ItemsControl HorizontalAlignment="Center" Width="133" VerticalAlignment="Top"  Margin="0,40,0,0">
                     <CheckBox x:Name="DTVV1Check" Content="DTVV1" Style="{StaticResource CheckboxStyle}"/>
                     <CheckBox x:Name="DTVV2Check" Content="DTVV2" Style="{StaticResource CheckboxStyle}"/>
                     <CheckBox x:Name="DADCheck" Content="DAD" Style="{StaticResource CheckboxStyle}"/>
                 </ItemsControl>
 
-                <ItemsControl HorizontalAlignment="Right" Width="100" VerticalAlignment="Top"  Margin="0,30,20,0">
+                <ItemsControl HorizontalAlignment="Right" Width="133" VerticalAlignment="Top"  Margin="0,40,27,0">
                     <CheckBox x:Name="DVGOCheck" Content="DVGO" Style="{StaticResource CheckboxStyle}"/>
                     <CheckBox x:Name="DMDVCheck" Content="DMDV" Style="{StaticResource CheckboxStyle}"/>
                 </ItemsControl>
 
-                <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="12" Foreground="White" FontWeight="Bold" Width="160" Height="18" FontFamily="Microsoft Sans Serif"/>
-                <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="50" Height="40"/>
+                <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="16" Foreground="White" FontWeight="Bold" Width="212" Height="24" FontFamily="Microsoft Sans Serif"/>
+                <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="27" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="60" Height="53"/>
             </Grid>
         </ItemsControl>
     </Grid>
