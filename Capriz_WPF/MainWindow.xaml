@@ -9,7 +9,8 @@
         Title="Capriz" 
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize" >
-        <!--Topmost="True"-->
+        <!--Height="800" Width="1280"-->
+    <!--Topmost="True"-->
     <!--Height="800" Width="1280"-->
 
     <Window.Resources>
@@ -227,120 +228,123 @@
 
 
     <Grid x:Name="grid" Background="#FF00283D">
-        <RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="997.5" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>
-        <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="997.5" Height="800" Visibility="Visible"/>
+        <Grid Margin="106,0,106,0">
 
-        <ItemsControl HorizontalAlignment="Right" Width="66">
-            <CustomControls:CustomButton x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Margin="0" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>
-            <CustomControls:CustomButton x:Name="searchBtn" Tag="CustomToolTip2" ImageSource="{StaticResource search1}" Command="{StaticResource btnOpen_Click}" Style="{StaticResource CustomButtonStyle}"/>
-            <CustomControls:CustomButton x:Name="usbBtn" Tag="CustomToolTip3" ImageSource="{StaticResource usb2}" Command="{StaticResource btnSave_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="47" ImageHeight="47" />
-            <CustomControls:CustomButton x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnGrid_Click}" Style="{StaticResource CustomButtonStyle}" />
-            <CustomControls:CustomButton x:Name="tempBtn" Tag="CustomToolTip5" ImageSource="{StaticResource temp1}" Command="{StaticResource btnChT_Click}" Style="{StaticResource CustomButtonStyle}" />
-            <CustomControls:CustomButton x:Name="humBtn" Tag="CustomToolTip6" ImageSource="{StaticResource hum1}" Command="{StaticResource btnChH_Click}" Style="{StaticResource CustomButtonStyle}"/>
-            <CustomControls:CustomButton x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
-            <CustomControls:CustomButton x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
-            <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
-            <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
-            <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
-            <CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="44" ImageHeight="44"/>
-        </ItemsControl>
+            <RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="997.5" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>
+            <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="997.5" Height="800" Visibility="Visible"/>
 
-        <CustomControls:CustomToolTip x:Name="CustomToolTip1" ToolTipText="Табло с текущими&#x0d;метеоданными" Margin="0,3,72,0" ToolTipWidth ="157" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip2" ToolTipText="Просмотр&#x0d;данных" Margin="0,68,72,0" ToolTipWidth ="98" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10" Cursor="Hand"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip3" ToolTipText="Сохранение данных&#x0d;на USB накопитель" Margin="0,134,72,0" ToolTipWidth ="173" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip4" ToolTipText="Отображение данных&#x0d;в табличном виде" Margin="0,200,72,0" ToolTipWidth ="182" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip5" ToolTipText="График&#x0d;температуры&#x0d;воздуха" Margin="0,267,72,0" ToolTipWidth ="120" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip6" ToolTipText="График&#x0d;влажности&#x0d;воздуха" Margin="0,333,72,0" ToolTipWidth ="106" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip7" ToolTipText="График&#x0d;атмосферного&#x0d;давления" Margin="0,400,72,0" ToolTipWidth ="133" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip8" ToolTipText="График&#x0d;скорости&#x0d;ветра" Margin="0,466,72,0" ToolTipWidth ="93" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip9" ToolTipText="График&#x0d;метеорологической&#x0d;видимости" Margin="0,532,72,0" ToolTipWidth ="166" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip10" ToolTipText="Терминальное&#x0d;отображение&#x0d;данных" Margin="0,599,72,0" ToolTipWidth ="133" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip11" ToolTipText="Сохранение&#x0d;графика" Margin="0,665,72,0" ToolTipWidth ="106" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <CustomControls:CustomToolTip x:Name="CustomToolTip12" ToolTipText="Версия&#x0d;программы" Margin="0,725,72,0" ToolTipWidth ="106" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <ItemsControl HorizontalAlignment="Right" Width="66">
+                <CustomControls:CustomButton x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Margin="0" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton x:Name="searchBtn" Tag="CustomToolTip2" ImageSource="{StaticResource search1}" Command="{StaticResource btnOpen_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton x:Name="usbBtn" Tag="CustomToolTip3" ImageSource="{StaticResource usb2}" Command="{StaticResource btnSave_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="47" ImageHeight="47" />
+                <CustomControls:CustomButton x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnGrid_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton x:Name="tempBtn" Tag="CustomToolTip5" ImageSource="{StaticResource temp1}" Command="{StaticResource btnChT_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton x:Name="humBtn" Tag="CustomToolTip6" ImageSource="{StaticResource hum1}" Command="{StaticResource btnChH_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
+                <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
+                <CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="44" ImageHeight="44"/>
+            </ItemsControl>
 
-        <ItemsControl x:Name="panelInformation" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="350" Visibility="Hidden">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="214">
-                <TextBlock x:Name="lblText" TextAlignment="Left" Text="Имя файла" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14pt" Foreground="White" FontWeight="Bold" Width="319" Height="130" FontFamily="Microsoft Sans Serif" Margin="0,30,0,0"/>
-                <CustomControls:CustomButtonText HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="10,10" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="50" Height="40"/>
-            </Grid>
-        </ItemsControl>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip1" ToolTipText="Табло с текущими&#x0d;метеоданными" Margin="0,3,72,0" ToolTipWidth ="157" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip2" ToolTipText="Просмотр&#x0d;данных" Margin="0,68,72,0" ToolTipWidth ="98" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10" Cursor="Hand"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip3" ToolTipText="Сохранение данных&#x0d;на USB накопитель" Margin="0,134,72,0" ToolTipWidth ="173" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip4" ToolTipText="Отображение данных&#x0d;в табличном виде" Margin="0,200,72,0" ToolTipWidth ="182" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip5" ToolTipText="График&#x0d;температуры&#x0d;воздуха" Margin="0,267,72,0" ToolTipWidth ="120" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip6" ToolTipText="График&#x0d;влажности&#x0d;воздуха" Margin="0,333,72,0" ToolTipWidth ="106" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip7" ToolTipText="График&#x0d;атмосферного&#x0d;давления" Margin="0,400,72,0" ToolTipWidth ="133" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip8" ToolTipText="График&#x0d;скорости&#x0d;ветра" Margin="0,466,72,0" ToolTipWidth ="93" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip9" ToolTipText="График&#x0d;метеорологической&#x0d;видимости" Margin="0,532,72,0" ToolTipWidth ="166" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip10" ToolTipText="Терминальное&#x0d;отображение&#x0d;данных" Margin="0,599,72,0" ToolTipWidth ="133" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip11" ToolTipText="Сохранение&#x0d;графика" Margin="0,665,72,0" ToolTipWidth ="106" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip12" ToolTipText="Версия&#x0d;программы" Margin="0,725,72,0" ToolTipWidth ="106" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
 
-        <ItemsControl x:Name="dateTimePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="400" Width="465" Visibility="Hidden">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="400">
-                <!-- Заголовок -->
-                <TextBlock x:Name="lblDateTimeText" Text="Укажите пожалуйста диапазон дат для отображения данных" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" Width="424" Height="66" FontFamily="Microsoft Sans Serif" Margin="0,13,0,0"/>
+            <ItemsControl x:Name="panelInformation" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
+                    <TextBlock x:Name="lblText" TextAlignment="Left" Text="Имя файла" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" Width="424" Height="173" FontFamily="Microsoft Sans Serif" Margin="0,40,0,0"/>
+                    <CustomControls:CustomButtonText HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="66" Height="53"/>
+                </Grid>
+            </ItemsControl>
 
-                <!-- Кнопки быстрого выбора -->
-                <Button x:Name="btn6H" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="6ч" Click="btn6H_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="62,86,0,0" Cursor="Hand" />
-                <Button x:Name="btn1D" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="1д" Click="btn1D_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="149,86,0,0" Cursor="Hand" />
-                <Button x:Name="btn7D" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="7д" Click="btn7D_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="236,86,0,0" Cursor="Hand" />
-                <Button x:Name="btn1M" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="1мес" Click="btn1M_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="328,86,0,0" Cursor="Hand" />
+            <ItemsControl x:Name="dateTimePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="400" Width="465" Visibility="Hidden">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="400">
+                    <!-- Заголовок -->
+                    <TextBlock x:Name="lblDateTimeText" Text="Укажите пожалуйста диапазон дат для отображения данных" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" Width="424" Height="66" FontFamily="Microsoft Sans Serif" Margin="0,13,0,0"/>
 
-                <!-- Подписи "От:" и "До:" -->
-                <Label Content="От:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18.6pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,0,266,0"/>
-                <Label Content="До:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18.6pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,146,266,0"/>
+                    <!-- Кнопки быстрого выбора -->
+                    <Button x:Name="btn6H" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="6ч" Click="btn6H_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="62,86,0,0" Cursor="Hand" />
+                    <Button x:Name="btn1D" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="1д" Click="btn1D_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="149,86,0,0" Cursor="Hand" />
+                    <Button x:Name="btn7D" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="7д" Click="btn7D_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="236,86,0,0" Cursor="Hand" />
+                    <Button x:Name="btn1M" Template="{StaticResource CustomButtonTemplate}" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="AliceBlue" FontSize="21.3" Content="1мес" Click="btn1M_Click" Width="66" Height="66" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="328,86,0,0" Cursor="Hand" />
 
-                <!-- Поля ввода даты -->
-                <CustomControls:CustomButtonText x:Name="btnDateFrom" HorizontalAlignment="Center" Width="266" Height="53" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="53,0,0,0" CommandText="{StaticResource btnDateFrom_Click}" Cursor="Hand"/>
-                <CustomControls:CustomButtonText x:Name="btnDateTo" HorizontalAlignment="Center" Width="266" Height="53" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="53,146,0,0" CommandText="{StaticResource btnDateTo_Click}" Cursor="Hand"/>
+                    <!-- Подписи "От:" и "До:" -->
+                    <Label Content="От:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18.6pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,0,266,0"/>
+                    <Label Content="До:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18.6pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,146,266,0"/>
 
-                <!-- Кнопки "Применить" и "Отмена" -->
-                <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="159" Height="53" VerticalAlignment="Bottom" BtnText="Применить" Margin="0,0,173,13" CommandText="{StaticResource btnApprove_Click}" Cursor="Hand"/>
-                <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="159" Height="53" VerticalAlignment="Bottom" BtnText="Отмена" Margin="173,0,0,13" CommandText="{StaticResource btnCancel_Click}" Cursor="Hand"/>
-            </Grid>
-        </ItemsControl>
+                    <!-- Поля ввода даты -->
+                    <CustomControls:CustomButtonText x:Name="btnDateFrom" HorizontalAlignment="Center" Width="266" Height="53" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="53,0,0,0" CommandText="{StaticResource btnDateFrom_Click}" Cursor="Hand"/>
+                    <CustomControls:CustomButtonText x:Name="btnDateTo" HorizontalAlignment="Center" Width="266" Height="53" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="53,146,0,0" CommandText="{StaticResource btnDateTo_Click}" Cursor="Hand"/>
 
-        <CustomControls:CustomCalendar x:Name="customCalendar1" Height="624" Width="465" Visibility="Hidden" />
+                    <!-- Кнопки "Применить" и "Отмена" -->
+                    <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="159" Height="53" VerticalAlignment="Bottom" BtnText="Применить" Margin="0,0,173,13" CommandText="{StaticResource btnApprove_Click}" Cursor="Hand"/>
+                    <CustomControls:CustomButtonText HorizontalAlignment="Center" Width="159" Height="53" VerticalAlignment="Bottom" BtnText="Отмена" Margin="173,0,0,13" CommandText="{StaticResource btnCancel_Click}" Cursor="Hand"/>
+                </Grid>
+            </ItemsControl>
 
-        <ItemsControl x:Name="panelCustomGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="729" Width="996" Visibility="Hidden">
-            <CustomControls:CustomGridOld x:Name="customGrid1" VerticalAlignment="Top" Height="704" Width="979" HorizontalAlignment="Left" Visibility="Visible" Margin="7,7,0,7"/>
-        </ItemsControl>
+            <CustomControls:CustomCalendar x:Name="customCalendar1" Height="624" Width="465" Visibility="Hidden" />
 
-        <ItemsControl x:Name="panelDates" HorizontalAlignment="Left" VerticalAlignment="Bottom" Template="{StaticResource ItemsControlTemplate2}" Height="65" Width="996" Visibility="Hidden" Margin="0,0,0,1">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="65">
-                <!-- Количество записей -->
-                <TextBlock x:Name="lblCount" TextAlignment="Left" Text="Количество записей:" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="White" Width="372" Height="40" FontFamily="Microsoft Sans Serif" Margin="13,5,0,0"/>
+            <ItemsControl x:Name="panelCustomGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="729" Width="996" Visibility="Hidden">
+                <CustomControls:CustomGridOld x:Name="customGrid1" VerticalAlignment="Top" Height="704" Width="979" HorizontalAlignment="Left" Visibility="Visible" Margin="7,7,0,7"/>
+            </ItemsControl>
 
-                <!-- От: -->
-                <TextBlock x:Name="lblDateFrom" TextAlignment="Left" Text="От:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="27" FontWeight="Bold" Foreground="White" Width="53" Height="40" FontFamily="Microsoft Sans Serif" Margin="0,0,166,0"/>
+            <ItemsControl x:Name="panelDates" HorizontalAlignment="Left" VerticalAlignment="Bottom" Template="{StaticResource ItemsControlTemplate2}" Height="65" Width="996" Visibility="Hidden" Margin="0,0,0,1">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="65">
+                    <!-- Количество записей -->
+                    <TextBlock x:Name="lblCount" TextAlignment="Left" Text="Количество записей:" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="White" Width="372" Height="40" FontFamily="Microsoft Sans Serif" Margin="13,5,0,0"/>
 
-                <!-- До: -->
-                <TextBlock x:Name="lblDateTo" TextAlignment="Left" Text="До:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="27" FontWeight="Bold" Foreground="White" Width="53" Height="40" FontFamily="Microsoft Sans Serif" Margin="451,0,0,0"/>
+                    <!-- От: -->
+                    <TextBlock x:Name="lblDateFrom" TextAlignment="Left" Text="От:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="27" FontWeight="Bold" Foreground="White" Width="53" Height="40" FontFamily="Microsoft Sans Serif" Margin="0,0,166,0"/>
 
-                <!-- Кнопки даты -->
-                <CustomControls:CustomButtonText x:Name="btnlblDateFrom" HorizontalAlignment="Center" Width="239" Height="45" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="120,0,7,9" CommandText="{StaticResource btnlblDateFrom_Click}" Cursor="Hand"/>
+                    <!-- До: -->
+                    <TextBlock x:Name="lblDateTo" TextAlignment="Left" Text="До:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="27" FontWeight="Bold" Foreground="White" Width="53" Height="40" FontFamily="Microsoft Sans Serif" Margin="451,0,0,0"/>
 
-                <CustomControls:CustomButtonText x:Name="btnlblDateTo" HorizontalAlignment="Right" Width="239" Height="45" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="0,0,7,9" CommandText="{StaticResource btnlblDateTo_Click}" Cursor="Hand"/>
-            </Grid>
-        </ItemsControl>
+                    <!-- Кнопки даты -->
+                    <CustomControls:CustomButtonText x:Name="btnlblDateFrom" HorizontalAlignment="Center" Width="239" Height="45" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="120,0,7,9" CommandText="{StaticResource btnlblDateFrom_Click}" Cursor="Hand"/>
 
-        <ItemsControl x:Name="panelCustomChart" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="729" Width="996" Visibility="Hidden">
-            <CustomControls:CustomChart x:Name="customChart1" Width="983" Height="717" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
-        </ItemsControl>
+                    <CustomControls:CustomButtonText x:Name="btnlblDateTo" HorizontalAlignment="Right" Width="239" Height="45" VerticalAlignment="Center" BtnText="04.07.2024 15:35:33" Margin="0,0,7,9" CommandText="{StaticResource btnlblDateTo_Click}" Cursor="Hand"/>
+                </Grid>
+            </ItemsControl>
 
-        <ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
+            <ItemsControl x:Name="panelCustomChart" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="729" Width="996" Visibility="Hidden">
+                <CustomControls:CustomChart x:Name="customChart1" Width="983" Height="717" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            </ItemsControl>
 
-                <ItemsControl HorizontalAlignment="Left" Width="133" VerticalAlignment="Top"  Margin="27,40,0,0">
-                    <CheckBox x:Name="DSNV1Check" Content="DSNV1" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DSNV2Check" Content="DSNV2" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DSNV3Check" Content="DSNV3" Style="{StaticResource CheckboxStyle}"/>
-                </ItemsControl>
+            <ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
 
-                <ItemsControl HorizontalAlignment="Center" Width="133" VerticalAlignment="Top"  Margin="0,40,0,0">
-                    <CheckBox x:Name="DTVV1Check" Content="DTVV1" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DTVV2Check" Content="DTVV2" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DADCheck" Content="DAD" Style="{StaticResource CheckboxStyle}"/>
-                </ItemsControl>
+                    <ItemsControl HorizontalAlignment="Left" Width="133" VerticalAlignment="Top"  Margin="27,40,0,0">
+                        <CheckBox x:Name="DSNV1Check" Content="DSNV1" Style="{StaticResource CheckboxStyle}"/>
+                        <CheckBox x:Name="DSNV2Check" Content="DSNV2" Style="{StaticResource CheckboxStyle}"/>
+                        <CheckBox x:Name="DSNV3Check" Content="DSNV3" Style="{StaticResource CheckboxStyle}"/>
+                    </ItemsControl>
 
-                <ItemsControl HorizontalAlignment="Right" Width="133" VerticalAlignment="Top"  Margin="0,40,27,0">
-                    <CheckBox x:Name="DVGOCheck" Content="DVGO" Style="{StaticResource CheckboxStyle}"/>
-                    <CheckBox x:Name="DMDVCheck" Content="DMDV" Style="{StaticResource CheckboxStyle}"/>
-                </ItemsControl>
+                    <ItemsControl HorizontalAlignment="Center" Width="133" VerticalAlignment="Top"  Margin="0,40,0,0">
+                        <CheckBox x:Name="DTVV1Check" Content="DTVV1" Style="{StaticResource CheckboxStyle}"/>
+                        <CheckBox x:Name="DTVV2Check" Content="DTVV2" Style="{StaticResource CheckboxStyle}"/>
+                        <CheckBox x:Name="DADCheck" Content="DAD" Style="{StaticResource CheckboxStyle}"/>
+                    </ItemsControl>
 
-                <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="16" Foreground="White" FontWeight="Bold" Width="212" Height="24" FontFamily="Microsoft Sans Serif"/>
-                <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="27" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="60" Height="53"/>
-            </Grid>
-        </ItemsControl>
+                    <ItemsControl HorizontalAlignment="Right" Width="133" VerticalAlignment="Top"  Margin="0,40,27,0">
+                        <CheckBox x:Name="DVGOCheck" Content="DVGO" Style="{StaticResource CheckboxStyle}"/>
+                        <CheckBox x:Name="DMDVCheck" Content="DMDV" Style="{StaticResource CheckboxStyle}"/>
+                    </ItemsControl>
+
+                    <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="16" Foreground="White" FontWeight="Bold" Width="212" Height="24" FontFamily="Microsoft Sans Serif"/>
+                    <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="27" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="60" Height="53"/>
+                </Grid>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </Window>

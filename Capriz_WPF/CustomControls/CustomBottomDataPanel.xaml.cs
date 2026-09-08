@@ -91,7 +91,8 @@ namespace Capriz_WPF.CustomControls
                 if (data[1] != "")
                 {
                     CustomToolTip1.Visibility = Visibility.Visible;
-                    Rect initialPlacementRectangle = new Rect(-126, -44, 0, 0);
+                    Rect initialPlacementRectangle = new Rect(0, -44, 0, 0);
+                    //Rect initialPlacementRectangle = new Rect(-126, -44, 0, 0);
                     CustomToolTipPopup.Height = 40;
                     CustomToolTipPopup.Width = 166;
                     CustomToolTip1.ToolTipHeight = 40;
@@ -106,12 +107,14 @@ namespace Capriz_WPF.CustomControls
                         CustomToolTipPopup.Height += 21 * (count - 1);
                         CustomToolTipPopup.Width += 232;
                         initialPlacementRectangle.Y -= 21 * (count - 1);
-                        initialPlacementRectangle.X -= 232;
+                        //initialPlacementRectangle.X -= 232;
                         CustomToolTip1.ToolTipHeight += 21 * (count - 1);
                         CustomToolTip1.ToolTipWidth += 232;
                     }
 
                     CustomToolTipPopup.PlacementRectangle = initialPlacementRectangle;
+                    //System.Windows.MessageBox.Show(initialPlacementRectangle.X.ToString());
+
                 }
             }
         }
