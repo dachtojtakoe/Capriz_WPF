@@ -96,6 +96,10 @@ namespace Capriz_WPF.CustomControls
             dataGridView1.MouseWheel += new System.Windows.Forms.MouseEventHandler(DataGridView1_MouseWheel);
             dataGridView1.CellFormatting += DataGridView1_CellFormatting;
 
+            dataGridView1.ColumnHeaderMouseClick += DataGridView1_ColumnHeaderMouseClick;
+            dataGridView1.CellClick += DataGridView1_CellClick;
+
+
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -130,7 +134,7 @@ namespace Capriz_WPF.CustomControls
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(1);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
+            //dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(82)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -140,13 +144,13 @@ namespace Capriz_WPF.CustomControls
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(57, 92, 132);
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.AliceBlue;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
+            //dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(129)))), ((int)(((byte)(16)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(82)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
 
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(13, 52, 93); 
+            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(13, 52, 93);
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(0);
             this.dataGridView1.Name = "dataGridView1";
@@ -163,6 +167,43 @@ namespace Capriz_WPF.CustomControls
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.ShowCellErrors = false;
             this.dataGridView1.ShowCellToolTips = false;
+
+            dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(13, 52, 93);
+        }
+
+        private void DataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            HighlightHeader(e.ColumnIndex);
+        }
+
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == 0) // игнорируем клик по заголовку (RowIndex = -1)
+                HighlightHeader(e.ColumnIndex);
+        }
+
+        private void HighlightHeader(int columnIndex)
+        {
+            // Сброс всех заголовков к цветам по умолчанию
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                col.HeaderCell.Style.BackColor = dataGridView1.ColumnHeadersDefaultCellStyle.BackColor;
+                col.HeaderCell.Style.ForeColor = dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor;
+                col.HeaderCell.Style.SelectionBackColor = dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor;
+                col.HeaderCell.Style.SelectionForeColor = dataGridView1.ColumnHeadersDefaultCellStyle.SelectionForeColor;
+            }
+
+            if (columnIndex < 0 || columnIndex >= dataGridView1.Columns.Count) return;
+
+            // Подсветка выбранного заголовка оранжевым
+            var clickedCol = dataGridView1.Columns[columnIndex];
+            var orange = System.Drawing.Color.FromArgb(255, 129, 16);
+            var darkBlue = System.Drawing.Color.FromArgb(0, 40, 82);
+
+            clickedCol.HeaderCell.Style.BackColor = orange;
+            clickedCol.HeaderCell.Style.SelectionBackColor = orange;
+            clickedCol.HeaderCell.Style.ForeColor = darkBlue;
+            clickedCol.HeaderCell.Style.SelectionForeColor = darkBlue;
         }
 
         private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -201,7 +242,7 @@ namespace Capriz_WPF.CustomControls
                 //DataTable newdt = Data.DataToTable.CopyDt(dt);
                 //dataGridView1.DataSource = newdt;
 
-                DataTable typed = ConvertToTypedTable(Data.DataToTable.CopyDt(dt)); 
+                DataTable typed = ConvertToTypedTable(Data.DataToTable.CopyDt(dt));
                 dataGridView1.DataSource = typed;
 
                 foreach (DataGridViewColumn col in dataGridView1.Columns)
