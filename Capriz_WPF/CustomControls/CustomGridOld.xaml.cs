@@ -94,7 +94,7 @@ namespace Capriz_WPF.CustomControls
             InitializeComponent();
 
             dataGridView1.MouseWheel += new System.Windows.Forms.MouseEventHandler(DataGridView1_MouseWheel);
-
+            dataGridView1.CellFormatting += DataGridView1_CellFormatting;
 
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -165,6 +165,17 @@ namespace Capriz_WPF.CustomControls
             this.dataGridView1.ShowCellToolTips = false;
         }
 
+        private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // заголовки
+
+            if (e.Value == null || e.Value == DBNull.Value)
+            {
+                e.Value = "Н.Д.";
+                e.FormattingApplied = true;
+            }
+        }
+
         void DataGridView1_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             int currentIndex = dataGridView1.FirstDisplayedScrollingRowIndex;
@@ -187,8 +198,11 @@ namespace Capriz_WPF.CustomControls
 
             if (dt.Rows.Count > 0)
             {
-                DataTable newdt = Data.DataToTable.CopyDt(dt);
-                dataGridView1.DataSource = newdt;
+                //DataTable newdt = Data.DataToTable.CopyDt(dt);
+                //dataGridView1.DataSource = newdt;
+
+                DataTable typed = ConvertToTypedTable(Data.DataToTable.CopyDt(dt)); 
+                dataGridView1.DataSource = typed;
 
                 foreach (DataGridViewColumn col in dataGridView1.Columns)
                 {
@@ -215,8 +229,11 @@ namespace Capriz_WPF.CustomControls
 
             if (dt.Rows.Count > 0)
             {
-                dataGridView1.DataSource = dt;
+                DataTable typed = ConvertToTypedTable(dt);
+                dataGridView1.DataSource = typed;
                 dataGridView1.Refresh();
+                //dataGridView1.DataSource = dt;
+                //dataGridView1.Refresh();
 
                 foreach (DataGridViewColumn col in dataGridView1.Columns)
                 {
@@ -291,5 +308,58 @@ namespace Capriz_WPF.CustomControls
 
             }
         }
+
+        private DataTable ConvertToTypedTable(DataTable raw)
+        {
+            DataTable typed = new DataTable();
+
+            // Если столбцов может быть разное количество – пробегаемся по raw.Columns
+            foreach (DataColumn col in raw.Columns)
+            {
+                if (col.ColumnName == "DateTime")
+                    typed.Columns.Add("DateTime", typeof(DateTime));
+                else
+                    typed.Columns.Add(col.ColumnName, typeof(double));
+            }
+
+            foreach (DataRow row in raw.Rows)
+            {
+                DataRow newRow = typed.NewRow();
+                foreach (DataColumn col in raw.Columns)
+                {
+                    string value = row[col]?.ToString() ?? "";
+
+                    if (col.ColumnName == "DateTime")
+                    {
+                        newRow[col.ColumnName] = DateTime.Parse(value);
+                    }
+                    else
+                    {
+                        double? parsed = ParseNullableDouble(value);
+                        newRow[col.ColumnName] = parsed.HasValue
+                            ? (object)parsed.Value
+                            : DBNull.Value;
+                    }
+                }
+                typed.Rows.Add(newRow);
+            }
+            return typed;
+        }
+
+        private double? ParseNullableDouble(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Trim() == "Н.Д.")
+                return null;
+
+            if (double.TryParse(value.Trim(),
+                                System.Globalization.NumberStyles.Any,
+                                System.Globalization.CultureInfo.InvariantCulture,
+                                out double result))
+                return result;
+
+            return null;
+        }
+
+
     }
 }
