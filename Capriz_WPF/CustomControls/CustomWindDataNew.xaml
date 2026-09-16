@@ -6,34 +6,93 @@
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="169" d:DesignWidth="738">
-    <Grid Background="Transparent" >
-        <TextBlock x:Name="DataWindName1" Text="СКОРОСТЬ КАЖУЩЕГОСЯ ВЕТРА, м/с" HorizontalAlignment="Left" Margin="46,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="18" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="DataWindName2" Text="СКОРОСТЬ ИСТИННОГО ВЕТРА, м/с" HorizontalAlignment="Left" Margin="406,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="18" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMin1" Text="Минимальная" HorizontalAlignment="Left" Margin="63,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMid1" Text="Средняя" HorizontalAlignment="Left" Margin="177,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMax1" Text="Максимальная" HorizontalAlignment="Left" Margin="252,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMin2" Text="Минимальная" HorizontalAlignment="Left" Margin="397,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMid2" Text="Средняя" HorizontalAlignment="Left" Margin="511,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMax2" Text="Максимальная" HorizontalAlignment="Left" Margin="586,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock x:Name="lbl2min1" Text="2 мин" HorizontalAlignment="Left" Margin="21,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lbl10min1" Text="10 мин" HorizontalAlignment="Left" Margin="13,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lbl2min2" Text="2 мин" HorizontalAlignment="Left" Margin="684,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lbl10min2" Text="10 мин" HorizontalAlignment="Left" Margin="684,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="Data2Min1" Text="Н.Д." HorizontalAlignment="Left" Margin="93,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data10Min1" Text="Н.Д." HorizontalAlignment="Left" Margin="93,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data2Mid1" Text="Н.Д." HorizontalAlignment="Left" Margin="187,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data10Mid1" Text="Н.Д." HorizontalAlignment="Left" Margin="187,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data2Max1" Text="Н.Д." HorizontalAlignment="Left" Margin="280,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data10Max1" Text="Н.Д." HorizontalAlignment="Left" Margin="280,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="DataWindName1" Text="СКОРОСТЬ И НАПРАВЛЕНИЕ КАЖУЩЕГОСЯ ВЕТРА, м/с / °" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="36" FontFamily="Microsoft Sans Serif"/>
+        </Grid>
 
-        <TextBlock x:Name="Data2Min2" Text="Н.Д." HorizontalAlignment="Left" Margin="424,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data10Min2" Text="Н.Д." HorizontalAlignment="Left" Margin="424,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data2Mid2" Text="Н.Д." HorizontalAlignment="Left" Margin="521,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data10Mid2" Text="Н.Д." HorizontalAlignment="Left" Margin="521,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data2Max2" Text="Н.Д." HorizontalAlignment="Left" Margin="614,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="Data10Max2" Text="Н.Д." HorizontalAlignment="Left" Margin="614,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="DataWindName2" Text="СКОРОСТЬ И НАПРАВЛЕНИЕ ИСТИННОГО ВЕТРА, м/с / °" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="11.25pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="319" Height="36" FontFamily="Microsoft Sans Serif"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="lblMin1" Text="Минимальная" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="lblMid1" Text="Средняя" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="lblMax1" Text="Максимальная" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+
+            <TextBlock x:Name="lbl2min1" Grid.Row="1" Grid.Column="0" Text="2 мин" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="lbl10min1" Grid.Row="2" Grid.Column="0" Text="10 мин" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+
+            <TextBlock x:Name="Data2Min1"  Text="Н.Д." Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data10Min1" Text="Н.Д." Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data2Mid1"  Text="Н.Д." Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data10Mid1" Text="Н.Д." Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data2Max1"  Text="Н.Д." Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data10Max1" Text="Н.Д." Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="lblMin2" Text="Минимальная" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="lblMid2" Text="Средняя" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="lblMax2" Text="Максимальная" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+
+            <TextBlock x:Name="lbl2min2" Text="2 мин" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="lbl10min2" Text="10 мин" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="9.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+
+            <TextBlock x:Name="Data2Min2" Text="Н.Д."  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data10Min2" Text="Н.Д." Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center"  TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data2Mid2" Text="Н.Д."  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data10Mid2" Text="Н.Д." Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data2Max2" Text="Н.Д."  Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+            <TextBlock x:Name="Data10Max2" Text="Н.Д." Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center"  TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14.25pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center"  FontFamily="Microsoft Sans Serif"/>
+        </Grid>
 
     </Grid>
 </UserControl>

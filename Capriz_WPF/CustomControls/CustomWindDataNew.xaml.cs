@@ -28,10 +28,11 @@ namespace Capriz_WPF.CustomControls
             textBlocks = new List<TextBlock>() { Data2Min1, Data10Min1, Data2Mid1, Data10Mid1, Data2Max1, Data10Max1, Data2Min2, Data10Min2, Data2Mid2, Data10Mid2, Data2Max2, Data10Max2 };
         }
 
-        public void SetDataToFields(List<string> data)
+        public void SetDataToFields(List<string> dataSpeed, List<string> dataDirection)
         {
             for (int i = 0; i < textBlocks.Count; i++)
-                textBlocks[i].Text = data[i];
+                textBlocks[i].Text = dataSpeed[i] + " / " + dataDirection[i];
+            //textBlocks[i].Text = dataSpeed[i];
         }
 
         public void ClearFields()

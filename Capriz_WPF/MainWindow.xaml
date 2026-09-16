@@ -361,7 +361,7 @@
         </ItemsControl>
 
         <ItemsControl x:Name="panelSetNavigation" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="220" Width="350" Visibility="Hidden">
-            <Grid Height="220">
+            <Grid Height="214">
                 <TextBlock Text="Выберите источник навигации" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14pt" Foreground="White" FontWeight="Bold" Width="319" Height="50" FontFamily="Microsoft Sans Serif" Margin="0,20,0,0"/>
 
 

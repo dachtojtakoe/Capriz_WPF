@@ -149,7 +149,10 @@ namespace Capriz_WPF.CustomControls
                         customBottomDataPanel1.SetDataToSost(SetStatus(data));
                         cleanData = 0;
 
-                        customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax, data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax });
+                        customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin.Trim(), data.Speed_10Kmin.Trim(), data.Speed_2Kmid.Trim(), data.Speed_10Kmid.Trim(), data.Speed_2Kmax.Trim(), data.Speed_10Kmax.Trim(), 
+                                                                                data.Speed_2Imin.Trim(), data.Speed_10Imin.Trim(), data.Speed_2Imid.Trim(), data.Speed_10Imid.Trim(), data.Speed_2Imax.Trim(), data.Speed_10Imax.Trim() },
+                                                           new List<string>() { data.Direction_2Kmin.Trim(), data.Direction_10Kmin.Trim(), data.Direction_2Kmid.Trim(), data.Direction_10Kmid.Trim(), data.Direction_2Kmax.Trim(), data.Direction_10Kmax.Trim(),
+                                                                                data.Direction_2Imin.Trim(), data.Direction_10Imin.Trim(), data.Direction_2Imid.Trim(), data.Direction_10Imid.Trim(), data.Direction_2Imax.Trim(), data.Direction_10Imax.Trim()});
 
                         int skydexIndex = -1;
                         try

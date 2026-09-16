@@ -1244,7 +1244,7 @@ namespace Capriz_WPF
             {
                 TTF = "1";
             }
-
+            _serial.DataSendText("SET0");
             _iniFile.Write("NAVIGATION", TTF);
             _config.NAVIGATION = TTF;
 

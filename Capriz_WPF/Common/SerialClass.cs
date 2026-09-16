@@ -149,6 +149,20 @@ namespace Capriz_WPF.Common
             }
         }
 
+        public void DataSendText(string msg)
+        {
+            try
+            {
+                Write(msg);
+                DataDelegates.EventHandlerStr(msg);
+            }
+            catch (Exception ex)
+            {
+                DataDelegates.EventHandlerStr(ex.Message + Environment.NewLine);
+            }
+        }
+
+
         private void GetCRC(byte[] message, ref byte[] CRC)
         {
             int ch = 0;
