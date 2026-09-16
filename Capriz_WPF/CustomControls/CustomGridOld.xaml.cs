@@ -176,12 +176,9 @@ namespace Capriz_WPF.CustomControls
             }
             else if (e.Delta < 0)
             {
-                dataGridView1.FirstDisplayedScrollingRowIndex
-                    = currentIndex + scrollLines;
+                dataGridView1.FirstDisplayedScrollingRowIndex = Math.Min(dataGridView1.Rows.Count - 1, currentIndex + scrollLines);
             }
         }
-
-
 
         public void ShowDataGrid(string from, string to)
         {
@@ -292,24 +289,6 @@ namespace Capriz_WPF.CustomControls
                 dataGridView1.Columns[5].Width = 88;
                 dataGridView1.Columns[6].Width = 161;
 
-            }
-        }
-
-        private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
-        {
-            if (e.Column.Name == "YourNumericColumnName") // Замените на имя вашего столбца с числами
-            {
-                // Преобразуем значения в числа и сравниваем
-                int num1 = int.Parse(e.CellValue1.ToString());
-                int num2 = int.Parse(e.CellValue2.ToString());
-
-                e.SortResult = num1.CompareTo(num2);
-                e.Handled = true; // Указываем, что сортировка была обработана
-            }
-            else
-            {
-                // Для других столбцов используем стандартную сортировку
-                e.Handled = false;
             }
         }
     }
