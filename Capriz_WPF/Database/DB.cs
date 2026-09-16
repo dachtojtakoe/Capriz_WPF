@@ -705,7 +705,8 @@ namespace Capriz_WPF.Database
                 int hours = diff.Hours;
 
                 int delimeter = /*days > 60 ? 90 : days > 30 ? 54 :*/ days > 7 ? 18 : days > 1 ? 9 : days == 1 ? 3 : hours > 12 ? 2 : 1;
-                if(delimeter != 1)
+                int minRowsForDelimiter = delimeter * 10;
+                if (delimeter != 1)
                 {
                     command.CommandText = $@"
                     WITH NumberedRows AS (
@@ -726,8 +727,9 @@ namespace Capriz_WPF.Database
                     [{column}]
                 FROM 
                     NumberedRows
-                WHERE 
-                    RowNum % {delimeter} = 1
+                WHERE
+                    TotalRows <= {minRowsForDelimiter}
+                    OR RowNum % {delimeter} = 1
                     OR RowNum = TotalRows;";
                 }
                 else
