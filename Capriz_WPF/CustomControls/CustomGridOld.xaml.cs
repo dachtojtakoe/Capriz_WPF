@@ -97,8 +97,6 @@ namespace Capriz_WPF.CustomControls
             dataGridView1.CellFormatting += DataGridView1_CellFormatting;
 
             dataGridView1.ColumnHeaderMouseClick += DataGridView1_ColumnHeaderMouseClick;
-            dataGridView1.CellClick += DataGridView1_CellClick;
-
 
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -174,12 +172,6 @@ namespace Capriz_WPF.CustomControls
         private void DataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             HighlightHeader(e.ColumnIndex);
-        }
-
-        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == 0) // игнорируем клик по заголовку (RowIndex = -1)
-                HighlightHeader(e.ColumnIndex);
         }
 
         private void HighlightHeader(int columnIndex)
