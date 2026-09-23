@@ -376,44 +376,44 @@ namespace Capriz_WPF
             isPanelOpened = false;
         }
 
-        private void ShowChartPanelOLD()
-        {
-            ViewNow = (int)_typeWindow.customChart1;
-            Stopwatch stopwatch = new Stopwatch();
+        //private void ShowChartPanelOLD()
+        //{
+        //    ViewNow = (int)_typeWindow.customChart1;
+        //    Stopwatch stopwatch = new Stopwatch();
 
 
-            stopwatch.Start();
-            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar, "*.txt");
-            string dataFromAllFiles = "";
+        //    stopwatch.Start();
+        //    string[] files = Directory.GetFiles(Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar, "*.txt");
+        //    string dataFromAllFiles = "";
 
 
-            foreach (var file in files)
-                dataFromAllFiles += DataFile.ReadDataFromFile(file);
-            _dt = DataFile.DataToDataTable(DataFile.DataToList(dataFromAllFiles));
+        //    foreach (var file in files)
+        //        dataFromAllFiles += DataFile.ReadDataFromFile(file);
+        //    _dt = DataFile.DataToDataTable(DataFile.DataToList(dataFromAllFiles));
 
-            stopwatch.Stop();
-            var elapsedMilliseconds = stopwatch.Elapsed;
-            System.Windows.Forms.MessageBox.Show("" + elapsedMilliseconds);
+        //    stopwatch.Stop();
+        //    var elapsedMilliseconds = stopwatch.Elapsed;
+        //    System.Windows.Forms.MessageBox.Show("" + elapsedMilliseconds);
 
 
-            customChart1.Dt = _dt;
+        //    customChart1.Dt = _dt;
 
-            if ((_dt == null) || (_dt.Rows.Count < 1))
-            {
-                //OpenDataFile();
-                //if ((_dt == null) || (_dt.Rows.Count < 1))
-                //    customChart1.Dt = _dt;
-                //else return;
+        //    if ((_dt == null) || (_dt.Rows.Count < 1))
+        //    {
+        //        //OpenDataFile();
+        //        //if ((_dt == null) || (_dt.Rows.Count < 1))
+        //        //    customChart1.Dt = _dt;
+        //        //else return;
 
-                lblText.Text = "Нет данных!";
-                lblText.TextAlignment = TextAlignment.Center;
-                ShowHideInfoPanel();
-                return;
-            }
+        //        lblText.Text = "Нет данных!";
+        //        lblText.TextAlignment = TextAlignment.Center;
+        //        ShowHideInfoPanel();
+        //        return;
+        //    }
 
-            HideAllPanels();
-            ShowHideDatePanelOLD();
-        }
+        //    HideAllPanels();
+        //    ShowHideDatePanelOLD();
+        //}
 
         private void btnOk_Click(object sender, EventArgs e)
         {

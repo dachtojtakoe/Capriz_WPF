@@ -29,7 +29,13 @@
                 <ItemsPresenter/>
             </Border>
         </ControlTemplate>
+
+        <RoutedCommand x:Key="ChangeDataSource"/>
     </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource ChangeDataSource}" Executed="ChangeDataSource"/>
+    </UserControl.CommandBindings>
 
 
     <Grid>
@@ -51,10 +57,15 @@
             </Grid>
         </ItemsControl>
 
+        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,120,0,0">
+            <local:CustomButtonText x:Name="ChangeDataSourceButton" HorizontalAlignment="Center" Width="159" Height="53" VerticalAlignment="Bottom" BtnText="ДМП№1" CommandText="{StaticResource ChangeDataSource}" Cursor="Hand"/>
+        </ItemsControl>
+
         <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="997.5" Height="232.75" Margin="0,0,0,70" Template="{StaticResource ItemsControlTemplate}" Cursor="Hand" >
             <Grid>
                 <local:CustomDataPanel x:Name="customDataPanel1" Height="232.75" Width="986.86" MouseLeftButtonDown="customDataPanel_MouseLeftButtonDown" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <local:CustomWindDataNew x:Name="customWindDataNew1" Height="232.75" Width="986.86" MouseLeftButtonDown="customWindDataNew1_MouseLeftButtonDown" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <local:CustomWindDataNew x:Name="customWindDataNew1" Height="232.75" Width="986.86" MouseLeftButtonDown="customWindDataNew1_MouseLeftButtonDown" d:Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <local:CustomAdditionalDataPanel x:Name="customAdditionalDataPanel1" Height="232.75" Width="986.86" MouseLeftButtonDown="customAdditionalData1_MouseLeftButtonDown" Visibility="Hidden" d:Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Grid>
         </ItemsControl>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -50,6 +51,20 @@ namespace Capriz_WPF.CustomControls
         private string _valueDir_10mid = "Н.Д.";
         private string _valueDir_10min = "Н.Д.";
         private string _valueDir_10max = "Н.Д.";
+
+
+        public void SetData(List<string> data)
+        {
+            ValueSpeed = data[0];
+            ValueDir = data[1];
+            ValueCurs = data[2];
+            ValueDir_2mid = data[3];
+            ValueDir_2min = data[4];
+            ValueDir_2max = data[5];
+            ValueDir_10mid = data[6];
+            ValueDir_10min = data[7];
+            ValueDir_10max = data[8];
+        }
 
         public string ValueSpeed
         {
@@ -420,7 +435,7 @@ namespace Capriz_WPF.CustomControls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
             catch
-            {   }
+            { }
         }
     }
 }

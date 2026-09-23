@@ -21,7 +21,6 @@ namespace Capriz_WPF.CustomControls
     {
         List<TextBlock> textBlocks;
 
-
         public CustomDataPanel()
         {
             InitializeComponent();

@@ -105,11 +105,11 @@ namespace Capriz_WPF.CustomControls
                     if (count > 0)
                     {
                         CustomToolTipPopup.Height += 21 * (count - 1);
-                        CustomToolTipPopup.Width += 232;
+                        CustomToolTipPopup.Width += 252;
                         initialPlacementRectangle.Y -= 21 * (count - 1);
                         //initialPlacementRectangle.X -= 232;
                         CustomToolTip1.ToolTipHeight += 21 * (count - 1);
-                        CustomToolTip1.ToolTipWidth += 232;
+                        CustomToolTip1.ToolTipWidth += 252;
                     }
 
                     CustomToolTipPopup.PlacementRectangle = initialPlacementRectangle;

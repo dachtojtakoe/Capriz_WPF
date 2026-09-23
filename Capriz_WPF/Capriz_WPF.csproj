@@ -165,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CustomControls\CustomAdditionalDataPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\CustomBottomDataPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,6 +232,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\Settings.cs" />
+    <Compile Include="CustomControls\CustomAdditionalDataPanel.xaml.cs">
+      <DependentUpon>CustomAdditionalDataPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\CustomBottomDataPanel.xaml.cs">
       <DependentUpon>CustomBottomDataPanel.xaml</DependentUpon>
     </Compile>
