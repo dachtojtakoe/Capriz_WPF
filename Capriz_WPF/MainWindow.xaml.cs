@@ -42,6 +42,7 @@ namespace Capriz_WPF
         SerialClass _serial = new SerialClass();
         IniFile _iniFile = new IniFile(DataFile.SettingsPath());
         Configuration _config = new Configuration();
+        public string ComPort { get; set; } = "COM1";
 
         int _viewNow;
         public int ViewNow { get => _viewNow; set => _viewNow = value; }
@@ -131,6 +132,7 @@ namespace Capriz_WPF
                 _iniFile.Write("DAD", "1");
                 _iniFile.Write("DVGO", "1");
                 _iniFile.Write("DMDV", "1");
+                _iniFile.Write("COM", "1");
             }
                
             _iniFile.Read("DSNV1");
@@ -139,12 +141,14 @@ namespace Capriz_WPF
             _customWindPanel1.SetConf(_config);
             ViewNow = (int)_typeWindow.customWindPanel1;
 
+            string comNum = (_iniFile.Read("COM") ?? "1").Trim();
+            ComPort = "COM" + comNum;
+
             richTextBoxMessage.MouseDoubleClick += richTextboxClear_Click;
             richTextBoxMessage.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
 
             //_dt.Columns.Add("DateTime", typeof(DateTime));
             //_dt.Columns.Add("Temperature", typeof(int));
-
 
             //for(int i = 0; i < 1000; i++)
             //{
@@ -156,14 +160,13 @@ namespace Capriz_WPF
             //customChart1.Dt = _dt;
             //customChart1.AllDtPointsToChart("Temperature");
             //panelCustomChart.Visibility = Visibility.Visible;
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DataDelegates.EventHandlerStr = new DataDelegates.MyEventStr(ShowDataTextBox);
 
-            _serial.OpenPort();
+            _serial.OpenPort(ComPort);
             DataDelegates.WriteFHandlerStr = new DataDelegates.WriteFEventStr(WriteFile);
             DataDelegates.EventHandlerStrParam = new DataDelegates.MyEventStrParam(_customWindPanel1.ShowDataTablo);
 
@@ -198,7 +201,7 @@ namespace Capriz_WPF
                 {
                     if (ViewNow == (int)_typeWindow.customTerminal)
                     {
-                        richTextboxClear();
+                        //richTextboxClear();
                         richTextBoxMessage.AppendText(str);
                     }
                    // richTextBoxMessage.AppendText(str);

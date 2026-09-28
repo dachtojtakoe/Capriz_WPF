@@ -4,81 +4,152 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="215" d:DesignWidth="950">
+             mc:Ignorable="d" d:Width="250" d:Height="800">
+
+    <UserControl.Resources>
+        <Style x:Key="CellLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            
+        </Style>
+
+        <Style x:Key="CellValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="FontSize" Value="19pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Н.Д."/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="Cell" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid Background="Transparent">
+        <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF3D6087"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#0d345d"/>
+            </Rectangle.Fill>
+        </Rectangle>
 
-        <!-- Блок 1: Температура воздуха -->
-        <TextBlock x:Name="lblTemp" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="220" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Температура  "/><LineBreak/><Run Text="воздуха, °C"/>
-        </TextBlock>
-        <TextBlock x:Name="DataTemp" HorizontalAlignment="Left" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="220" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+        <Grid Margin="10,10,10,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Блок 2: Влажность воздуха -->
-        <TextBlock x:Name="lblHum" HorizontalAlignment="Left" Margin="0,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="220" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Влажность  "/><LineBreak/><Run Text="воздуха, %"/>
-        </TextBlock>
-        <TextBlock x:Name="DataHum" HorizontalAlignment="Left" Margin="0,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="220" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <Grid.RowDefinitions>
+                <!-- Пара 1 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <!-- Пара 2 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <!-- Пара 3 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <!-- Пара 4 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <!-- Пара 5 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <!-- Пара 6 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <!-- Пара 7 -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- Блок 3: Атм. давление, мм рт. ст. -->
-        <TextBlock x:Name="lblPressMm" HorizontalAlignment="Left" Margin="0,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="220" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, мм рт. ст."/>
-        </TextBlock>
-        <TextBlock x:Name="DataPressMm" HorizontalAlignment="Left" Margin="0,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="220" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <!-- ===== Пара 1: Температура | Влажность ===== -->
+            <TextBlock Grid.Row="0" Grid.Column="0"
+               Text="Температура воздуха, °C"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1"
+               Text="Влажность воздуха, %"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataTemp" Grid.Row="1" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataHum"  Grid.Row="1" Grid.Column="1" Style="{StaticResource CellValue}"/>
 
-        <!-- Блок 4: Атм. давление, гПа -->
-        <TextBlock x:Name="lblPressGPa" HorizontalAlignment="Left" Margin="220,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="248" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Атмосферное  "/><LineBreak/><Run Text="давление, гПа"/>
-        </TextBlock>
-        <TextBlock x:Name="DataPressGPa" HorizontalAlignment="Left" Margin="220,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="248" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <!-- ===== Пара 2: Давление мм рт.ст. | Давление гПа ===== -->
+            <TextBlock Grid.Row="3" Grid.Column="0"
+               Text="Атмосферное давление, мм рт. ст."
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1"
+               Text="Атмосферное давление, гПа"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataPressMm"  Grid.Row="4" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataPressGPa" Grid.Row="4" Grid.Column="1" Style="{StaticResource CellValue}"/>
 
-        <!-- Блок 5: Барическая тенденция -->
-        <TextBlock x:Name="lblBarT" HorizontalAlignment="Left" Margin="220,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="248" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Барическая тенденция  "/><LineBreak/><Run Text="за 3 ч., гПа"/>
-        </TextBlock>
-        <TextBlock x:Name="DataBarT" HorizontalAlignment="Left" Margin="220,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="248" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <!-- ===== Пара 3: Барическая тенденция | Ход тенденции ===== -->
+            <TextBlock Grid.Row="6" Grid.Column="0"
+               Text="Барическая тенденция за 3 ч., гПа"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="6" Grid.Column="1"
+               Text="Ход барической тенденции"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataBarT"  Grid.Row="7" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataTrend" Grid.Row="7" Grid.Column="1" Style="{StaticResource CellValue}"/>
 
-        <!-- Блок 6: Ход барической тенденции -->
-        <TextBlock x:Name="lblTrend" HorizontalAlignment="Left" Margin="220,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="248" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Ход барической  "/><LineBreak/><Run Text="тенденции"/>
-        </TextBlock>
-        <TextBlock x:Name="DataTrend" HorizontalAlignment="Left" Margin="220,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="248" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <!-- ===== Пара 4: Количество слоёв | НГО верхнего ===== -->
+            <TextBlock Grid.Row="9" Grid.Column="0"
+               Text="Количество слоёв облаков"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="9" Grid.Column="1"
+               Text="НГО верхнего слоя, м"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataClouds" Grid.Row="10" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataNgo3"   Grid.Row="10" Grid.Column="1" Style="{StaticResource CellValue}"/>
 
-        <!-- Блок 7: МДВ за 1 мин -->
-        <TextBlock x:Name="lblDMDV1" HorizontalAlignment="Left" Margin="468,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="330" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 1 мин, м"/>
-        </TextBlock>
-        <TextBlock x:Name="DataDMDV1" HorizontalAlignment="Left" Margin="468,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="330" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <!-- ===== Пара 5: НГО среднего | НГО нижнего ===== -->
+            <TextBlock Grid.Row="12" Grid.Column="0"
+               Text="НГО среднего слоя, м"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="12" Grid.Column="1"
+               Text="НГО нижнего слоя, м"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataNgo2" Grid.Row="13" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataNgo1" Grid.Row="13" Grid.Column="1" Style="{StaticResource CellValue}"/>
 
-        <!-- Блок 8: МДВ за 10 мин -->
-        <TextBlock x:Name="lblDMDV10" HorizontalAlignment="Left" Margin="468,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="330" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Метеорологическая дальность"/><LineBreak/><Run Text="видимости за 10 мин, м"/>
-        </TextBlock>
-        <TextBlock x:Name="DataDMDV10" HorizontalAlignment="Left" Margin="468,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="330" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
+            <!-- ===== Пара 6: МДВ 1 мин | МДВ 10 мин ===== -->
+            <TextBlock Grid.Row="15" Grid.Column="0"
+               Text="Метеорологическая дальность видимости за 1 мин, м"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="15" Grid.Column="1"
+               Text="Метеорологическая дальность видимости за 10 мин, м"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataDMDV1"  Grid.Row="16" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataDMDV10" Grid.Row="16" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            
+            <TextBlock Grid.Row="18" Grid.Column="0"
+               Text="Параметр волнения Hm0, см"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock Grid.Row="18" Grid.Column="1"
+               Text="Параметр волнения Hmax, см"
+               Style="{StaticResource CellLabel}"/>
+            <TextBlock x:Name="DataHm0" Grid.Row="19" Grid.Column="0" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataHmax" Grid.Row="19" Grid.Column="1" Style="{StaticResource CellValue}"/>
 
-        <!-- Блок 9: Количество слоёв облаков -->
-        <TextBlock x:Name="lblClouds" HorizontalAlignment="Left" Margin="468,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="330" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="Количество слоев"/><LineBreak/><Run Text="облаков"/>
-        </TextBlock>
-        <TextBlock x:Name="DataClouds" HorizontalAlignment="Left" Margin="468,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="330" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-
-        <!-- Блок 10: НГО верхнего слоя -->
-        <TextBlock x:Name="lblNgo3" HorizontalAlignment="Left" Margin="798,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="152" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="НГО верхнего"/><LineBreak/><Run Text="слоя, м"/>
-        </TextBlock>
-        <TextBlock x:Name="DataNgo3" HorizontalAlignment="Left" Margin="798,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="152" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-
-        <!-- Блок 11: НГО среднего слоя -->
-        <TextBlock x:Name="lblNgo2" HorizontalAlignment="Left" Margin="798,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="152" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="НГО среднего"/><LineBreak/><Run Text="слоя, м"/>
-        </TextBlock>
-        <TextBlock x:Name="DataNgo2" HorizontalAlignment="Left" Margin="798,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="152" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-
-        <!-- Блок 12: НГО нижнего слоя -->
-        <TextBlock x:Name="lblNgo1" HorizontalAlignment="Left" Margin="798,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="152" Height="42" FontFamily="Microsoft Sans Serif">
-            <Run Text="НГО нижнего"/><LineBreak/><Run Text="слоя, м"/>
-        </TextBlock>
-        <TextBlock x:Name="DataNgo1" HorizontalAlignment="Left" Margin="798,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="19pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" Width="152" Height="29" FontFamily="Microsoft Sans Serif" Text="Н.Д."/>
-
+        </Grid>
     </Grid>
 </UserControl>

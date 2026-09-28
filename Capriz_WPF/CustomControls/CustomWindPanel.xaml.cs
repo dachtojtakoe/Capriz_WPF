@@ -27,15 +27,20 @@ namespace Capriz_WPF.CustomControls
         byte cleanData = 0;
         string status = "";
         string toolTipText = "";
-        int currentDataSource = 0;
+        int currentWindAverage = 0;
+        int currentWindType = 0;
 
-        int CurrentDataSource
+        int CurrentWindAverage
         {
-            get { return currentDataSource; }
-            set { currentDataSource = value > 2 ? 0 : value; }
+            get { return currentWindAverage; }
+            set { currentWindAverage = value > 2 ? 0 : value; }
         }
 
-
+        int CurrentWindType
+        {
+            get { return currentWindType; }
+            set { currentWindType = value > 1 ? 0 : value; }
+        }
 
         List<Data.Data> msg = new List<Data.Data>();
         Configuration conf;
@@ -67,24 +72,24 @@ namespace Capriz_WPF.CustomControls
 
         void changePanels()
         {
-            if (customWindDataNew1.Visibility == Visibility.Visible)
-            {
-                customWindDataNew1.Visibility = Visibility.Hidden;
-                customDataPanel1.Visibility = Visibility.Visible;
-                customAdditionalDataPanel1.Visibility = Visibility.Hidden;
-            }
-            else if (customDataPanel1.Visibility == Visibility.Visible)
-            {
-                customWindDataNew1.Visibility = Visibility.Hidden;
-                customDataPanel1.Visibility = Visibility.Hidden;
-                customAdditionalDataPanel1.Visibility = Visibility.Visible;
-            }
-            else if (customAdditionalDataPanel1.Visibility == Visibility.Visible)
-            {
-                customWindDataNew1.Visibility = Visibility.Visible;
-                customDataPanel1.Visibility = Visibility.Hidden;
-                customAdditionalDataPanel1.Visibility = Visibility.Hidden;
-            }
+            //if (customWindDataNew1.Visibility == Visibility.Visible)
+            //{
+            //    customWindDataNew1.Visibility = Visibility.Hidden;
+            //    customDataPanel1.Visibility = Visibility.Visible;
+            //    customAdditionalDataPanel1.Visibility = Visibility.Hidden;
+            //}
+            //else if (customDataPanel1.Visibility == Visibility.Visible)
+            //{
+            //    customWindDataNew1.Visibility = Visibility.Hidden;
+            //    customDataPanel1.Visibility = Visibility.Hidden;
+            //    customAdditionalDataPanel1.Visibility = Visibility.Visible;
+            //}
+            //else if (customAdditionalDataPanel1.Visibility == Visibility.Visible)
+            //{
+            //    customWindDataNew1.Visibility = Visibility.Visible;
+            //    customDataPanel1.Visibility = Visibility.Hidden;
+            //    customAdditionalDataPanel1.Visibility = Visibility.Hidden;
+            //}
         }
 
         private void customWindDataNew1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -111,32 +116,32 @@ namespace Capriz_WPF.CustomControls
                 {
                     customBottomDataPanel1.SetDataToSost(SetStatus(null));
 
-                    customWindDataNew1.ClearFields();
+                    //customWindDataNew1.ClearFields();
 
-                    customDataPanel1.ClearFields();
+                    //customDataPanel1.ClearFields();
 
-                    customBottomDataPanel1.ClearShipFields();
+                    //customBottomDataPanel1.ClearShipFields();
 
-                    customRoundWindPanel1.ValueSpeed = ("Н.Д.");
-                    customRoundWindPanel2.ValueSpeed = ("Н.Д.");
-                    customRoundWindPanel1.ValueDir = ("Н.Д.");
-                    customRoundWindPanel2.ValueDir = ("Н.Д.");
-                    customRoundWindPanel2.ValueCurs = ("Н.Д.");
-                    customRoundWindPanel1.ValueCurs = ("0");
+                    //customRoundWindPanel1.ValueSpeed = ("Н.Д.");
+                    //customRoundWindPanel2.ValueSpeed = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir = ("Н.Д.");
+                    //customRoundWindPanel2.ValueCurs = ("Н.Д.");
+                    //customRoundWindPanel1.ValueCurs = ("0");
 
-                    customRoundWindPanel1.ValueDir_2mid = ("Н.Д.");
-                    customRoundWindPanel1.ValueDir_2min = ("Н.Д.");
-                    customRoundWindPanel1.ValueDir_2max = ("Н.Д.");
-                    customRoundWindPanel1.ValueDir_10mid = ("Н.Д.");
-                    customRoundWindPanel1.ValueDir_10min = ("Н.Д.");
-                    customRoundWindPanel1.ValueDir_10max = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir_2mid = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir_2min = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir_2max = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir_10mid = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir_10min = ("Н.Д.");
+                    //customRoundWindPanel1.ValueDir_10max = ("Н.Д.");
 
-                    customRoundWindPanel2.ValueDir_2mid = ("Н.Д.");
-                    customRoundWindPanel2.ValueDir_2min = ("Н.Д.");
-                    customRoundWindPanel2.ValueDir_2max = ("Н.Д.");
-                    customRoundWindPanel2.ValueDir_10mid = ("Н.Д.");
-                    customRoundWindPanel2.ValueDir_10min = ("Н.Д.");
-                    customRoundWindPanel2.ValueDir_10max = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir_2mid = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir_2min = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir_2max = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir_10mid = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir_10min = ("Н.Д.");
+                    //customRoundWindPanel2.ValueDir_10max = ("Н.Д.");
 
                     cleanData = 6;
 
@@ -156,26 +161,66 @@ namespace Capriz_WPF.CustomControls
                     {
                         cleanData = 0;
 
-                        switch (CurrentDataSource)
+                        if (CurrentWindType == 0)
                         {
-                            case 0:
-                                customRoundWindPanel1.SetData(new List<string>() { data.Speed_K.Trim(), data.Direction_K.Trim(), "0", data.Direction_2Kmid.Trim(), data.Direction_2Kmin.Trim(), data.Direction_2Kmax.Trim(), data.Direction_10Kmid.Trim(), data.Direction_10Kmin.Trim(), data.Direction_10Kmax.Trim() });
-                                customRoundWindPanel2.SetData(new List<string>() { data.Speed_I.Trim(), data.Direction_I.Trim(), data.CourseShip.Trim(), data.Direction_2Imid.Trim(), data.Direction_2Imin.Trim(), data.Direction_2Imax.Trim(), data.Direction_10Imid.Trim(), data.Direction_10Imin.Trim(), data.Direction_10Imax.Trim() });
-                                customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_10Kmin, data.Speed_2Kmid, data.Speed_10Kmid, data.Speed_2Kmax, data.Speed_10Kmax, data.Speed_2Imin, data.Speed_10Imin, data.Speed_2Imid, data.Speed_10Imid, data.Speed_2Imax, data.Speed_10Imax });
-                                break;
-                            case 1:
-                                customRoundWindPanel1.SetData(new List<string>() { data.Speed_K2.Trim(), data.Direction_K2.Trim(), "0", data.Direction_2Kmid_2.Trim(), data.Direction_2Kmin_2.Trim(), data.Direction_2Kmax_2.Trim(), data.Direction_10Kmid_2.Trim(), data.Direction_10Kmin_2.Trim(), data.Direction_10Kmax_2.Trim() });
-                                customRoundWindPanel2.SetData(new List<string>() { data.Speed_I2.Trim(), data.Direction_I2.Trim(), data.CourseShip.Trim(), data.Direction_2Imid_2.Trim(), data.Direction_2Imin_2.Trim(), data.Direction_2Imax_2.Trim(), data.Direction_10Imid_2.Trim(), data.Direction_10Imin_2.Trim(), data.Direction_10Imax_2.Trim() });
-                                customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin_2, data.Speed_10Kmin_2, data.Speed_2Kmid_2, data.Speed_10Kmid_2, data.Speed_2Kmax_2, data.Speed_10Kmax_2, data.Speed_2Imin_2, data.Speed_10Imin_2, data.Speed_2Imid_2, data.Speed_10Imid_2, data.Speed_2Imax_2, data.Speed_10Imax_2 });
-                                break;
-                            case 2:
-                                customRoundWindPanel1.SetData(new List<string>() { data.Speed_Kw.Trim(), data.Direction_Kw.Trim(), "0", data.Direction_2Kmid_w.Trim(), data.Direction_2Kmin_w.Trim(), data.Direction_2Kmax_w.Trim(), data.Direction_10Kmid_w.Trim(), data.Direction_10Kmin_w.Trim(), data.Direction_10Kmax_w.Trim() });
-                                customRoundWindPanel2.SetData(new List<string>() { data.Speed_Iw.Trim(), data.Direction_Iw.Trim(), data.CourseShip.Trim(), data.Direction_2Imid_w.Trim(), data.Direction_2Imin_w.Trim(), data.Direction_2Imax_w.Trim(), data.Direction_10Imid_w.Trim(), data.Direction_10Imin_w.Trim(), data.Direction_10Imax_w.Trim() });
-                                customWindDataNew1.SetDataToFields(new List<string>() { data.Speed_2Kmin_w, data.Speed_10Kmin_w, data.Speed_2Kmid_w, data.Speed_10Kmid_w, data.Speed_2Kmax_w, data.Speed_10Kmax_w, data.Speed_2Imin_w, data.Speed_10Imin_w, data.Speed_2Imid_w, data.Speed_10Imid_w, data.Speed_2Imax_w, data.Speed_10Imax_w });
-                                break;
+                            switch (CurrentWindAverage)
+                            {
+                                case 0:
+                                    WindDataWMT.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_Kw, "Н.Д.", "Н.Д.", data.Direction_Kw, "Н.Д."});
+                                    WindDataDMP1.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K, "Н.Д.", "Н.Д.", data.Direction_K, "Н.Д."});
+                                    WindDataDMP2.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K2, "Н.Д.", "Н.Д.", data.Direction_K2, "Н.Д."});
+                                    break;
+                                case 1:
+                                    WindRoundDataWMT.SetData(new List<string>() { data.Direction_2Kmid_w, data.Direction_2Kmin_w, data.Direction_2Kmax_w});
+                                    WindRoundDataDMP1.SetData(new List<string>() { data.Direction_2Kmid, data.Direction_2Kmin, data.Direction_2Kmax});
+                                    WindRoundDataDMP2.SetData(new List<string>() { data.Direction_2Kmid_2, data.Direction_2Kmin_2, data.Direction_2Kmax_2});
+
+                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_2Kmin_w, data.Speed_2Kmid_w, data.Speed_2Kmax_w, data.Direction_2Kmin_w, data.Direction_2Kmid_w, data.Direction_2Kmax_w });
+                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_2Kmid, data.Speed_2Kmax, data.Direction_2Kmin, data.Direction_2Kmid, data.Direction_2Kmax });
+                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_2Kmin_2, data.Speed_2Kmid_2, data.Speed_2Kmax_2, data.Direction_2Kmin_2, data.Direction_2Kmid_2, data.Direction_2Kmax_2 });
+                                    break;
+                                case 2:
+                                    WindRoundDataWMT.SetData(new List<string>() { data.Direction_10Kmid_w, data.Direction_10Kmin_w, data.Direction_10Kmax_w });
+                                    WindRoundDataDMP1.SetData(new List<string>() { data.Direction_10Kmid, data.Direction_10Kmin, data.Direction_10Kmax });
+                                    WindRoundDataDMP2.SetData(new List<string>() { data.Direction_10Kmid_2, data.Direction_10Kmin_2, data.Direction_10Kmax_2 });
+
+                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_10Kmin_w, data.Speed_10Kmid_w, data.Speed_10Kmax_w, data.Direction_10Kmin_w, data.Direction_10Kmid_w, data.Direction_10Kmax_w });
+                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_10Kmin, data.Speed_10Kmid, data.Speed_10Kmax, data.Direction_10Kmin, data.Direction_10Kmid, data.Direction_10Kmax });
+                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_10Kmin_2, data.Speed_10Kmid_2, data.Speed_10Kmax_2, data.Direction_10Kmin_2, data.Direction_10Kmid_2, data.Direction_10Kmax_2 });
+                                    break;
+                            }
+                        }
+                        else if (CurrentWindType == 1)
+                        {
+                            switch (CurrentWindAverage)
+                            {
+                                case 0:
+                                    WindDataWMT.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_Kw, "Н.Д.", "Н.Д.", data.Direction_Kw, "Н.Д." });
+                                    WindDataDMP1.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K, "Н.Д.", "Н.Д.", data.Direction_K, "Н.Д." });
+                                    WindDataDMP2.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K2, "Н.Д.", "Н.Д.", data.Direction_K2, "Н.Д." });
+                                    break;
+                                case 1:
+                                    WindRoundDataWMT.SetData(new List<string>() { data.Direction_2Imid_w, data.Direction_2Imin_w, data.Direction_2Imax_w });
+                                    WindRoundDataDMP1.SetData(new List<string>() { data.Direction_2Imid, data.Direction_2Imin, data.Direction_2Imax });
+                                    WindRoundDataDMP2.SetData(new List<string>() { data.Direction_2Imid_2, data.Direction_2Imin_2, data.Direction_2Imax_2 });
+
+                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_2Imin_w, data.Speed_2Imid_w, data.Speed_2Imax_w, data.Direction_2Imin_w, data.Direction_2Imid_w, data.Direction_2Imax_w });
+                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_2Imin, data.Speed_2Imid, data.Speed_2Imax, data.Direction_2Imin, data.Direction_2Imid, data.Direction_2Imax });
+                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_2Imin_2, data.Speed_2Imid_2, data.Speed_2Imax_2, data.Direction_2Imin_2, data.Direction_2Imid_2, data.Direction_2Imax_2 });
+                                    break;
+                                case 2:
+                                    WindRoundDataWMT.SetData(new List<string>() { data.Direction_10Imid_w, data.Direction_10Imin_w, data.Direction_10Imax_w });
+                                    WindRoundDataDMP1.SetData(new List<string>() { data.Direction_10Imid, data.Direction_10Imin, data.Direction_10Imax });
+                                    WindRoundDataDMP2.SetData(new List<string>() { data.Direction_10Imid_2, data.Direction_10Imin_2, data.Direction_10Imax_2 });
+
+                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_10Imin_w, data.Speed_10Imid_w, data.Speed_10Imax_w, data.Direction_10Imin_w, data.Direction_10Imid_w, data.Direction_10Imax_w });
+                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_10Imin, data.Speed_10Imid, data.Speed_10Imax, data.Direction_10Imin, data.Direction_10Imid, data.Direction_10Imax });
+                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_10Imin_2, data.Speed_10Imid_2, data.Speed_10Imax_2, data.Direction_10Imin_2, data.Direction_10Imid_2, data.Direction_10Imax_2 });
+                                    break;
+                            }
                         }
 
-                        customDataPanel1.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3 });
+                        customDataPanel.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3, data.Hm0, data.Hmax });
 
                         string lat = (string.IsNullOrEmpty(data.LatDeg) || data.LatDeg == "Н.Д.")
                             ? "Н.Д."
@@ -185,18 +230,12 @@ namespace Capriz_WPF.CustomControls
                             ? "Н.Д."
                             : $"{data.LonDeg}° {data.LonMin}' {data.LonSec}\" {data.LonEW}";
 
-
-                        customAdditionalDataPanel1.SetDataToFields(new List<string>()
-                            {
-                                data.AmountPrecipitation,
-                                lat,
-                                lon,
-                                data.Hm0,
-                                data.Hmax
-                            });
                         if (data.ShipSpeed != "Н.Д.") data.ShipSpeed = (Convert.ToString(Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1)));
 
-                        customBottomDataPanel1.SetDataToFields(new List<string>() { data.CourseShip, data.ShipSpeed });
+                        DataCurs.Text = data.CourseShip;
+                        DataSpeed.Text = data.ShipSpeed;
+                        DataLat.Text = lat;
+                        DataLon.Text = lon;
 
                         customBottomDataPanel1.SetDataToSost(SetStatus(data));
                     }
@@ -333,24 +372,30 @@ namespace Capriz_WPF.CustomControls
             return new List<string> { status, toolTipText };
         }
 
-
-        private void ChangeDataSource(object sender, EventArgs e)
+        private void SetInstantData(object sender, EventArgs e)
         {
-            CurrentDataSource++;
-            switch (CurrentDataSource)
-            {
-                case 0:
-                    ChangeDataSourceButton.BtnText = "ДМП№1";
-                    break;
-                case 1:
-                    ChangeDataSourceButton.BtnText = "ДМП№2";
-                    break;
-                case 2:
-                    ChangeDataSourceButton.BtnText = "WMT702";
-                    break;
-            }
-            //ShowHideInfoPanel();
+            CurrentWindAverage = 0;
         }
 
+        private void SetAverage2MinData(object sender, EventArgs e)
+        {
+            CurrentWindAverage = 1;
+
+        }
+
+        private void SetAverage10MinData(object sender, EventArgs e)
+        {
+            CurrentWindAverage = 2;
+        }
+
+        private void SetFalseWindType(object sender, EventArgs e)
+        {
+            CurrentWindType = 0;
+        }
+
+        private void SetTrueWindType(object sender, EventArgs e)
+        {
+            CurrentWindType = 1;
+        }
     }
 }

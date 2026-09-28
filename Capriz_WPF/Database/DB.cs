@@ -58,13 +58,13 @@ namespace Capriz_WPF.Database
             };
             command.ExecuteNonQuery();
 
-            command.CommandText = @"
-                CREATE TRIGGER IF NOT EXISTS DeleteOldData
-                AFTER INSERT ON Data
-                BEGIN
-                    DELETE FROM Data WHERE DateTime < datetime('now', '-3 months');
-                END;";
-            command.ExecuteNonQuery();
+            //command.CommandText = @"
+            //    CREATE TRIGGER IF NOT EXISTS DeleteOldData
+            //    AFTER INSERT ON Data
+            //    BEGIN
+            //        DELETE FROM Data WHERE DateTime < datetime('now', '-3 months');
+            //    END;";
+            //command.ExecuteNonQuery();
         }
 
 

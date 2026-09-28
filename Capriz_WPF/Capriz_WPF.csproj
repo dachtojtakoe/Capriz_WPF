@@ -205,7 +205,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomControls\CustomRoundWindPanelSmall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\CustomToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\CustomWindDataInstant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,7 +221,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomControls\CustomWindDataSmall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\CustomWindPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\CustomWindPanelInstantHorizontal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,14 +278,26 @@
     <Compile Include="CustomControls\CustomRoundWindPanel.xaml.cs">
       <DependentUpon>CustomRoundWindPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\CustomRoundWindPanelSmall.xaml.cs">
+      <DependentUpon>CustomRoundWindPanelSmall.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\CustomToolTip.xaml.cs">
       <DependentUpon>CustomToolTip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\CustomWindDataInstant.xaml.cs">
+      <DependentUpon>CustomWindDataInstant.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\CustomWindDataNew.xaml.cs">
       <DependentUpon>CustomWindDataNew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\CustomWindDataSmall.xaml.cs">
+      <DependentUpon>CustomWindDataSmall.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\CustomWindPanel.xaml.cs">
       <DependentUpon>CustomWindPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\CustomWindPanelInstantHorizontal.xaml.cs">
+      <DependentUpon>CustomWindPanelInstantHorizontal.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\WinFormsOxyPlot.cs">
       <SubType>UserControl</SubType>

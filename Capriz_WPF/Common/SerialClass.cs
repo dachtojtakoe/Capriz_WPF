@@ -8,12 +8,12 @@ namespace Capriz_WPF.Common
 {
     public class SerialClass : SerialPort
     {
-        private const int FrameSize = 404;
+        private const int FrameSize = 405;
         private readonly byte[] _buf = new byte[FrameSize];
         private int _idx;
         private bool _reading;
 
-        public SerialClass(string portName = "COM6", int baudRate = 9600, int dataBits = 8,
+        public SerialClass(string portName = "COM1", int baudRate = 9600, int dataBits = 8,
             StopBits stopBits = StopBits.One, Parity parity = Parity.None, Handshake handshake = Handshake.None)
         {
             PortName = portName;
@@ -32,7 +32,7 @@ namespace Capriz_WPF.Common
                 .OrderBy(a => a.Length > 3 && int.TryParse(a.Substring(3), out int n) ? n : 0)
                 .ToArray();
 
-        public byte OpenPort(string portName = "COM6", int baudRate = 9600, int dataBits = 8,
+        public byte OpenPort(string portName = "COM1", int baudRate = 9600, int dataBits = 8,
             StopBits stopBits = StopBits.One, Parity parity = Parity.None, Handshake handshake = Handshake.None)
         {
             if (IsOpen) Close();
@@ -102,10 +102,7 @@ namespace Capriz_WPF.Common
                     // кадр собран целиком?
                     if (_idx == FrameSize)
                     {
-                        //var head = BitConverter.ToString(_buf, 0, 8);
-                        //var tail = BitConverter.ToString(_buf, FrameSize - 8, 8);
-                        //DataDelegates.EventHandlerStr("HEAD " + head + "  TAIL " + tail + Environment.NewLine);
-                        // проверяем, что это действительно наш кадр (…CR LF)
+
                         if (_buf[FrameSize - 2] == 0x0D && _buf[FrameSize - 1] == 0x0A)
                         {
                             var message = ConvertData.GetMessage(_buf);
@@ -117,6 +114,7 @@ namespace Capriz_WPF.Common
                             }
                             else
                             {
+                                //DataDelegates.EventHandlerStr(_buf + Environment.NewLine);
                                 DataDelegates.EventHandlerStr("CRC error" + Environment.NewLine);
                             }
                         }

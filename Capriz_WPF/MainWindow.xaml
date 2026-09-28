@@ -228,10 +228,10 @@
 
 
     <Grid x:Name="grid" Background="#FF00283D">
-        <Grid Margin="106,0,106,0">
+        <Grid >
 
             <RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="997.5" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>
-            <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="997.5" Height="800" Visibility="Visible"/>
+            <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1212" Height="800" Visibility="Visible"/>
 
             <ItemsControl HorizontalAlignment="Right" Width="66">
                 <CustomControls:CustomButton x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Margin="0" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>

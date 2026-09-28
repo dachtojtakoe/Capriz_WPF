@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,17 +17,16 @@ using System.Windows.Shapes;
 namespace Capriz_WPF.CustomControls
 {
     /// <summary>
-    /// Логика взаимодействия для CustomDataPanel.xaml
+    /// Логика взаимодействия для CustomWindDataSmall.xaml
     /// </summary>
-    public partial class CustomDataPanel : UserControl
+    public partial class CustomWindDataSmall : UserControl
     {
         List<TextBlock> textBlocks;
 
-        public CustomDataPanel()
+        public CustomWindDataSmall()
         {
             InitializeComponent();
-            textBlocks = new List<TextBlock>() { DataTemp, DataHum, DataPressMm, DataPressGPa, DataBarT, DataTrend, DataClouds, DataDMDV1,
-            DataDMDV10, DataNgo1, DataNgo2, DataNgo3, DataHm0, DataHmax};
+            textBlocks = new List<TextBlock>() { DataMinSpeed, DataMidSpeed, DataMaxSpeed, DataMinDir, DataMidDir, DataMaxDir};
         }
 
         public void SetDataToFields(List<string> data)

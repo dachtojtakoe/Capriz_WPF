@@ -35,29 +35,28 @@
     </UserControl.Resources>
 
     <Grid>
-        <!-- Курс, ° -->
-        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="32,0,0,0" TextWrapping="Wrap" Text="Курс, °" VerticalAlignment="Center"/>
-        <TextBlock x:Name="DataCurs" Style="{StaticResource NoDataTextBlock}" HorizontalAlignment="Left" Margin="98,0,0,0" TextWrapping="Wrap"/>
+        <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="5">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF3D6087"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#0d345d"/>
+            </Rectangle.Fill>
+        </Rectangle>
 
-        <!-- Скорость, уз -->
-        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="181,0,0,0" TextWrapping="Wrap" Text="Скорость, уз" VerticalAlignment="Center"/>
-        <TextBlock x:Name="DataSpeed" Style="{StaticResource NoDataTextBlock}" HorizontalAlignment="Left" Margin="300,0,0,0" TextWrapping="Wrap"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
 
-        <!-- Дата -->
-        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="397,0,0,0" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center"/>
-        <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="452,0,0,0" MouseDown="DataTime_MouseDown"/>
+            <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center" Margin="30,0,0,0"/>
+            <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" HorizontalAlignment="Left" TextWrapping="Wrap" Text="XX:XX:XX" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+        </StackPanel>
 
-        <!-- Время -->
-        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="614,0,0,0" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center"/>
-        <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" HorizontalAlignment="Left" Margin="680,0,0,0" TextWrapping="Wrap" Text="XX:XX:XX" MouseDown="DataTime_MouseDown"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Состояние" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <Ellipse x:Name="DataSost" Width="39" Height="39" Stroke="AliceBlue" StrokeThickness="4" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" Margin="0,0,10,0"/>
+        </StackPanel>
 
-        <!-- Состояние -->
-        <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" Margin="837,0,0,0" TextWrapping="Wrap" Text="Состояние" VerticalAlignment="Center"/>
-
-        <!-- Эллипс состояния -->
-        <Ellipse x:Name="DataSost" Width="39" Height="39" Stroke="AliceBlue" StrokeThickness="4" Margin="0,0,13,0" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" />
-
-        <!-- Всплывающая подсказка -->
         <Popup x:Name="CustomToolTipPopup" Width="166" Height="40" PlacementRectangle="-126,-44,0,0" Placement="Relative" PlacementTarget="{Binding ElementName=DataSost}" IsOpen="False" AllowsTransparency="True">
             <local:CustomToolTip x:Name="CustomToolTip1" ToolTipWidth="166" ToolTipHeight="40" ToolTipText="Нет данных с БПР-1" ToolTipTextForeground="red" ToolTipBorderColor="red" Visibility="Hidden"/>
         </Popup>

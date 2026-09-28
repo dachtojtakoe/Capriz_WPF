@@ -5,11 +5,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="997.5">
-    
+             d:DesignHeight="800" d:DesignWidth="1200">
+
     <UserControl.Resources>
-        <ControlTemplate x:Key="ItemsControlTemplate">
-            <Border BorderThickness="3" CornerRadius="10" Margin="0,1,0,0">
+        <Style x:Key="NoDataTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="FontSize" Value="15pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Н.Д."/>
+        </Style>
+
+        <Style x:Key="NoDataTextBlockBig" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="FontSize" Value="22pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Н.Д."/>
+        </Style>
+
+        <Style x:Key="LabelTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Н.Д."/>
+        </Style>
+
+        <Style x:Key="LabelTextBlockBig" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16pt"/>
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Н.Д."/>
+        </Style>
+
+        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="ToggleButton">
+            <Border x:Name="Border" BorderThickness="3" CornerRadius="10">
                 <Border.BorderBrush>
                     <LinearGradientBrush>
                         <GradientStopCollection>
@@ -21,56 +61,271 @@
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStopCollection>
-                            <GradientStop Offset="0" Color="#0d345d"/>
-                            <GradientStop Offset="1" Color="#0d345d"/>
+                            <GradientStop Offset="0" Color="#FF3D6087"/>
+                            <GradientStop Offset="1" Color="#FF002852"/>
                         </GradientStopCollection>
                     </LinearGradientBrush>
                 </Border.Background>
-                <ItemsPresenter/>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
+
+            <ControlTemplate.Triggers>
+                <!-- Ховер (только когда НЕ выбрана) -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FFFFE0C0"/>
+                                    <GradientStop Offset="1" Color="#FFFF8100"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="Border" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="1" Color="#FF002852"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+
+                <!-- Выделенная кнопка — рамка остаётся -->
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FFFFE0C0"/>
+                                    <GradientStop Offset="1" Color="#FFFF8100"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="Border" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                                    <GradientStop Offset="1" Color="#FF002852"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
 
-        <RoutedCommand x:Key="ChangeDataSource"/>
+        <RoutedCommand x:Key="SetInstantData"/>
+
     </UserControl.Resources>
 
-    <UserControl.CommandBindings>
-        <CommandBinding Command="{StaticResource ChangeDataSource}" Executed="ChangeDataSource"/>
-    </UserControl.CommandBindings>
-
-
     <Grid>
-        <ItemsControl HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplate}" Height="494" Width="496">
-            <Grid Margin="0,10">
-                <TextBlock x:Name="DataWindName1" Text="КАЖУЩИЙСЯ ВЕТЕР БОРТОВОЙ" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="420" Height="23" FontFamily="Microsoft Sans Serif"/>
-                <local:CustomRoundWindPanel IsSplitAngles="False" x:Name="customRoundWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="490" Width="490"/>
-            </Grid>
-        </ItemsControl>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="729"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <ItemsControl HorizontalAlignment="Right" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplate}" Height="494" Width="496">
-            <Grid Margin="0,10">
-                <TextBlock x:Name="DataWindName2" Text="ИСТИННЫЙ ВЕТЕР БОРТОВОЙ" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="420" Height="23" FontFamily="Microsoft Sans Serif"/>
-                <local:CustomRoundWindPanel x:Name="customRoundWindPanel2" Height="490" Width="490"/>
-                <TextBlock x:Name="NorthLabel" Text="С" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
-                <TextBlock x:Name="SouthLabel" Text="Ю" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
-                <TextBlock x:Name="WestLabel" Text="З" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
-                <TextBlock x:Name="EastLabel" Text="В" HorizontalAlignment="Right" TextWrapping="Wrap"  VerticalAlignment="Center" Margin="106" FontSize="14.75pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" Width="23" Height="23" FontFamily="Microsoft Sans Serif"/>
-            </Grid>
-        </ItemsControl>
-
-        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,120,0,0">
-            <local:CustomButtonText x:Name="ChangeDataSourceButton" HorizontalAlignment="Center" Width="159" Height="53" VerticalAlignment="Bottom" BtnText="ДМП№1" CommandText="{StaticResource ChangeDataSource}" Cursor="Hand"/>
-        </ItemsControl>
-
-        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="997.5" Height="232.75" Margin="0,0,0,70" Template="{StaticResource ItemsControlTemplate}" Cursor="Hand" >
             <Grid>
-                <local:CustomDataPanel x:Name="customDataPanel1" Height="232.75" Width="986.86" MouseLeftButtonDown="customDataPanel_MouseLeftButtonDown" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <local:CustomWindDataNew x:Name="customWindDataNew1" Height="232.75" Width="986.86" MouseLeftButtonDown="customWindDataNew1_MouseLeftButtonDown" d:Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <local:CustomAdditionalDataPanel x:Name="customAdditionalDataPanel1" Height="232.75" Width="986.86" MouseLeftButtonDown="customAdditionalData1_MouseLeftButtonDown" Visibility="Hidden" d:Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            </Grid>
-        </ItemsControl>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,1"  Width="997.5" Height="65.17" Template="{StaticResource ItemsControlTemplate}">
-            <local:CustomBottomDataPanel x:Name="customBottomDataPanel1" HorizontalAlignment="Center" Margin="0,9,0,0" Width="997.5"/>
-        </ItemsControl>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="3" Grid.RowSpan="5">
+                    <Rectangle.Stroke>
+                        <SolidColorBrush Color="#FF3D6087"/>
+                    </Rectangle.Stroke>
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="#0d345d"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Viewbox Stretch="Fill" IsHitTestVisible="False"
+                    Grid.ColumnSpan="3" Grid.RowSpan="5">
+                    <Canvas Width="1000" Height="729">
+                        <Path Stroke="#FF3D6087"
+                          StrokeThickness="6"
+                          Fill="#1400A0FF"
+                          StrokeLineJoin="Round">
+                            <Path.Data>
+                                <PathGeometry Figures="
+                                M 369,283
+                                L 291,408
+                                A 160,160 0 0 1 371,578
+                                L 629,578
+                                A 160,160 0 0 1 709,408
+                                L 631,283
+                                A 172,172 0 0 1 369,283 Z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <RadioButton x:Name="InstantDataButton"
+                         Template="{StaticResource CustomButtonTemplate}"
+                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
+                         Foreground="AliceBlue" FontSize="21"
+                         Content="Мгновенные значения"
+                         GroupName="WindPeriod"
+                         IsChecked="True"
+                         Click="SetInstantData"
+                         Height="66" HorizontalAlignment="Stretch"
+                         Margin="5" Cursor="Hand"/>
+
+                        <RadioButton x:Name="Average2DataButton"
+                         Template="{StaticResource CustomButtonTemplate}"
+                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
+                         Foreground="AliceBlue" FontSize="21"
+                         Content="2 минуты"
+                         GroupName="WindPeriod"
+                         Click="SetAverage2MinData"
+                         Height="66" HorizontalAlignment="Stretch"
+                         Margin="5" Cursor="Hand"/>
+
+                        <RadioButton x:Name="Average10DataButton"
+                         Template="{StaticResource CustomButtonTemplate}"
+                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
+                         Foreground="AliceBlue" FontSize="21"
+                         Content="10 минут"
+                         GroupName="WindPeriod"
+                         Click="SetAverage10MinData"
+                         Height="66" HorizontalAlignment="Stretch"
+                         Margin="5" Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="1">
+                        <RadioButton x:Name="FalseWindButton"
+                         Template="{StaticResource CustomButtonTemplate}"
+                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
+                         Foreground="AliceBlue" FontSize="21"
+                         Content="Кажущийся ветер"
+                         GroupName="WindType"
+                         IsChecked="True"
+                         Click="SetFalseWindType"
+                         Height="66" HorizontalAlignment="Stretch"
+                         Margin="5" Cursor="Hand"/>
+
+                        <RadioButton x:Name="TrueWindButton"
+                         Template="{StaticResource CustomButtonTemplate}"
+                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
+                         Foreground="AliceBlue" FontSize="21"
+                         Content="Истинный ветер"
+                         GroupName="WindType"
+                         Click="SetTrueWindType"
+                         Height="66" HorizontalAlignment="Stretch"
+                         Margin="5" Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+                <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="WMT702" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
+
+                <!--<local:CustomWindPanelInstantHorizontal Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>-->
+
+                <!--<TextBlock Margin="0,0,50,15" Grid.Row="3" Grid.Column="0" Text="ДМП№1" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
+                <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,0,0,0"  />-->
+
+                <!--<TextBlock Margin="50,0,0,15" Grid.Row="3" Grid.Column="2" Text="ДМП№2" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
+
+                <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,0"/>-->
+                <Ellipse Grid.ColumnSpan="3" Grid.Row="0" StrokeThickness="3" Width="270" Height="270">
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="#FF3D6087"/>
+                    </Ellipse.Stroke>
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#0c3d6a"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataWMT" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
+                <local:CustomWindDataSmall x:Name="WindDataWMT" Margin="10" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="130"/>
+
+                <Ellipse Grid.Column="0" Grid.Row="1" StrokeThickness="3" Width="270" Height="270">
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="#FF3D6087"/>
+                    </Ellipse.Stroke>
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#0c3d6a"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP1" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
+                <local:CustomWindDataSmall x:Name="WindDataDMP1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="130"/>
+
+                <Ellipse Grid.Column="2" Grid.Row="1" StrokeThickness="3" Width="270" Height="270">
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="#FF3D6087"/>
+                    </Ellipse.Stroke>
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#0c3d6a"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
+                <local:CustomWindDataSmall x:Name="WindDataDMP2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="230" Height="130"/>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Курс, °" Style="{StaticResource LabelTextBlock}"/>
+                        <TextBlock Text="Н.Д." x:Name="DataCurs" Style="{StaticResource NoDataTextBlock}" Margin="12,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <TextBlock Text="Скорость, уз" Style="{StaticResource LabelTextBlock}"/>
+                        <TextBlock Text="Н.Д." x:Name="DataSpeed" Style="{StaticResource NoDataTextBlock}" Margin="12,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+                        <TextBlock Text="Широта" Style="{StaticResource LabelTextBlock}"/>
+                        <TextBlock Text="Н.Д." x:Name="DataLat" Style="{StaticResource NoDataTextBlock}" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3"  HorizontalAlignment="Center">
+                        <TextBlock Text="Долгота" Style="{StaticResource LabelTextBlock}"/>
+                        <TextBlock Text="Н.Д." x:Name="DataLon" Style="{StaticResource NoDataTextBlock}" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2" Grid.RowSpan="3">
+                <local:CustomDataPanel x:Name="customDataPanel"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <local:CustomBottomDataPanel x:Name="customBottomDataPanel1" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
+            </Grid>
+
+        </Grid>
     </Grid>
 </UserControl>

@@ -26,7 +26,7 @@ namespace Capriz_WPF.CustomControls
     public partial class CustomBottomDataPanel : System.Windows.Controls.UserControl
     {
         MainWindow mw = System.Windows.Application.Current.MainWindow as MainWindow;
-        readonly List<TextBlock> _textBlocksShip;
+        //readonly List<TextBlock> _textBlocksShip;
         readonly List<TextBlock> _textBlocksDateTime;
         string _toolTipText = "";
 
@@ -45,7 +45,7 @@ namespace Capriz_WPF.CustomControls
             DataSost.Fill = new SolidColorBrush(Color.FromRgb(192, 192, 192));
             DataSost.Stroke = new SolidColorBrush(Color.FromRgb(162, 162, 162));
 
-            _textBlocksShip = new List<TextBlock>() { DataCurs, DataSpeed };
+            //_textBlocksShip = new List<TextBlock>() { DataCurs, DataSpeed };
             _textBlocksDateTime = new List<TextBlock>() { DataDate, DataTime };
 
             timer = new DispatcherTimer();
@@ -53,17 +53,17 @@ namespace Capriz_WPF.CustomControls
             timer.Tick += Timer_Tick;
         }
 
-        public void SetDataToFields(List<string> data)
-        {
-            for (int i = 0; i < _textBlocksShip.Count; i++)
-                _textBlocksShip[i].Text = data[i];
-        }
+        //public void SetDataToFields(List<string> data)
+        //{
+        //    for (int i = 0; i < _textBlocksShip.Count; i++)
+        //        _textBlocksShip[i].Text = data[i];
+        //}
         
-        public void ClearShipFields()
-        {
-            for (int i = 0; i < _textBlocksShip.Count; i++)
-                _textBlocksShip[i].Text = "Н.Д.";
-        }
+        //public void ClearShipFields()
+        //{
+        //    for (int i = 0; i < _textBlocksShip.Count; i++)
+        //        _textBlocksShip[i].Text = "Н.Д.";
+        //}
 
         public void SetDateTime(List<string> data)
         {

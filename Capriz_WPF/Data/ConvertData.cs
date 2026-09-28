@@ -27,12 +27,47 @@ namespace Capriz_WPF.Data
         private static bool CheckCrc(byte[] b)
         {
             if (b == null || b.Length < FrameSize) return false;
-            if (b[398] != 0x03 || b[399] != 0x2A) return false;
+            if (b[399] != 0x03 || b[400] != 0x2A) return false;
             byte cs = 0;
-            for (int i = 0; i < 399; i++) cs ^= b[i];
+            for (int i = 1; i < 400; i++) cs ^= b[i];
             string hex = cs.ToString("X2");
-            return b[400] == (byte)hex[0] && b[401] == (byte)hex[1];
+            return b[401] == (byte)hex[0] && b[402] == (byte)hex[1];
         }
+
+        //private static bool CheckCrc(byte[] b)
+        //{
+        //    if (b == null || b.Length < FrameSize) return false;
+        //    if (b[FrameSize - 6] != 0x03 || b[FrameSize - 5] != 0x2A) return false;
+
+        //    // v1: $ … ETX включительно (с индексом 0)
+        //    byte v1 = 0; for (int i = 0; i < FrameSize - 5; i++) v1 ^= b[i];
+
+        //    // v2: без $, ETX включительно (NMEA-стиль)
+        //    byte v2 = 0; for (int i = 1; i < FrameSize - 5; i++) v2 ^= b[i];
+
+        //    // v3: $ … перед ETX
+        //    byte v3 = 0; for (int i = 0; i < FrameSize - 6; i++) v3 ^= b[i];
+
+        //    // v4: без $ и без ETX
+        //    byte v4 = 0; for (int i = 1; i < FrameSize - 6; i++) v4 ^= b[i];
+
+        //    // v5: только payload между STX и ETX
+        //    byte v5 = 0; for (int i = 5; i < FrameSize - 6; i++) v5 ^= b[i];
+
+        //    int csIdx = FrameSize - 4;              // позиция первого hex-символа КС
+        //    string sent = $"{(char)b[csIdx]}{(char)b[csIdx + 1]}";
+
+        //    DataDelegates.EventHandlerStr(
+        //        $"CRC sent={sent}  v1={v1:X2}  v2={v2:X2}  v3={v3:X2}  v4={v4:X2}  v5={v5:X2}"
+        //        + Environment.NewLine);
+
+        //    // ВРЕМЕННО: пропускаем проверку, чтобы видеть все кадры
+        //    return true;
+
+        //    // А вот здесь потом оставите верный вариант:
+        //    // string hex = v2.ToString("X2");
+        //    // return b[csIdx] == (byte)hex[0] && b[csIdx + 1] == (byte)hex[1];
+        //}
 
         public static string GetMessage(byte[] b)
         {
@@ -111,14 +146,14 @@ namespace Capriz_WPF.Data
             sb.Append(F(b, 375, 2)).Append('\t');
             sb.Append(F(b, 377, 2)).Append('\t');
             sb.Append(F(b, 379, 1)).Append('\t');
-            sb.Append(F(b, 380, 2)).Append('\t');
-            sb.Append(F(b, 382, 2)).Append('\t');
-            sb.Append(F(b, 384, 2)).Append('\t');
-            sb.Append(F(b, 386, 1)).Append('\t');
+            sb.Append(F(b, 380, 3)).Append('\t');
+            sb.Append(F(b, 383, 2)).Append('\t');
+            sb.Append(F(b, 385, 2)).Append('\t');
+            sb.Append(F(b, 387, 1)).Append('\t');
 
             // 119-120 волнение
-            sb.Append(F(b, 387, 6)).Append('\t');
-            sb.Append(F(b, 393, 6));
+            sb.Append(F(b, 388, 6)).Append('\t');
+            sb.Append(F(b, 394, 6));
 
             sb.Append('\x03').Append('*')
               .Append((char)b[400]).Append((char)b[401])
