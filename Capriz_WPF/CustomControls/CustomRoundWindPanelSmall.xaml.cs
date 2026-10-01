@@ -35,197 +35,86 @@ namespace Capriz_WPF.CustomControls
             }
         }
 
-        private Geometry _windDirectionPath2;
-        private Geometry _windDirectionPath10;
-        private Geometry _averageLine2;
-        private Geometry _averageLine10;
+        public static readonly DependencyProperty BrushColorProperty =
+            DependencyProperty.Register(nameof(BrushColor), typeof(Brush), typeof(CustomRoundWindPanelSmall), new PropertyMetadata(Brushes.Gray));
 
-        private string _valueCurs = "Н.Д.";
-        private string _valueSpeed = "Н.Д.";
-        private string _valueDir = "Н.Д.";
+        public Brush BrushColor
+        {
+            get => (Brush)GetValue(BrushColorProperty); 
+            set => SetValue(BrushColorProperty, value);
+        }
 
-        private string _valueDir_2mid = "Н.Д.";
-        private string _valueDir_2min = "Н.Д.";
-        private string _valueDir_2max = "Н.Д.";
-        private string _valueDir_10mid = "Н.Д.";
-        private string _valueDir_10min = "Н.Д.";
-        private string _valueDir_10max = "Н.Д.";
+        private Geometry _windDirectionPath;
+        private Geometry _averageLine;
+
+        private string _valueDir_mid = "Н.Д.";
+        private string _valueDir_min = "Н.Д.";
+        private string _valueDir_max = "Н.Д.";
 
 
         public void SetData(List<string> data)
         {
-            //ValueSpeed = data[0];
-            //ValueDir = data[1];
-            //ValueCurs = data[2];
-            //ValueDir_2mid = data[3];
-            //ValueDir_2min = data[4];
-            //ValueDir_2max = data[5];
-            ValueDir_10mid = data[0];
-            ValueDir_10min = data[1];
-            ValueDir_10max = data[2];
+            ValueDir_mid = data[0];
+            ValueDir_min = data[1];
+            ValueDir_max = data[2];
         }
 
-        public string ValueSpeed
+        public void ClearData()
         {
-            get { return _valueSpeed; }
-            set
-            {
-                if (_valueSpeed != value)
-                {
-                    if (value != "Н.Д.")
-                        _valueSpeed = value + " м/с";
-                    else
-                        _valueSpeed = value;
-                    OnPropertyChanged(nameof(ValueSpeed));
-                }
-            }
+            WindDirectionPath = null;
+            AverageLine = null;
         }
-        public string ValueDir
+
+        public string ValueDir_mid
         {
-            get { return _valueDir; }
+            get => _valueDir_mid;
             set
             {
-                if (_valueDir != value)
-                {
-                    if (value != "Н.Д.")
-                    {
-                        if (IsSplitAngles)
-                        {
-                            if (Convert.ToInt32(value) > 180)
-                            {
-                                value = (360 - Convert.ToInt32(value)).ToString();
-                                _valueDir = value + "° ЛБ";
-                            }
-                            else
-                            {
-                                _valueDir = value + "° ПБ";
-                            }
-                        }
-                        else
-                            _valueDir = value + "°";
-
-                    }
-                    else
-                        _valueDir = value;
-                    OnPropertyChanged(nameof(ValueDir));
-                }
+                _valueDir_mid = value;
+                UpdateAverage();
+                OnPropertyChanged(nameof(ValueDir_mid));
             }
         }
 
-        //public string ValueCurs
-        //{
-        //    get => _valueCurs;
-        //    set
-        //    {
-        //        _valueCurs = value;
-        //        UpdateShipCurs();
-        //        OnPropertyChanged(nameof(ValueCurs));
-        //    }
-        //}
-
-        //public string ValueDir_2mid
-        //{
-        //    get => _valueDir_2mid;
-        //    set
-        //    {
-        //        _valueDir_2mid = value;
-        //        UpdateAverage2();
-        //        OnPropertyChanged(nameof(ValueDir_2mid));
-        //    }
-        //}
-
-        //public string ValueDir_2min
-        //{
-        //    get => _valueDir_2min;
-        //    set
-        //    {
-        //        _valueDir_2min = value;
-        //        //UpdateSector2();
-        //        OnPropertyChanged(nameof(ValueDir_2min));
-        //    }
-        //}
-
-        //public string ValueDir_2max
-        //{
-        //    get => _valueDir_2max;
-        //    set
-        //    {
-        //        _valueDir_2max = value;
-        //        UpdateSector2();
-        //        OnPropertyChanged(nameof(ValueDir_2max));
-        //    }
-        //}
-
-        public string ValueDir_10mid
+        public string ValueDir_min
         {
-            get => _valueDir_10mid;
+            get => _valueDir_min;
             set
             {
-                _valueDir_10mid = value;
-                UpdateAverage10();
-                OnPropertyChanged(nameof(ValueDir_10mid));
-            }
-        }
-
-        public string ValueDir_10min
-        {
-            get => _valueDir_10min;
-            set
-            {
-                _valueDir_10min = value;
+                _valueDir_min = value;
                 //UpdateSector10();
-                OnPropertyChanged(nameof(ValueDir_10min));
+                OnPropertyChanged(nameof(ValueDir_min));
             }
         }
 
-        public string ValueDir_10max
+        public string ValueDir_max
         {
-            get => _valueDir_10max;
+            get => _valueDir_max;
             set
             {
-                _valueDir_10max = value;
-                UpdateSector10();
-                OnPropertyChanged(nameof(ValueDir_10max));
+                _valueDir_max = value;
+                UpdateSector();
+                OnPropertyChanged(nameof(ValueDir_max));
             }
         }
 
-        //public Geometry WindDirectionPath2
-        //{
-        //    get { return _windDirectionPath2; }
-        //    private set
-        //    {
-        //        _windDirectionPath2 = value;
-        //        OnPropertyChanged(nameof(WindDirectionPath2));
-        //    }
-        //}
-
-        public Geometry WindDirectionPath10
+        public Geometry WindDirectionPath
         {
-            get { return _windDirectionPath10; }
+            get { return _windDirectionPath; }
             private set
             {
-                _windDirectionPath10 = value;
-                OnPropertyChanged(nameof(WindDirectionPath10));
+                _windDirectionPath = value;
+                OnPropertyChanged(nameof(WindDirectionPath));
             }
         }
 
-        //public Geometry AverageLine2
-        //{
-        //    get { return _averageLine2; }
-        //    private set
-        //    {
-        //        _averageLine2 = value;
-        //        OnPropertyChanged(nameof(AverageLine2));
-        //    }
-        //}
-
-        public Geometry AverageLine10
+        public Geometry AverageLine
         {
-            get { return _averageLine10; }
+            get { return _averageLine; }
             private set
             {
-                _averageLine10 = value;
-                OnPropertyChanged(nameof(AverageLine10));
+                _averageLine = value;
+                OnPropertyChanged(nameof(AverageLine));
             }
         }
 
@@ -235,87 +124,15 @@ namespace Capriz_WPF.CustomControls
             DataContext = this;
         }
 
-        //private void UpdateSector2()
-        //{
-        //    int begin_sec = -1, end_sec = -1;
-        //    if (_valueDir_2min.Trim() != "Н.Д.")
-        //    {
-        //        Int32.TryParse(_valueDir_2min.Trim(), out begin_sec);
-        //        if (_valueDir_2max.Trim() != "Н.Д.")
-        //        {
-        //            Int32.TryParse(_valueDir_2max.Trim(), out end_sec);
-        //            if ((begin_sec >= 0) && (end_sec >= 0))
-        //            {
-        //                bool isLargeArc = begin_sec > end_sec ? Math.Abs(360 - (begin_sec - end_sec)) > 180 : Math.Abs(begin_sec - end_sec) > 180;
-
-        //                var centerX = 245;
-        //                var centerY = 245;
-        //                var radius = 161;
-
-        //                var startPoint = new Point(centerX + radius * Math.Cos((begin_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((begin_sec - 90) * Math.PI / 180));
-        //                var endPoint = new Point(centerX + radius * Math.Cos((end_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((end_sec - 90) * Math.PI / 180));
-
-
-        //                var pathGeometry = new PathGeometry();
-        //                var pathFigure = new PathFigure { StartPoint = startPoint };
-        //                pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = isLargeArc, SweepDirection = SweepDirection.Clockwise });
-        //                pathGeometry.Figures.Add(pathFigure);
-
-        //                WindDirectionPath2 = pathGeometry;
-        //                #region oldUpdate
-        //                //begin_sec -= 90;
-        //                //end_sec -= 90;
-
-        //                //if (begin_sec < 0)
-        //                //    begin_sec += 360;
-        //                //if (end_sec < 0)
-        //                //    end_sec += 360;
-
-        //                //if (end_sec < begin_sec)
-        //                //{
-        //                //    int temp = begin_sec;
-        //                //    begin_sec = end_sec;
-        //                //    end_sec = temp;
-        //                //}
-
-        //                //if (Math.Abs(begin_sec - end_sec) > 180)
-        //                //{
-        //                //    int temp = begin_sec;
-        //                //    begin_sec = end_sec;
-        //                //    end_sec = temp;
-        //                //}
-
-        //                //var centerX = 184.5;
-        //                //var centerY = 184.5;
-        //                //var radius = 121;
-
-        //                //var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
-        //                //var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
-
-
-        //                //var pathGeometry = new PathGeometry();
-        //                //var pathFigure = new PathFigure { StartPoint = startPoint };
-        //                //pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
-        //                //pathGeometry.Figures.Add(pathFigure);
-
-        //                //WindDirectionPath2 = pathGeometry;
-        //                #endregion
-        //            }
-        //        }
-        //    }
-        //    else
-        //        WindDirectionPath2 = null;
-        //}
-
-        private void UpdateSector10()
+        private void UpdateSector()
         {
             int begin_sec = -1, end_sec = -1;
-            if (_valueDir_10min.Trim() != "Н.Д.")
+            if (_valueDir_min.Trim() != "Н.Д.")
             {
-                Int32.TryParse(_valueDir_10min.Trim(), out begin_sec);
-                if (_valueDir_10max.Trim() != "Н.Д.")
+                Int32.TryParse(_valueDir_min.Trim(), out begin_sec);
+                if (_valueDir_max.Trim() != "Н.Д.")
                 {
-                    Int32.TryParse(_valueDir_10max.Trim(), out end_sec);
+                    Int32.TryParse(_valueDir_max.Trim(), out end_sec);
                     if ((begin_sec >= 0) && (end_sec >= 0))
                     {
                         bool isLargeArc = begin_sec > end_sec ? Math.Abs(360 - (begin_sec - end_sec)) > 180 : Math.Abs(begin_sec - end_sec) > 180;
@@ -333,97 +150,31 @@ namespace Capriz_WPF.CustomControls
                         pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = isLargeArc, SweepDirection = SweepDirection.Clockwise });
                         pathGeometry.Figures.Add(pathFigure);
 
-                        WindDirectionPath10 = pathGeometry;
-                        #region oldUpdate 
-                        //begin_sec -= 90;
-                        //end_sec -= 90;
-
-                        //if (begin_sec < 0)
-                        //    begin_sec += 360;
-                        //if (end_sec < 0)
-                        //    end_sec += 360;
-
-                        //if (end_sec < begin_sec)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //if (Math.Abs(begin_sec - end_sec) > 180)
-                        //{
-                        //    int temp = begin_sec;
-                        //    begin_sec = end_sec;
-                        //    end_sec = temp;
-                        //}
-
-                        //var centerX = 184.5;
-                        //var centerY = 184.5;
-                        //var radius = 136;
-
-                        //var startPoint = new Point(centerX + radius * Math.Cos(begin_sec * Math.PI / 180), centerY + radius * Math.Sin(begin_sec * Math.PI / 180));
-                        //var endPoint = new Point(centerX + radius * Math.Cos(end_sec * Math.PI / 180), centerY + radius * Math.Sin(end_sec * Math.PI / 180));
-
-
-                        //var pathGeometry = new PathGeometry();
-                        //var pathFigure = new PathFigure { StartPoint = startPoint };
-                        //pathFigure.Segments.Add(new ArcSegment { Point = endPoint, Size = new Size(radius, radius), IsLargeArc = end_sec - begin_sec > 180, SweepDirection = SweepDirection.Clockwise });
-                        //pathGeometry.Figures.Add(pathFigure);
-
-                        //WindDirectionPath10 = pathGeometry;
-                        #endregion 
+                        WindDirectionPath = pathGeometry;
                     }
                 }
             }
             else
-                WindDirectionPath10 = null;
+                WindDirectionPath = null;
         }
 
-        //private void UpdateAverage2()
-        //{
-        //    //Среднее за 2 минуты
-        //    int result = -1;
-        //    if (_valueDir_2mid.Trim() != "Н.Д.")
-        //    {
-        //        Int32.TryParse(_valueDir_2mid.Trim(), out result);
-        //        if (result >= 0)
-        //        {
-        //            var averageLineGeometry2 = new LineGeometry(new Point(245, 91.5), new Point(245, 75.5));
-        //            AverageAngle2.Angle = result;
-        //            AverageLine2 = averageLineGeometry2;
-        //        }
-        //    }
-        //    else
-        //        AverageLine2 = null;
-        //}
-
-        private void UpdateAverage10()
+        private void UpdateAverage()
         {
-            //Среднее за 10 минут
+            //Среднее
             int result = -1;
-            if (_valueDir_10mid.Trim() != "Н.Д.")
+            if (_valueDir_mid.Trim() != "Н.Д.")
             {
-                Int32.TryParse(_valueDir_10mid.Trim(), out result);
+                Int32.TryParse(_valueDir_mid.Trim(), out result);
                 if (result >= 0)
                 {
-                    var averageLineGeometry10 = new LineGeometry(new Point(245, 73), new Point(245, 57));
-                    AverageAngle10.Angle = result;
-                    AverageLine10 = averageLineGeometry10;
+                    var averageLineGeometry = new LineGeometry(new Point(245, 73), new Point(245, 57));
+                    AverageAngle.Angle = result;
+                    AverageLine = averageLineGeometry;
                 }
             }
             else
-                AverageLine10 = null;
+                AverageLine = null;
         }
-
-        //private void UpdateShipCurs()
-        //{
-        //    int result = -1;
-        //    Int32.TryParse(_valueCurs.Trim(), out result);
-        //    if ((result > 0) || (result == 0))
-        //    {
-        //        ShipRotateTransform.Angle = result;
-        //    }
-        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 

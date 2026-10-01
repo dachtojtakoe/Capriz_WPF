@@ -18,14 +18,12 @@
             <Setter Property="Text" Value="Н.Д."/>
         </Style>
 
-        <Style x:Key="NoDataTextBlockBig" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Orange"/>
+        <Style x:Key="NoDataTextBlockAvg" TargetType="TextBlock" BasedOn="{StaticResource NoDataTextBlock}">
+            <Setter Property="FontSize" Value="16pt"/>
+        </Style>
+
+        <Style x:Key="NoDataTextBlockBig" TargetType="TextBlock" BasedOn="{StaticResource NoDataTextBlock}">
             <Setter Property="FontSize" Value="22pt"/>
-            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Text" Value="Н.Д."/>
         </Style>
 
         <Style x:Key="LabelTextBlock" TargetType="TextBlock">
@@ -38,86 +36,151 @@
             <Setter Property="Text" Value="Н.Д."/>
         </Style>
 
-        <Style x:Key="LabelTextBlockBig" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
+        <Style x:Key="LabelTextBlockAvg" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlock}">
             <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Text" Value="Н.Д."/>
         </Style>
 
-        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="ToggleButton">
-            <Border x:Name="Border" BorderThickness="3" CornerRadius="10">
-                <Border.BorderBrush>
-                    <LinearGradientBrush>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0" Color="#FF1E465B"/>
-                            <GradientStop Offset="1" Color="#FF3D6087"/>
-                        </GradientStopCollection>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0" Color="#FF3D6087"/>
-                            <GradientStop Offset="1" Color="#FF002852"/>
-                        </GradientStopCollection>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+        <Style x:Key="LabelTextBlockBig" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlock}">
+            <Setter Property="FontSize" Value="16pt"/>
+        </Style>
 
-            <ControlTemplate.Triggers>
-                <!-- Ховер (только когда НЕ выбрана) -->
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="Border" Property="BorderBrush">
-                        <Setter.Value>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FFFFE0C0"/>
-                                    <GradientStop Offset="1" Color="#FFFF8100"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter TargetName="Border" Property="Background">
-                        <Setter.Value>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="1" Color="#FF002852"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
+        <Style x:Key="CustomComboBox" TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="66"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="5"/>
 
-                <!-- Выделенная кнопка — рамка остаётся -->
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="Border" Property="BorderBrush">
-                        <Setter.Value>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FFFFE0C0"/>
-                                    <GradientStop Offset="1" Color="#FFFF8100"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter TargetName="Border" Property="Background">
-                        <Setter.Value>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FF3D6087"/>
-                                    <GradientStop Offset="1" Color="#FF002852"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="Border"
+                            BorderThickness="3"
+                            CornerRadius="10">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush>
+                                        <GradientStopCollection>
+                                            <GradientStop Offset="0" Color="#FF1E465B"/>
+                                            <GradientStop Offset="1" Color="#FF3D6087"/>
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStopCollection>
+                                            <GradientStop Offset="0" Color="#FF3D6087"/>
+                                            <GradientStop Offset="1" Color="#FF002852"/>
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <!-- ВЫБРАННЫЙ ПУНКТ — единственный ContentPresenter -->
+                            <ContentPresenter x:Name="SelectionPresenter"
+                                      Margin="20,0,50,0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Content="{TemplateBinding SelectionBoxItem}"
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                      ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                      IsHitTestVisible="False"/>
+
+                            <!-- Стрелка -->
+                            <Path HorizontalAlignment="Right"
+                          VerticalAlignment="Center"
+                          Margin="0,0,20,0"
+                          Data="M 0,0 L 6,6 L 12,0"
+                          Stroke="AliceBlue"
+                          StrokeThickness="2.5"
+                          StrokeEndLineCap="Round"
+                          StrokeStartLineCap="Round"
+                          IsHitTestVisible="False"/>
+
+                            <!-- Невидимая кнопка для открытия списка -->
+                            <ToggleButton Focusable="False"
+                              ClickMode="Press"
+                              IsChecked="{Binding IsDropDownOpen,
+                                          RelativeSource={RelativeSource TemplatedParent},
+                                          Mode=TwoWay}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="Transparent"/>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <!-- Выпадающий список -->
+                            <Popup x:Name="Popup"
+                           Placement="Bottom"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           AllowsTransparency="True"
+                           Focusable="False"
+                           PopupAnimation="Slide">
+                                <Border MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                Margin="0,4,0,0"
+                                BorderThickness="3"
+                                CornerRadius="10">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush>
+                                            <GradientStopCollection>
+                                                <GradientStop Offset="0" Color="#FF1E465B"/>
+                                                <GradientStop Offset="1" Color="#FF3D6087"/>
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#0d345d"/>
+                                    </Border.Background>
+                                    <ScrollViewer Margin="2">
+                                        <StackPanel IsItemsHost="True"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
                 </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль элементов списка -->
+        <Style x:Key="CustomComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="ItemBorder"
+                        Background="Transparent"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#FF3D6087"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#FF005A9E"/>
+                                <Setter Property="Foreground" Value="Orange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <RoutedCommand x:Key="SetInstantData"/>
 
@@ -125,11 +188,6 @@
 
     <Grid>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="729"/>
-                <RowDefinition Height="2"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="2"/>
@@ -157,96 +215,184 @@
                     </Rectangle.Fill>
                 </Rectangle>
 
-                <Viewbox Stretch="Fill" IsHitTestVisible="False"
+                <Viewbox Stretch="Fill"
                     Grid.ColumnSpan="3" Grid.RowSpan="5">
                     <Canvas Width="1000" Height="729">
                         <Path Stroke="#FF3D6087"
                           StrokeThickness="6"
-                          Fill="#1400A0FF"
-                          StrokeLineJoin="Round">
+                          StrokeLineJoin="Round"
+                              MouseLeftButtonDown="SPBU_MouseLeftButtonDown">
                             <Path.Data>
                                 <PathGeometry Figures="
-                                M 369,283
-                                L 291,408
-                                A 160,160 0 0 1 371,578
-                                L 629,578
-                                A 160,160 0 0 1 709,408
-                                L 631,283
-                                A 172,172 0 0 1 369,283 Z"/>
+                                M 360,265
+                                L 270,408
+                                A 160,160 0 0 1 375,578
+                                L 624,578
+                                A 160,160 0 0 1 730,408
+                                L 640,265
+                                A 185,185 0 0 1 360,265 Z"/>
                             </Path.Data>
+                            <Path.Fill>
+                                <ImageBrush ImageSource="/Resources/spbu.jpg" Stretch="UniformToFill"/>
+                            </Path.Fill>
                         </Path>
                     </Canvas>
                 </Viewbox>
 
-                <Grid>
+                <Grid Grid.Column="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <RadioButton x:Name="InstantDataButton"
-                         Template="{StaticResource CustomButtonTemplate}"
-                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
-                         Foreground="AliceBlue" FontSize="21"
-                         Content="Мгновенные значения"
-                         GroupName="WindPeriod"
-                         IsChecked="True"
-                         Click="SetInstantData"
-                         Height="66" HorizontalAlignment="Stretch"
-                         Margin="5" Cursor="Hand"/>
+                        <TextBlock Text="Параметры ветра" Style="{StaticResource LabelTextBlockBig}" Margin="24,20,0,10" HorizontalAlignment="Left"/>
 
-                        <RadioButton x:Name="Average2DataButton"
-                         Template="{StaticResource CustomButtonTemplate}"
-                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
-                         Foreground="AliceBlue" FontSize="21"
-                         Content="2 минуты"
-                         GroupName="WindPeriod"
-                         Click="SetAverage2MinData"
-                         Height="66" HorizontalAlignment="Stretch"
-                         Margin="5" Cursor="Hand"/>
+                        <ComboBox x:Name="WindTypeCombo"
+                          Grid.Column="1"
+                          Style="{StaticResource CustomComboBox}"
+                          ItemContainerStyle="{StaticResource CustomComboBoxItem}"
+                          SelectedIndex="0"
+                          SelectionChanged="WindTypeCombo_SelectionChanged">
+                            <ComboBoxItem Content="Кажущийся ветер"/>
+                            <ComboBoxItem Content="Истинный ветер"/>
+                        </ComboBox>
 
-                        <RadioButton x:Name="Average10DataButton"
-                         Template="{StaticResource CustomButtonTemplate}"
-                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
-                         Foreground="AliceBlue" FontSize="21"
-                         Content="10 минут"
-                         GroupName="WindPeriod"
-                         Click="SetAverage10MinData"
-                         Height="66" HorizontalAlignment="Stretch"
-                         Margin="5" Cursor="Hand"/>
+                        <ComboBox x:Name="WindAverageCombo"
+                          Grid.Column="1"
+                          Style="{StaticResource CustomComboBox}"
+                          ItemContainerStyle="{StaticResource CustomComboBoxItem}"
+                          SelectedIndex="0"
+                          SelectionChanged="WindAverageCombo_SelectionChanged">
+                            <ComboBoxItem Content="Мгновенные значения"/>
+                            <ComboBoxItem Content="2 минуты"/>
+                            <ComboBoxItem Content="10 минут"/>
+                        </ComboBox>
+
+                        <ComboBox x:Name="WindParamsCombo"
+                          IsEnabled="False"
+                          Grid.Column="1"
+                          Style="{StaticResource CustomComboBox}"
+                          ItemContainerStyle="{StaticResource CustomComboBoxItem}"
+                          SelectedIndex="1"
+                          SelectionChanged="WindParamsCombo_SelectionChanged">
+                            <ComboBoxItem Content="Минимальные значения"/>
+                            <ComboBoxItem Content="Средние значения"/>
+                            <ComboBoxItem Content="Максимальные значения"/>
+                        </ComboBox>
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                <Grid Grid.Column="2" Margin="0,56,5,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="1">
-                        <RadioButton x:Name="FalseWindButton"
-                         Template="{StaticResource CustomButtonTemplate}"
-                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
-                         Foreground="AliceBlue" FontSize="21"
-                         Content="Кажущийся ветер"
-                         GroupName="WindType"
-                         IsChecked="True"
-                         Click="SetFalseWindType"
-                         Height="66" HorizontalAlignment="Stretch"
-                         Margin="5" Cursor="Hand"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="66"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="66"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="66"/>
+                    </Grid.RowDefinitions>
 
-                        <RadioButton x:Name="TrueWindButton"
-                         Template="{StaticResource CustomButtonTemplate}"
-                         FontFamily="Microsoft Sans Serif" FontWeight="Bold"
-                         Foreground="AliceBlue" FontSize="21"
-                         Content="Истинный ветер"
-                         GroupName="WindType"
-                         Click="SetTrueWindType"
-                         Height="66" HorizontalAlignment="Stretch"
-                         Margin="5" Cursor="Hand"/>
+                    <Rectangle Grid.Column="1" RadiusX="10" RadiusY="10" StrokeThickness="3">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                                    <GradientStop Offset="1" Color="#FF1E465B"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF002852"/>
+                                    <GradientStop Offset="1" Color="#FF3D6087"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle Grid.Column="1" Grid.Row="2" RadiusX="10" RadiusY="10" StrokeThickness="3">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                                    <GradientStop Offset="1" Color="#FF1E465B"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF002852"/>
+                                    <GradientStop Offset="1" Color="#FF3D6087"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle Grid.Column="1" Grid.Row="4" RadiusX="10" RadiusY="10" StrokeThickness="3">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                                    <GradientStop Offset="1" Color="#FF1E465B"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF002852"/>
+                                    <GradientStop Offset="1" Color="#FF3D6087"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+
+
+                    <StackPanel Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" HorizontalAlignment="Left" TextWrapping="Wrap" Text="XX:XX:XX" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+                        </StackPanel>
                     </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" VerticalAlignment="Center">
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock Text="Курс, °" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataCurs" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="Скорость, уз" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataSpeed" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.Row="4" Margin="20,0,0,0" VerticalAlignment="Center">
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock Text="Широта" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataLat" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="Долгота" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataLon" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
                 </Grid>
+
                 <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="WMT702" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
 
                 <!--<local:CustomWindPanelInstantHorizontal Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>-->
@@ -257,7 +403,7 @@
                 <!--<TextBlock Margin="50,0,0,15" Grid.Row="3" Grid.Column="2" Text="ДМП№2" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
 
                 <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,0"/>-->
-                <Ellipse Grid.ColumnSpan="3" Grid.Row="0" StrokeThickness="3" Width="270" Height="270">
+                <Ellipse Grid.ColumnSpan="3" Grid.Row="0" StrokeThickness="3" Width="230" Height="230">
                     <Ellipse.Stroke>
                         <SolidColorBrush Color="#FF3D6087"/>
                     </Ellipse.Stroke>
@@ -265,10 +411,10 @@
                         <SolidColorBrush Color="#0c3d6a"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataWMT" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
-                <local:CustomWindDataSmall x:Name="WindDataWMT" Margin="10" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="130"/>
+                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataWMT" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="330"/>
+                <local:CustomWindDataSmall x:Name="WindDataWMT" Text="WMT702" Margin="10" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
 
-                <Ellipse Grid.Column="0" Grid.Row="1" StrokeThickness="3" Width="270" Height="270">
+                <Ellipse Grid.Column="0" Grid.Row="1" StrokeThickness="3" Width="230" Height="230">
                     <Ellipse.Stroke>
                         <SolidColorBrush Color="#FF3D6087"/>
                     </Ellipse.Stroke>
@@ -276,10 +422,10 @@
                         <SolidColorBrush Color="#0c3d6a"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP1" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
-                <local:CustomWindDataSmall x:Name="WindDataDMP1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="130"/>
+                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP1" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="330"/>
+                <local:CustomWindDataSmall x:Name="WindDataDMP1" Text="ДМП1№1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
 
-                <Ellipse Grid.Column="2" Grid.Row="1" StrokeThickness="3" Width="270" Height="270">
+                <Ellipse Grid.Column="2" Grid.Row="1" StrokeThickness="3" Width="230" Height="230">
                     <Ellipse.Stroke>
                         <SolidColorBrush Color="#FF3D6087"/>
                     </Ellipse.Stroke>
@@ -287,8 +433,9 @@
                         <SolidColorBrush Color="#0c3d6a"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
-                <local:CustomWindDataSmall x:Name="WindDataDMP2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="230" Height="130"/>
+                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="330"/>
+                <local:CustomWindDataSmall x:Name="WindDataDMP2" Text="ДМП1№2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
+
 
                 <Grid Grid.Column="1" Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -296,25 +443,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="4*"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Курс, °" Style="{StaticResource LabelTextBlock}"/>
-                        <TextBlock Text="Н.Д." x:Name="DataCurs" Style="{StaticResource NoDataTextBlock}" Margin="12,0,0,0"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <TextBlock Text="Скорость, уз" Style="{StaticResource LabelTextBlock}"/>
-                        <TextBlock Text="Н.Д." x:Name="DataSpeed" Style="{StaticResource NoDataTextBlock}" Margin="12,0,0,0"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" HorizontalAlignment="Center">
-                        <TextBlock Text="Широта" Style="{StaticResource LabelTextBlock}"/>
-                        <TextBlock Text="Н.Д." x:Name="DataLat" Style="{StaticResource NoDataTextBlock}" Margin="0,5,0,0"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="3"  HorizontalAlignment="Center">
-                        <TextBlock Text="Долгота" Style="{StaticResource LabelTextBlock}"/>
-                        <TextBlock Text="Н.Д." x:Name="DataLon" Style="{StaticResource NoDataTextBlock}" Margin="0,5,0,0"/>
-                    </StackPanel>
                 </Grid>
             </Grid>
 
@@ -322,9 +453,9 @@
                 <local:CustomDataPanel x:Name="customDataPanel"/>
             </Grid>
 
-            <Grid Grid.Row="2">
+            <!--<Grid Grid.Row="2">
                 <local:CustomBottomDataPanel x:Name="customBottomDataPanel1" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
-            </Grid>
+            </Grid>-->
 
         </Grid>
     </Grid>

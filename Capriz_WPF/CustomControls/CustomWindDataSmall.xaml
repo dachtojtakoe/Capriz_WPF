@@ -4,44 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
+             x:Name="root"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="400">
+             d:DesignHeight="150" d:DesignWidth="150">
 
     <Grid Background="Transparent">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--<Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="3" Grid.RowSpan="5">
-            <Rectangle.Stroke>
-                <SolidColorBrush Color="#FF3D6087"/>
-            </Rectangle.Stroke>
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#0c3d6a"/>
-            </Rectangle.Fill>
-        </Rectangle>-->
-        
-        <TextBlock x:Name="lblMin1" Grid.Row="1" Grid.Column="0" Text="Мин." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMid1" Grid.Row="1" Grid.Column="1" Text="Сред." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="lblMax1" Grid.Row="1" Grid.Column="2" Text="Макс." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="13pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock x:Name="DataSpeed" Grid.Row="0" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18pt" Foreground="{Binding Foreground, ElementName=root}" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
 
-        <TextBlock x:Name="DataMinSpeed" Grid.Row="2" Grid.Column="0" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="DataMidSpeed" Grid.Row="2" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="DataMaxSpeed" Grid.Row="2" Grid.Column="2" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock x:Name="lbl" Grid.Row="1" Grid.Column="1" Text="{Binding Text, ElementName=root}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
 
-        <TextBlock x:Name="DataMinDir" Grid.Row="3" Grid.Column="0" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="DataMidDir" Grid.Row="3" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-        <TextBlock x:Name="DataMaxDir" Grid.Row="3" Grid.Column="2" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="16pt" Foreground="Orange" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
-
+        <TextBlock x:Name="DataDir" Grid.Row="2" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18pt" Foreground="{Binding Foreground, ElementName=root}" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
     </Grid>
 </UserControl>

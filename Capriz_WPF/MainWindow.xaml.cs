@@ -89,6 +89,7 @@ namespace Capriz_WPF
             Common.Settings.CreateFolder();
 
             InitializeComponent();
+            _customWindPanel1.SetMainWindow(this);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(2); // Установите желаемое время задержки

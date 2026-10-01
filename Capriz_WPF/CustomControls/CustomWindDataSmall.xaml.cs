@@ -23,16 +23,36 @@ namespace Capriz_WPF.CustomControls
     {
         List<TextBlock> textBlocks;
 
+        public static readonly DependencyProperty LabelTextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(CustomWindDataSmall), new PropertyMetadata("Датчик"));
+
+        public string Text
+        {
+            get => (string)GetValue(LabelTextProperty);
+            set => SetValue(LabelTextProperty, value);
+        }
+
+        public static new readonly DependencyProperty ForegroundProperty = DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(CustomWindDataSmall), new PropertyMetadata(Brushes.Orange));
+
+        public new Brush Foreground
+        {
+            get => (Brush)GetValue(ForegroundProperty);
+            set => SetValue(ForegroundProperty, value);
+        }
+
         public CustomWindDataSmall()
         {
             InitializeComponent();
-            textBlocks = new List<TextBlock>() { DataMinSpeed, DataMidSpeed, DataMaxSpeed, DataMinDir, DataMidDir, DataMaxDir};
+            //textBlocks = new List<TextBlock>() { DataMinSpeed, DataMidSpeed, DataMaxSpeed, DataMinDir, DataMidDir, DataMaxDir};
+            textBlocks = new List<TextBlock>() { DataSpeed, DataDir };
         }
 
         public void SetDataToFields(List<string> data)
         {
-            for (int i = 0; i < textBlocks.Count; i++)
-                textBlocks[i].Text = data[i];
+            //lbl.Text = data[0];
+            DataSpeed.Text = data[0] + " м/с";
+            DataDir.Text = data[1] + " °";
+            //for (int i = 0; i < textBlocks.Count; i++)
+            //    textBlocks[i].Text = data[i+1];
         }
 
         public void ClearFields()

@@ -24,23 +24,22 @@ namespace Capriz_WPF.CustomControls
     /// </summary>
     public partial class CustomWindPanel : System.Windows.Controls.UserControl
     {
+        MainWindow _main;
+
         byte cleanData = 0;
         string status = "";
         string toolTipText = "";
         int currentWindAverage = 0;
         int currentWindType = 0;
 
-        int CurrentWindAverage
-        {
-            get { return currentWindAverage; }
-            set { currentWindAverage = value > 2 ? 0 : value; }
-        }
+        private enum WindType { Apparent, True }
+        private WindType _windType = WindType.Apparent;
 
-        int CurrentWindType
-        {
-            get { return currentWindType; }
-            set { currentWindType = value > 1 ? 0 : value; }
-        }
+        private enum WindAverage { Instant, min2, min10 };
+        private WindAverage _windAverage = WindAverage.Instant;
+
+        private enum WindParams { Min, Avg, Max };
+        private WindParams _windParams = WindParams.Avg;
 
         List<Data.Data> msg = new List<Data.Data>();
         Configuration conf;
@@ -49,11 +48,12 @@ namespace Capriz_WPF.CustomControls
         public CustomWindPanel()
         {
             InitializeComponent();
-            CleanDataTablo();
+            //CleanDataTablo();
             timerClock = new DispatcherTimer();
             timerClock.Interval = TimeSpan.FromSeconds(1);
             timerClock.Tick += timerClock_Tick;
             timerClock.Start();
+
         }
 
         public void SetConf(Configuration _conf)
@@ -61,10 +61,17 @@ namespace Capriz_WPF.CustomControls
             conf = _conf;
         }
 
+        public void SetMainWindow(MainWindow main)
+        {
+            _main = main;
+        }
+
         private void timerClock_Tick(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-            customBottomDataPanel1.SetDateTime(new List<string> { (dt).ToString(@"dd.MM.yyyy"), (dt).ToString(@" HH:mm:ss") });
+            //customBottomDataPanel1.SetDateTime(new List<string> { (dt).ToString(@"dd.MM.yyyy"), (dt).ToString(@" HH:mm:ss") });
+            DataDate.Text = dt.ToString(@"dd.MM.yyyy");
+            DataTime.Text = dt.ToString(@"HH:mm:ss");
             cleanData++;
             if (status != "/")
                 if (cleanData >= 5) CleanDataTablo();
@@ -114,7 +121,8 @@ namespace Capriz_WPF.CustomControls
             {
                 Dispatcher.BeginInvoke((MethodInvoker)delegate
                 {
-                    customBottomDataPanel1.SetDataToSost(SetStatus(null));
+                    if (_main != null)
+                        _main.customBottomDataPanel1.SetDataToSost(SetStatus(null));
 
                     //customWindDataNew1.ClearFields();
 
@@ -161,61 +169,125 @@ namespace Capriz_WPF.CustomControls
                     {
                         cleanData = 0;
 
-                        if (CurrentWindType == 0)
+                        if (_windType == WindType.Apparent)
                         {
-                            switch (CurrentWindAverage)
+                            switch (_windAverage)
                             {
-                                case 0:
-                                    WindDataWMT.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_Kw, "Н.Д.", "Н.Д.", data.Direction_Kw, "Н.Д."});
-                                    WindDataDMP1.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K, "Н.Д.", "Н.Д.", data.Direction_K, "Н.Д."});
-                                    WindDataDMP2.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K2, "Н.Д.", "Н.Д.", data.Direction_K2, "Н.Д."});
+                                case WindAverage.Instant:
+                                    WindDataWMT.SetDataToFields(new List<string>() {data.Speed_Kw, data.Direction_Kw });
+                                    WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_K, data.Direction_K });
+                                    WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_K2, data.Direction_K2 });
                                     break;
-                                case 1:
-                                    WindRoundDataWMT.SetData(new List<string>() { data.Direction_2Kmid_w, data.Direction_2Kmin_w, data.Direction_2Kmax_w});
-                                    WindRoundDataDMP1.SetData(new List<string>() { data.Direction_2Kmid, data.Direction_2Kmin, data.Direction_2Kmax});
-                                    WindRoundDataDMP2.SetData(new List<string>() { data.Direction_2Kmid_2, data.Direction_2Kmin_2, data.Direction_2Kmax_2});
 
-                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_2Kmin_w, data.Speed_2Kmid_w, data.Speed_2Kmax_w, data.Direction_2Kmin_w, data.Direction_2Kmid_w, data.Direction_2Kmax_w });
-                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_2Kmin, data.Speed_2Kmid, data.Speed_2Kmax, data.Direction_2Kmin, data.Direction_2Kmid, data.Direction_2Kmax });
-                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_2Kmin_2, data.Speed_2Kmid_2, data.Speed_2Kmax_2, data.Direction_2Kmin_2, data.Direction_2Kmid_2, data.Direction_2Kmax_2 });
+                                case WindAverage.min2:
+                                    WindRoundDataWMT.SetData(new List<string>() { data.Direction_2Kmid_w, data.Direction_2Kmin_w, data.Direction_2Kmax_w });
+                                    WindRoundDataDMP1.SetData(new List<string>() { data.Direction_2Kmid, data.Direction_2Kmin, data.Direction_2Kmax });
+                                    WindRoundDataDMP2.SetData(new List<string>() { data.Direction_2Kmid_2, data.Direction_2Kmin_2, data.Direction_2Kmax_2 });
+
+                                    switch (_windParams)
+                                    {
+                                        case WindParams.Min:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_2Kmin_w, data.Direction_2Kmin_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_2Kmin, data.Direction_2Kmin });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_2Kmin_2, data.Direction_2Kmin_2 });
+                                            break;
+                                        case WindParams.Avg:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_2Kmid_w, data.Direction_2Kmid_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_2Kmid, data.Direction_2Kmid });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_2Kmid_2, data.Direction_2Kmid_2 });
+                                            break;
+                                        case WindParams.Max:
+                                            WindDataWMT.SetDataToFields(new List<string>() { data.Speed_2Kmax_w, data.Direction_2Kmax_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_2Kmax, data.Direction_2Kmax });
+                                            WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_2Kmax_2, data.Direction_2Kmax_2 });
+                                            break;
+                                    }
                                     break;
-                                case 2:
+
+                                case WindAverage.min10:
                                     WindRoundDataWMT.SetData(new List<string>() { data.Direction_10Kmid_w, data.Direction_10Kmin_w, data.Direction_10Kmax_w });
                                     WindRoundDataDMP1.SetData(new List<string>() { data.Direction_10Kmid, data.Direction_10Kmin, data.Direction_10Kmax });
                                     WindRoundDataDMP2.SetData(new List<string>() { data.Direction_10Kmid_2, data.Direction_10Kmin_2, data.Direction_10Kmax_2 });
 
-                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_10Kmin_w, data.Speed_10Kmid_w, data.Speed_10Kmax_w, data.Direction_10Kmin_w, data.Direction_10Kmid_w, data.Direction_10Kmax_w });
-                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_10Kmin, data.Speed_10Kmid, data.Speed_10Kmax, data.Direction_10Kmin, data.Direction_10Kmid, data.Direction_10Kmax });
-                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_10Kmin_2, data.Speed_10Kmid_2, data.Speed_10Kmax_2, data.Direction_10Kmin_2, data.Direction_10Kmid_2, data.Direction_10Kmax_2 });
+                                    switch (_windParams)
+                                    {
+                                        case WindParams.Min:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_10Kmin_w, data.Direction_10Kmin_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_10Kmin, data.Direction_10Kmin });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_10Kmin_2, data.Direction_10Kmin_2 });
+                                            break;
+                                        case WindParams.Avg:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_10Kmid_w, data.Direction_10Kmid_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_10Kmid, data.Direction_10Kmid });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_10Kmid_2, data.Direction_10Kmid_2 });
+                                            break;
+                                        case WindParams.Max:
+                                            WindDataWMT.SetDataToFields(new List<string>() { data.Speed_10Kmax_w, data.Direction_10Kmax_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_10Kmax, data.Direction_10Kmax });
+                                            WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_10Kmax_2, data.Direction_10Kmax_2 });
+                                            break;
+                                    }
                                     break;
                             }
                         }
-                        else if (CurrentWindType == 1)
+                        else if (_windType == WindType.True)
                         {
-                            switch (CurrentWindAverage)
+                            switch (_windAverage)
                             {
-                                case 0:
-                                    WindDataWMT.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_Kw, "Н.Д.", "Н.Д.", data.Direction_Kw, "Н.Д." });
-                                    WindDataDMP1.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K, "Н.Д.", "Н.Д.", data.Direction_K, "Н.Д." });
-                                    WindDataDMP2.SetDataToFields(new List<string>() { "Н.Д.", data.Speed_K2, "Н.Д.", "Н.Д.", data.Direction_K2, "Н.Д." });
+                                case WindAverage.Instant:
+                                    WindDataWMT.SetDataToFields(new List<string>() {data.Speed_Iw, data.Direction_Iw });
+                                    WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_I, data.Direction_I });
+                                    WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_I2, data.Direction_I2 });
                                     break;
-                                case 1:
+
+                                case WindAverage.min2:
                                     WindRoundDataWMT.SetData(new List<string>() { data.Direction_2Imid_w, data.Direction_2Imin_w, data.Direction_2Imax_w });
                                     WindRoundDataDMP1.SetData(new List<string>() { data.Direction_2Imid, data.Direction_2Imin, data.Direction_2Imax });
                                     WindRoundDataDMP2.SetData(new List<string>() { data.Direction_2Imid_2, data.Direction_2Imin_2, data.Direction_2Imax_2 });
 
-                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_2Imin_w, data.Speed_2Imid_w, data.Speed_2Imax_w, data.Direction_2Imin_w, data.Direction_2Imid_w, data.Direction_2Imax_w });
-                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_2Imin, data.Speed_2Imid, data.Speed_2Imax, data.Direction_2Imin, data.Direction_2Imid, data.Direction_2Imax });
-                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_2Imin_2, data.Speed_2Imid_2, data.Speed_2Imax_2, data.Direction_2Imin_2, data.Direction_2Imid_2, data.Direction_2Imax_2 });
+                                    switch (_windParams)
+                                    {
+                                        case WindParams.Min:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_2Imin_w, data.Direction_2Imin_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_2Imin, data.Direction_2Imin });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_2Imin_2, data.Direction_2Imin_2 });
+                                            break;
+                                        case WindParams.Avg:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_2Imid_w, data.Direction_2Imid_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_2Imid, data.Direction_2Imid });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_2Imid_2, data.Direction_2Imid_2 });
+                                            break;
+                                        case WindParams.Max:
+                                            WindDataWMT.SetDataToFields(new List<string>() { data.Speed_2Imax_w, data.Direction_2Imax_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_2Imax, data.Direction_2Imax });
+                                            WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_2Imax_2, data.Direction_2Imax_2 });
+                                            break;
+                                    }
                                     break;
-                                case 2:
+
+                                case WindAverage.min10:
                                     WindRoundDataWMT.SetData(new List<string>() { data.Direction_10Imid_w, data.Direction_10Imin_w, data.Direction_10Imax_w });
                                     WindRoundDataDMP1.SetData(new List<string>() { data.Direction_10Imid, data.Direction_10Imin, data.Direction_10Imax });
                                     WindRoundDataDMP2.SetData(new List<string>() { data.Direction_10Imid_2, data.Direction_10Imin_2, data.Direction_10Imax_2 });
 
-                                    WindDataWMT.SetDataToFields(new List<string>() { data.Speed_10Imin_w, data.Speed_10Imid_w, data.Speed_10Imax_w, data.Direction_10Imin_w, data.Direction_10Imid_w, data.Direction_10Imax_w });
-                                    WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_10Imin, data.Speed_10Imid, data.Speed_10Imax, data.Direction_10Imin, data.Direction_10Imid, data.Direction_10Imax });
-                                    WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_10Imin_2, data.Speed_10Imid_2, data.Speed_10Imax_2, data.Direction_10Imin_2, data.Direction_10Imid_2, data.Direction_10Imax_2 });
+                                    switch (_windParams)
+                                    {
+                                        case WindParams.Min:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_10Imin_w, data.Direction_10Imin_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_10Imin, data.Direction_10Imin });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_10Imin_2, data.Direction_10Imin_2 });
+                                            break;
+                                        case WindParams.Avg:
+                                            WindDataWMT.SetDataToFields(new List<string>() {data.Speed_10Imid_w, data.Direction_10Imid_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() {data.Speed_10Imid, data.Direction_10Imid });
+                                            WindDataDMP2.SetDataToFields(new List<string>() {data.Speed_10Imid_2, data.Direction_10Imid_2 });
+                                            break;
+                                        case WindParams.Max:
+                                            WindDataWMT.SetDataToFields(new List<string>() { data.Speed_10Imax_w, data.Direction_10Imax_w });
+                                            WindDataDMP1.SetDataToFields(new List<string>() { data.Speed_10Imax, data.Direction_10Imax });
+                                            WindDataDMP2.SetDataToFields(new List<string>() { data.Speed_10Imax_2, data.Direction_10Imax_2 });
+                                            break;
+                                    }
                                     break;
                             }
                         }
@@ -237,7 +309,8 @@ namespace Capriz_WPF.CustomControls
                         DataLat.Text = lat;
                         DataLon.Text = lon;
 
-                        customBottomDataPanel1.SetDataToSost(SetStatus(data));
+                        if (_main != null)
+                            _main.customBottomDataPanel1.SetDataToSost(SetStatus(data));
                     }
                 });
             }
@@ -372,30 +445,113 @@ namespace Capriz_WPF.CustomControls
             return new List<string> { status, toolTipText };
         }
 
-        private void SetInstantData(object sender, EventArgs e)
+        private void WindTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CurrentWindAverage = 0;
+            switch (WindTypeCombo.SelectedIndex)
+            {
+                case 0: _windType = WindType.Apparent; break;
+                case 1: _windType = WindType.True; break;
+            }
         }
 
-        private void SetAverage2MinData(object sender, EventArgs e)
+        private void TurnOffRoundWindData()
         {
-            CurrentWindAverage = 1;
+            WindRoundDataWMT.BrushColor = Brushes.Gray;
+            WindRoundDataDMP1.BrushColor = Brushes.Gray;
+            WindRoundDataDMP2.BrushColor = Brushes.Gray;
 
+            WindRoundDataWMT.ClearData();
+            WindRoundDataDMP1.ClearData();
+            WindRoundDataDMP2.ClearData();
         }
 
-        private void SetAverage10MinData(object sender, EventArgs e)
+        private void SetAverageData()
         {
-            CurrentWindAverage = 2;
+            WindParamsCombo.SelectedIndex = 1;
+            WindParamsCombo.IsEnabled = false;
+            //_windParams = WindParams.Avg;
+            //SetWindDataColors(Brushes.Orange);
         }
 
-        private void SetFalseWindType(object sender, EventArgs e)
+        private void TurnOnRoundWindData()
         {
-            CurrentWindType = 0;
+            WindRoundDataWMT.BrushColor = Brushes.AliceBlue;
+            WindRoundDataDMP1.BrushColor = Brushes.AliceBlue;
+            WindRoundDataDMP2.BrushColor = Brushes.AliceBlue;
+
+            WindParamsCombo.IsEnabled = true;
         }
 
-        private void SetTrueWindType(object sender, EventArgs e)
+        private void WindAverageCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CurrentWindType = 1;
+            if (WindRoundDataWMT == null) return;
+
+            switch (WindAverageCombo.SelectedIndex)
+            {
+                case 0: 
+                    _windAverage = WindAverage.Instant;
+                    TurnOffRoundWindData();
+                    SetAverageData();
+                    break;
+                case 1: 
+                    _windAverage = WindAverage.min2; 
+                    TurnOnRoundWindData();
+                    break;
+                case 2: 
+                    _windAverage = WindAverage.min10;
+                    TurnOnRoundWindData();
+                    break;
+            }
+        }
+
+        private void SetWindDataColors(Brush color)
+        {
+            WindDataWMT.Foreground = color;
+            WindDataDMP1.Foreground = color;
+            WindDataDMP2.Foreground = color;
+        }
+
+        private void WindParamsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (WindDataWMT == null) return;
+
+            Brush color = Brushes.Orange;
+
+            switch (WindParamsCombo.SelectedIndex)
+            {
+                case 0: 
+                    _windParams = WindParams.Min;
+                    color = Brushes.LightBlue;
+                    break;
+                case 1: 
+                    _windParams = WindParams.Avg;
+                    break;
+                case 2: 
+                    _windParams = WindParams.Max;
+                    color = Brushes.Red;
+                    break;
+            }
+
+            SetWindDataColors(color);
+        }
+
+        private void DataTime_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_main != null)
+            {
+                _main.customCalendar1.CalledBy = 5;
+                _main.customCalendar1.SetData(Convert.ToDateTime(DataDate.Text + " " + DataTime.Text));
+                _main.customCalendar1.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void SPBU_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 3)
+            {
+                e.Handled = true;
+                System.Windows.MessageBox.Show("!");
+            }
         }
     }
 }

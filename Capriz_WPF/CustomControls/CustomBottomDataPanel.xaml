@@ -35,26 +35,36 @@
     </UserControl.Resources>
 
     <Grid>
-        <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="5">
+        <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3">
             <Rectangle.Stroke>
-                <SolidColorBrush Color="#FF3D6087"/>
+                <LinearGradientBrush>
+                    <GradientStopCollection>
+                        <GradientStop Offset="0" Color="#FF1E465B"/>
+                        <GradientStop Offset="1" Color="#FF3D6087"/>
+                    </GradientStopCollection>
+                </LinearGradientBrush>
             </Rectangle.Stroke>
             <Rectangle.Fill>
-                <SolidColorBrush Color="#0d345d"/>
+                <LinearGradientBrush>
+                    <GradientStopCollection>
+                        <GradientStop Offset="0" Color="#FF3D6087"/>
+                        <GradientStop Offset="1" Color="#FF002852"/>
+                    </GradientStopCollection>
+                </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
 
-        <StackPanel Orientation="Horizontal">
+        <!--<StackPanel Orientation="Horizontal">
             <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center" Margin="20,0,0,0"/>
             <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
 
             <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center" Margin="30,0,0,0"/>
             <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlock}" Cursor="Hand" HorizontalAlignment="Left" TextWrapping="Wrap" Text="XX:XX:XX" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
-        </StackPanel>
+        </StackPanel>-->
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Состояние" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <Ellipse x:Name="DataSost" Width="39" Height="39" Stroke="AliceBlue" StrokeThickness="4" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" Margin="0,0,10,0"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <!--<TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Состояние" VerticalAlignment="Center" Margin="0,0,10,0"/>-->
+            <Ellipse x:Name="DataSost" Width="45" Height="45" Stroke="AliceBlue" StrokeThickness="5" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" Margin="0,0,0,0"/>
         </StackPanel>
 
         <Popup x:Name="CustomToolTipPopup" Width="166" Height="40" PlacementRectangle="-126,-44,0,0" Placement="Relative" PlacementTarget="{Binding ElementName=DataSost}" IsOpen="False" AllowsTransparency="True">

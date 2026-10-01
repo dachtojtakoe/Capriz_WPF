@@ -6,7 +6,7 @@ namespace Capriz_WPF.Data
 {
     public static class ConvertData
     {
-        private const int FrameSize = 404;
+        private const int FrameSize = 405;
 
         private static string F(byte[] b, int pos, int len)
         {

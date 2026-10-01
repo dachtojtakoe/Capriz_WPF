@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:Capriz_WPF"
         xmlns:CustomControls="clr-namespace:Capriz_WPF.CustomControls" x:Class="Capriz_WPF.MainWindow"
         mc:Ignorable="d"
-        Title="Capriz" 
+        Title="Capriz"
         WindowState="Maximized"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize" >
+        WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize">
         <!--Height="800" Width="1280"-->
-    <!--Topmost="True"-->
-    <!--Height="800" Width="1280"-->
+        <!--Topmost="True"-->
+        <!--Height="800" Width="1280"-->
 
     <Window.Resources>
         <BitmapImage x:Key="sett1" UriSource="/Resources/sett1.png"/>
@@ -245,7 +245,33 @@
                 <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
                 <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
                 <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
-                <CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="44" ImageHeight="44"/>
+                <!--<CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="44" ImageHeight="44"/>-->
+                <!--<Grid Width="66" Height="66" Margin="0,1,0,0">
+                    <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF1E465B"/>
+                                    <GradientStop Offset="1" Color="#FF3D6087"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                                    <GradientStop Offset="1" Color="#FF002852"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    
+                    <Ellipse x:Name="DataSost" Width="45" Height="45" Stroke="AliceBlue" StrokeThickness="5" HorizontalAlignment="Center" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" />
+
+                </Grid>-->
+
+                <CustomControls:CustomBottomDataPanel x:Name="customBottomDataPanel1" Margin="0,1,0,0" Width="66" Height="66"/>
+
             </ItemsControl>
 
             <CustomControls:CustomToolTip x:Name="CustomToolTip1" ToolTipText="Табло с текущими&#x0d;метеоданными" Margin="0,3,72,0" ToolTipWidth ="157" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>

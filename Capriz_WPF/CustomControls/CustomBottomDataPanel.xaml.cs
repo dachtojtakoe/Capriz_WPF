@@ -27,7 +27,7 @@ namespace Capriz_WPF.CustomControls
     {
         MainWindow mw = System.Windows.Application.Current.MainWindow as MainWindow;
         //readonly List<TextBlock> _textBlocksShip;
-        readonly List<TextBlock> _textBlocksDateTime;
+        //readonly List<TextBlock> _textBlocksDateTime;
         string _toolTipText = "";
 
 
@@ -46,7 +46,7 @@ namespace Capriz_WPF.CustomControls
             DataSost.Stroke = new SolidColorBrush(Color.FromRgb(162, 162, 162));
 
             //_textBlocksShip = new List<TextBlock>() { DataCurs, DataSpeed };
-            _textBlocksDateTime = new List<TextBlock>() { DataDate, DataTime };
+            //_textBlocksDateTime = new List<TextBlock>() { DataDate, DataTime };
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(15);
@@ -65,11 +65,11 @@ namespace Capriz_WPF.CustomControls
         //        _textBlocksShip[i].Text = "Н.Д.";
         //}
 
-        public void SetDateTime(List<string> data)
-        {
-            for (int i = 0; i < _textBlocksDateTime.Count; i++)
-                _textBlocksDateTime[i].Text = data[i];
-        }
+        //public void SetDateTime(List<string> data)
+        //{
+        //    for (int i = 0; i < _textBlocksDateTime.Count; i++)
+        //        _textBlocksDateTime[i].Text = data[i];
+        //}
 
         public void SetDataToSost(List<string> data)
         {
@@ -168,12 +168,11 @@ namespace Capriz_WPF.CustomControls
             timer.Start();
         }
 
-        private void DataTime_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-            mw.customCalendar1.SetData(Convert.ToDateTime(DataDate.Text + " " + DataTime.Text));
-            mw.customCalendar1.CalledBy = 5;
-            mw.customCalendar1.Visibility = Visibility.Visible;
-        }
+        //private void DataTime_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    mw.customCalendar1.SetData(Convert.ToDateTime(DataDate.Text + " " + DataTime.Text));
+        //    mw.customCalendar1.CalledBy = 5;
+        //    mw.customCalendar1.Visibility = Visibility.Visible;
+        //}
     }
 }

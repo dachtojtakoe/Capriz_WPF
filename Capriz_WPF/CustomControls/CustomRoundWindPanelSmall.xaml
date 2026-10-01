@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
+             x:Name="root"
              d:DesignHeight="490" d:DesignWidth="490">
 
     <UserControl.Resources>
@@ -66,7 +67,7 @@
         </x:Array>
 
         <Style x:Key="CommonTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="Foreground" Value="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}"/>
             <Setter Property="FontSize" Value="21"/>
             <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -85,33 +86,23 @@
 
     <Viewbox Stretch="Fill">
         <Grid Width="490" Height="490">
-            <!--<Path Stroke="#58d758" StrokeThickness="18" Data="{Binding WindDirectionPath2}" Opacity="0.7" Panel.ZIndex="5">
-            <Path.RenderTransform>
-                <RotateTransform Angle="0" />
-            </Path.RenderTransform>
-        </Path>-->
 
-            <Path Stroke="Green" StrokeThickness="17" Data="{Binding WindDirectionPath10}" Opacity="0.7" Panel.ZIndex="5">
+
+            <Path Stroke="Green" StrokeThickness="17" Data="{Binding WindDirectionPath}" Opacity="0.7" Panel.ZIndex="5">
                 <Path.RenderTransform>
                     <RotateTransform Angle="0" />
                 </Path.RenderTransform>
             </Path>
 
-            <!--<Path Stroke="Red" StrokeThickness="3" Data="{Binding AverageLine2}" Panel.ZIndex="7">
-            <Path.RenderTransform>
-                <RotateTransform x:Name="AverageAngle2" Angle="0" CenterX="245" CenterY="245"/>
-            </Path.RenderTransform>
-        </Path>-->
 
-            <Path Stroke="Red" StrokeThickness="3" Data="{Binding AverageLine10}" Panel.ZIndex="7">
+            <Path Stroke="Red" StrokeThickness="3" Data="{Binding AverageLine}" Panel.ZIndex="7">
                 <Path.RenderTransform>
-                    <RotateTransform x:Name="AverageAngle10" Angle="0" CenterX="245" CenterY="245"/>
+                    <RotateTransform x:Name="AverageAngle" Angle="0" CenterX="245" CenterY="245"/>
                 </Path.RenderTransform>
             </Path>
 
-            <Ellipse Width="383" Height="383" Stroke="AliceBlue" StrokeThickness="3"/>
-            <!--<Ellipse Width="343.5" Height="343.5" Stroke="AliceBlue" StrokeThickness="2"/>-->
-            <Ellipse Width="343.5" Height="343.5" Stroke="AliceBlue" StrokeThickness="3"/>
+            <Ellipse Width="383" Height="383" Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="3"/>
+            <Ellipse Width="343.5" Height="343.5" Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="3"/>
 
             <Grid x:Name="TypicalAngles">
                 <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0"/>
@@ -147,16 +138,6 @@
                 <TextBlock Text="30" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,35,0,0"/>
             </Grid>
 
-            <!--<TextBlock Text="{Binding ValueDir}" Margin="0,0,0,25" Style="{StaticResource NoDataTextBlock}" Panel.ZIndex="10" Background="#0d345d" />
-
-        <Path Stroke="Orange" StrokeThickness="3">
-            <Path.Data>
-                <LineGeometry StartPoint="212.8,246" EndPoint="275.31,246"/>
-            </Path.Data>
-        </Path>
-
-        <TextBlock Text="{Binding ValueSpeed}" Margin="0,25,0,0"  Style="{StaticResource NoDataTextBlock}" Panel.ZIndex="10" Background="#0d345d"/>-->
-
             <ItemsControl ItemsSource="{StaticResource Angles}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -165,7 +146,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Path Stroke="AliceBlue" StrokeThickness="4">
+                        <Path Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="4">
                             <Path.Data>
                                 <LineGeometry StartPoint="0,-191" EndPoint="0,-171"/>
                             </Path.Data>
@@ -186,7 +167,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Path Stroke="AliceBlue" StrokeThickness="1">
+                        <Path Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="1">
                             <Path.Data>
                                 <LineGeometry StartPoint="0,-191" EndPoint="0,-171"/>
                             </Path.Data>
@@ -197,16 +178,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-
-            <!--<Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Path Stroke="AliceBlue" StrokeThickness="3" Data="M-33,-0 L0,-106 L33,0 L20,106 L-20,106  Z" RenderTransformOrigin="0,0">
-                <Path.RenderTransform>
-                    <RotateTransform x:Name="ShipRotateTransform" Angle="0"/>
-                </Path.RenderTransform>
-            </Path>
-        </Canvas>-->
-
         </Grid>
     </Viewbox>
 </UserControl>

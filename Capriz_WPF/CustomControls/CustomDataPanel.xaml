@@ -45,9 +45,29 @@
             </Rectangle.Fill>
         </Rectangle>
 
+        <!--<Rectangle Grid.Column="2" Grid.Row="2" RadiusX="10" RadiusY="10" StrokeThickness="3">
+            <Rectangle.Stroke>
+                <LinearGradientBrush>
+                    <GradientStopCollection>
+                        <GradientStop Offset="0" Color="#FF3D6087"/>
+                        <GradientStop Offset="1" Color="#FF1E465B"/>
+                    </GradientStopCollection>
+                </LinearGradientBrush>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStopCollection>
+                        <GradientStop Offset="0" Color="#FF002852"/>
+                        <GradientStop Offset="1" Color="#FF3D6087"/>
+                    </GradientStopCollection>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>-->
+
         <Grid Margin="10,10,10,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -85,70 +105,70 @@
             <TextBlock Grid.Row="0" Grid.Column="0"
                Text="Температура воздуха, °C"
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="0" Grid.Column="1"
+            <TextBlock Grid.Row="0" Grid.Column="2"
                Text="Влажность воздуха, %"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataTemp" Grid.Row="1" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataHum"  Grid.Row="1" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataHum"  Grid.Row="1" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
             <!-- ===== Пара 2: Давление мм рт.ст. | Давление гПа ===== -->
             <TextBlock Grid.Row="3" Grid.Column="0"
                Text="Атмосферное давление, мм рт. ст."
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="3" Grid.Column="1"
+            <TextBlock Grid.Row="3" Grid.Column="2"
                Text="Атмосферное давление, гПа"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataPressMm"  Grid.Row="4" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataPressGPa" Grid.Row="4" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataPressGPa" Grid.Row="4" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
             <!-- ===== Пара 3: Барическая тенденция | Ход тенденции ===== -->
             <TextBlock Grid.Row="6" Grid.Column="0"
                Text="Барическая тенденция за 3 ч., гПа"
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="6" Grid.Column="1"
+            <TextBlock Grid.Row="6" Grid.Column="2"
                Text="Ход барической тенденции"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataBarT"  Grid.Row="7" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataTrend" Grid.Row="7" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataTrend" Grid.Row="7" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
             <!-- ===== Пара 4: Количество слоёв | НГО верхнего ===== -->
             <TextBlock Grid.Row="9" Grid.Column="0"
                Text="Количество слоёв облаков"
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="9" Grid.Column="1"
+            <TextBlock Grid.Row="9" Grid.Column="2"
                Text="НГО верхнего слоя, м"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataClouds" Grid.Row="10" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataNgo3"   Grid.Row="10" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataNgo3"   Grid.Row="10" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
             <!-- ===== Пара 5: НГО среднего | НГО нижнего ===== -->
             <TextBlock Grid.Row="12" Grid.Column="0"
                Text="НГО среднего слоя, м"
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="12" Grid.Column="1"
+            <TextBlock Grid.Row="12" Grid.Column="2"
                Text="НГО нижнего слоя, м"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataNgo2" Grid.Row="13" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataNgo1" Grid.Row="13" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataNgo1" Grid.Row="13" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
             <!-- ===== Пара 6: МДВ 1 мин | МДВ 10 мин ===== -->
             <TextBlock Grid.Row="15" Grid.Column="0"
                Text="Метеорологическая дальность видимости за 1 мин, м"
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="15" Grid.Column="1"
+            <TextBlock Grid.Row="15" Grid.Column="2"
                Text="Метеорологическая дальность видимости за 10 мин, м"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataDMDV1"  Grid.Row="16" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataDMDV10" Grid.Row="16" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataDMDV10" Grid.Row="16" Grid.Column="2" Style="{StaticResource CellValue}"/>
             
             <TextBlock Grid.Row="18" Grid.Column="0"
                Text="Параметр волнения Hm0, см"
                Style="{StaticResource CellLabel}"/>
-            <TextBlock Grid.Row="18" Grid.Column="1"
+            <TextBlock Grid.Row="18" Grid.Column="2"
                Text="Параметр волнения Hmax, см"
                Style="{StaticResource CellLabel}"/>
             <TextBlock x:Name="DataHm0" Grid.Row="19" Grid.Column="0" Style="{StaticResource CellValue}"/>
-            <TextBlock x:Name="DataHmax" Grid.Row="19" Grid.Column="1" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="DataHmax" Grid.Row="19" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
         </Grid>
     </Grid>
