@@ -1,38 +1,38 @@
 ﻿using Capriz_WPF.Common;
 using Capriz_WPF.CustomControls;
 using Capriz_WPF.Data;
+using Capriz_WPF.Database;
+using Capriz_WPF.Properties;
+using Capriz_WPF.Views;
+using OxyPlot;
 using System;
-using System.Data;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
-using System.Windows.Forms;
-using Capriz_WPF.Properties;
 using System.Windows.Threading;
 using System.Xml;
-using System.IO;
-using System.Diagnostics.Eventing.Reader;
-using System.Threading.Tasks;
-using OxyPlot;
-using System.Runtime.Caching;
-using System.Diagnostics;
-using Capriz_WPF.Database;
-using System.Windows.Markup;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-using PrintDialog = System.Windows.Controls.PrintDialog;
-
-using Point = System.Windows.Point;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using Point = System.Windows.Point;
+using PrintDialog = System.Windows.Controls.PrintDialog;
 
 namespace Capriz_WPF
 {
@@ -304,10 +304,10 @@ namespace Capriz_WPF
             {
                 richTextBoxMessage.Visibility = Visibility.Hidden;
             }           
-            if(panelSettings.Visibility == Visibility.Visible)
-            {
-                panelSettings.Visibility = Visibility.Hidden;
-            }
+            //if(panelSettings.Visibility == Visibility.Visible)
+            //{
+            //    panelSettings.Visibility = Visibility.Hidden;
+            //}
         }
 
 
@@ -1044,6 +1044,15 @@ namespace Capriz_WPF
             }
         }
 
+        public void OpenConfigurator()
+        {
+            var win = new PIConfigurationWindow(_serial)
+            {
+                Owner = this
+            };
+            win.ShowDialog();
+        }
+
 
         //private void btnPrint_Click(object sender, EventArgs e)
         //{
@@ -1113,28 +1122,28 @@ namespace Capriz_WPF
         //    }
         //}
 
-        private void btnVers_Click(object sender, EventArgs e)
-        {
-            if (isPanelOpened)
-            {
-                HideAllPanels();
+        //private void btnVers_Click(object sender, EventArgs e)
+        //{
+        //    if (isPanelOpened)
+        //    {
+        //        HideAllPanels();
 
-                _config.SetData(new List<string>{ _iniFile.Read("DSNV1"), _iniFile.Read("DSNV2"), _iniFile.Read("DSNV3"),
-                _iniFile.Read("DTVV1"), _iniFile.Read("DTVV2"), _iniFile.Read("DAD"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV")});
+        //        _config.SetData(new List<string>{ _iniFile.Read("DSNV1"), _iniFile.Read("DSNV2"), _iniFile.Read("DSNV3"),
+        //        _iniFile.Read("DTVV1"), _iniFile.Read("DTVV2"), _iniFile.Read("DAD"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV")});
 
-                DSNV1Check.IsChecked = _config.DSNV1 == "1" ? true : false;
-                DSNV2Check.IsChecked = _config.DSNV2 == "1" ? true : false;
-                DSNV3Check.IsChecked = _config.DSNV3 == "1" ? true : false;
-                DTVV1Check.IsChecked = _config.DTVV1 == "1" ? true : false;
-                DTVV2Check.IsChecked = _config.DTVV2 == "1" ? true : false;
-                DADCheck.IsChecked = _config.DAD == "1" ? true : false;
-                DVGOCheck.IsChecked = _config.DVGO == "1" ? true : false;
-                DMDVCheck.IsChecked = _config.DMDV == "1" ? true : false;
+        //        DSNV1Check.IsChecked = _config.DSNV1 == "1" ? true : false;
+        //        DSNV2Check.IsChecked = _config.DSNV2 == "1" ? true : false;
+        //        DSNV3Check.IsChecked = _config.DSNV3 == "1" ? true : false;
+        //        DTVV1Check.IsChecked = _config.DTVV1 == "1" ? true : false;
+        //        DTVV2Check.IsChecked = _config.DTVV2 == "1" ? true : false;
+        //        DADCheck.IsChecked = _config.DAD == "1" ? true : false;
+        //        DVGOCheck.IsChecked = _config.DVGO == "1" ? true : false;
+        //        DMDVCheck.IsChecked = _config.DMDV == "1" ? true : false;
 
-                panelSettings.Visibility = Visibility.Visible;
-                isPanelOpened = false;
-            }
-        }
+        //        panelSettings.Visibility = Visibility.Visible;
+        //        isPanelOpened = false;
+        //    }
+        //}
 
         //private void btn_Click(object sender, ExecutedRoutedEventArgs e)
         //{
@@ -1146,52 +1155,52 @@ namespace Capriz_WPF
 
         //}
 
-        private void btnSetOk_Click(object sender, EventArgs e)
-        {
-            _iniFile = new IniFile(DataFile.SettingsPath());
-            string TTF = ""; //TextToFile
-            List<string> newConfig = new List<string>();
+        //private void btnSetOk_Click(object sender, EventArgs e)
+        //{
+        //    _iniFile = new IniFile(DataFile.SettingsPath());
+        //    string TTF = ""; //TextToFile
+        //    List<string> newConfig = new List<string>();
 
-            TTF = (bool)DSNV1Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DSNV1", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DSNV1Check.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DSNV1", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DSNV2Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DSNV2", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DSNV2Check.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DSNV2", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DSNV3Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DSNV3", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DSNV3Check.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DSNV3", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DTVV1Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DTVV1", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DTVV1Check.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DTVV1", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DTVV2Check.IsChecked ? "1" : "0";
-            _iniFile.Write("DTVV2", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DTVV2Check.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DTVV2", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DADCheck.IsChecked ? "1" : "0";
-            _iniFile.Write("DAD", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DADCheck.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DAD", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DVGOCheck.IsChecked ? "1" : "0";
-            _iniFile.Write("DVGO", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DVGOCheck.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DVGO", TTF);
+        //    newConfig.Add(TTF);
 
-            TTF = (bool)DMDVCheck.IsChecked ? "1" : "0";
-            _iniFile.Write("DMDV", TTF);
-            newConfig.Add(TTF);
+        //    TTF = (bool)DMDVCheck.IsChecked ? "1" : "0";
+        //    _iniFile.Write("DMDV", TTF);
+        //    newConfig.Add(TTF);
 
-            _config.SetData(newConfig);
-            _customWindPanel1.SetConf(_config); //!!!!
+        //    _config.SetData(newConfig);
+        //    _customWindPanel1.SetConf(_config); //!!!!
 
-            HideAllPanels();
-            _customWindPanel1.Visibility = Visibility.Visible;
-            ViewNow = (int)_typeWindow.customWindPanel1;
-            isPanelOpened = true;
-        }
+        //    HideAllPanels();
+        //    _customWindPanel1.Visibility = Visibility.Visible;
+        //    ViewNow = (int)_typeWindow.customWindPanel1;
+        //    isPanelOpened = true;
+        //}
         #endregion
     }
 }

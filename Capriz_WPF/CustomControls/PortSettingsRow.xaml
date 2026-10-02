@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Capriz_WPF.CustomControls.PortSettingsRow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
+             x:Name="root"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="470">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="{Binding PortName, ElementName=root}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <ComboBox x:Name="baudCombo"
+                  Grid.Column="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  SelectedIndex="{Binding BaudIndex, ElementName=root,
+                                          Mode=TwoWay,
+                                          UpdateSourceTrigger=PropertyChanged}"/>
+                  <!--Style="{StaticResource CustomComboBox}"-->
+                  <!--ItemContainerStyle="{StaticResource CustomComboBoxItem}"-->
+        <CheckBox x:Name="recvVTG" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding RxVTG, ElementName=root, Mode=TwoWay}"
+                  Checked="RecvCheckBox_Checked"/>
+        <CheckBox x:Name="recvVHW" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding RxVHW, ElementName=root, Mode=TwoWay}"
+                  Checked="RecvCheckBox_Checked"/>
+        <CheckBox x:Name="recvRMC" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding RxRMC, ElementName=root, Mode=TwoWay}"
+                  Checked="RecvCheckBox_Checked"/>
+        <CheckBox x:Name="recvVBW" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding RxVBW, ElementName=root, Mode=TwoWay}"
+                  Checked="RecvCheckBox_Checked"/>
+        <CheckBox x:Name="recvHDT" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding RxHDT, ElementName=root, Mode=TwoWay}"
+                  Checked="RecvCheckBox_Checked"/>
+
+        <CheckBox x:Name="sendALB" Grid.Column="8"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding TxALB, ElementName=root, Mode=TwoWay}"/>
+        <CheckBox x:Name="sendMWV" Grid.Column="9"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding TxMWV, ElementName=root, Mode=TwoWay}"/>
+        <CheckBox x:Name="sendXDR" Grid.Column="10"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding TxXDR, ElementName=root, Mode=TwoWay}"/>
+        <CheckBox x:Name="sendMWD" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  IsChecked="{Binding TxMWD, ElementName=root, Mode=TwoWay}"/>
+        
+    </Grid>
+</UserControl>

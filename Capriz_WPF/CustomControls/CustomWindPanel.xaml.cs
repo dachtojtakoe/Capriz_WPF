@@ -550,7 +550,7 @@ namespace Capriz_WPF.CustomControls
             if (e.ClickCount == 3)
             {
                 e.Handled = true;
-                System.Windows.MessageBox.Show("!");
+                _main.OpenConfigurator();
             }
         }
     }

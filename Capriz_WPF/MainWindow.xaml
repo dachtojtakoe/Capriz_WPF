@@ -211,10 +211,10 @@
         <CommandBinding Command="{StaticResource btnChOp_Click}" Executed="btnChOp_Click"/>
         <CommandBinding Command="{StaticResource btnTerm_Click}" Executed="btnTerm_Click"/>
         <CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>
-        <CommandBinding Command="{StaticResource btnVers_Click}" Executed="btnVers_Click"/>
+        <!--<CommandBinding Command="{StaticResource btnVers_Click}" Executed="btnVers_Click"/>-->
 
-        <CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>
-        <CommandBinding Command="{StaticResource btnSetOk_Click}" Executed="btnSetOk_Click"/>
+        <!--<CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>-->
+        <!--<CommandBinding Command="{StaticResource btnSetOk_Click}" Executed="btnSetOk_Click"/>-->
 
         <CommandBinding Command="{StaticResource btnDateFrom_Click}" Executed="btnDateFrom_Click"/>
         <CommandBinding Command="{StaticResource btnDateTo_Click}" Executed="btnDateTo_Click"/>
@@ -347,7 +347,7 @@
                 <CustomControls:CustomChart x:Name="customChart1" Width="983" Height="717" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
             </ItemsControl>
 
-            <ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
+            <!--<ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
 
                     <ItemsControl HorizontalAlignment="Left" Width="133" VerticalAlignment="Top"  Margin="27,40,0,0">
@@ -370,7 +370,7 @@
                     <TextBlock x:Name="lblSettingsText" TextAlignment="Center" Text="Версия программы 1.1" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Bottom" FontSize="16" Foreground="White" FontWeight="Bold" Width="212" Height="24" FontFamily="Microsoft Sans Serif"/>
                     <CustomControls:CustomButtonText HorizontalAlignment="Center"  VerticalAlignment="Bottom" Margin="27" CommandText="{StaticResource btnSetOk_Click}" Cursor="Hand" Width="60" Height="53"/>
                 </Grid>
-            </ItemsControl>
+            </ItemsControl>-->
         </Grid>
     </Grid>
 </Window>
