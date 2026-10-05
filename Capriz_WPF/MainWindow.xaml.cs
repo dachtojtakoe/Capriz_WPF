@@ -202,7 +202,7 @@ namespace Capriz_WPF
                 {
                     if (ViewNow == (int)_typeWindow.customTerminal)
                     {
-                        //richTextboxClear();
+                        richTextboxClear();
                         richTextBoxMessage.AppendText(str);
                     }
                    // richTextBoxMessage.AppendText(str);
@@ -1046,11 +1046,14 @@ namespace Capriz_WPF
 
         public void OpenConfigurator()
         {
+            HideAllPanels();
             var win = new PIConfigurationWindow(_serial)
             {
                 Owner = this
             };
             win.ShowDialog();
+            _customWindPanel1.Visibility = Visibility.Visible;
+            ViewNow = (int)_typeWindow.customWindPanel1;
         }
 
 

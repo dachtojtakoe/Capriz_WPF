@@ -7,17 +7,21 @@
         xmlns:cc="clr-namespace:Capriz_WPF.CustomControls"
 
         mc:Ignorable="d"
-        Title="Конфигуратор ПИ" Height="400" Width="700" FontSize="20">
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        Title="Конфигуратор ПИ" Height="600" Width="750" FontSize="20" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" FontFamily="Microsoft Sans Serif">
 
     <Window.Resources>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20px"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="TextBlockStyleRX" TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
-            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="Foreground" Value="LightBlue"/>
         </Style>
 
         <Style x:Key="TextBlockStyleTX" TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
@@ -25,111 +29,205 @@
         </Style>
 
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#FF3D6087"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="White"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton SnapsToDevicePixels="True" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Border"  Grid.ColumnSpan="2" Background="Transparent" BorderBrush="Transparent" BorderThickness="1"/>
+                                            <Polyline Points="0,0 7,9 14,0" Stroke="#FF3D6087" StrokeThickness="2" Margin="0,2,12,0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" StrokeLineJoin="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                            <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="White" BorderBrush="#d9d9d9" BorderThickness="1" CornerRadius="5" />
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="ComboBoxItemTemplate">
+            <TextBlock Text="{Binding}" Padding="5,0" VerticalAlignment="Center" />
+        </DataTemplate>
+
+        <Style x:Key="ComboBoxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="ContentTemplate" Value="{StaticResource ComboBoxItemTemplate}" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#e5f7ff" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid Background="Transparent">
+        <Rectangle StrokeThickness="3" RadiusX="10" RadiusY="10" Grid.ColumnSpan="3" Grid.RowSpan="5">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF3D6087"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#0d345d"/>
+            </Rectangle.Fill>
+        </Rectangle>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Ветер" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <ComboBox x:Name="windTypeCombo"
-                      Margin="6,0,0,0" SelectedIndex="0">
-                    <!--Style="{StaticResource CustomComboBox}"
-                      ItemContainerStyle="{StaticResource CustomComboBoxItem}">-->
-                    <ComboBoxItem Content="истинный"/>
-                    <ComboBoxItem Content="кажущийся"/>
-                </ComboBox>
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Осреднения" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <ComboBox x:Name="windAverageCombo"
-                      Margin="6,0,0,0" SelectedIndex="0">
-                    <!--Style="{StaticResource CustomComboBox}"
-                      ItemContainerStyle="{StaticResource CustomComboBoxItem}">-->
-                    <ComboBoxItem Content="мгновенные"/>
-                    <ComboBoxItem Content="за 2 минуты"/>
-                    <ComboBoxItem Content="за 10 минут"/>
-                </ComboBox>
-            </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="1">
+        <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="Порт ПИ" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="Скорость" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="VTG" Grid.Column="2" Style="{StaticResource TextBlockStyleRX}"/>
-                <TextBlock Text="VHW" Grid.Column="3" Style="{StaticResource TextBlockStyleRX}"/>
-                <TextBlock Text="RMC" Grid.Column="4" Style="{StaticResource TextBlockStyleRX}"/>
-                <TextBlock Text="VBW" Grid.Column="5" Style="{StaticResource TextBlockStyleRX}"/>
-                <TextBlock Text="HDT" Grid.Column="6" Style="{StaticResource TextBlockStyleRX}"/>
-                
-                <TextBlock Text="ALB" Grid.Column="8" Style="{StaticResource TextBlockStyleTX}"/>
-                <TextBlock Text="MWV" Grid.Column="9" Style="{StaticResource TextBlockStyleTX}"/>
-                <TextBlock Text="XDR" Grid.Column="10" Style="{StaticResource TextBlockStyleTX}"/>
-                <TextBlock Text="MWD" Grid.Column="11" Style="{StaticResource TextBlockStyleTX}"/>
+                <TextBlock Text="Конфигуратор ПИ" Style="{StaticResource TextBlockStyle}"/>
             </Grid>
 
-            <cc:PortSettingsRow Grid.Row="1" x:Name="rowX8" PortName="X8(232)"/>
-            <cc:PortSettingsRow Grid.Row="2" x:Name="rowX4" PortName="X4(Eth)"/>
-            <cc:PortSettingsRow Grid.Row="3" x:Name="rowX2" PortName="X2"/>
-            <cc:PortSettingsRow Grid.Row="4" x:Name="rowX3" PortName="X3"/>
-            <cc:PortSettingsRow Grid.Row="5" x:Name="rowX5" PortName="X5"/>
-            <cc:PortSettingsRow Grid.Row="6" x:Name="rowX6" PortName="X6"/>
-            <cc:PortSettingsRow Grid.Row="7" x:Name="rowX7" PortName="X7"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Ветер" Style="{StaticResource TextBlockStyle}"/>
+                    <Border Width="150" Height="38" CornerRadius="5" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3" >
+                        <ComboBox x:Name="windTypeCombo" SelectedIndex="0" Style="{StaticResource ComboBoxTemplate}">
+                            <ComboBoxItem Content="истинный" Style="{StaticResource ComboBoxItemStyle}"/>
+                            <ComboBoxItem Content="кажущийся" Style="{StaticResource ComboBoxItemStyle}"/>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Осреднения" Style="{StaticResource TextBlockStyle}"/>
+                    <Border Width="170" Height="38" CornerRadius="5" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3">
+                        <ComboBox x:Name="windAverageCombo" SelectedIndex="0" Style="{StaticResource ComboBoxTemplate}">
+                            <ComboBoxItem Content="мгновенные" Style="{StaticResource ComboBoxItemStyle}"/>
+                            <ComboBoxItem Content="за 2 минуты" Style="{StaticResource ComboBoxItemStyle}"/>
+                            <ComboBoxItem Content="за 10 минут" Style="{StaticResource ComboBoxItemStyle}"/>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Порт ПИ" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Скорость" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="VTG" Grid.Column="2" Style="{StaticResource TextBlockStyleRX}"/>
+                    <TextBlock Text="VHW" Grid.Column="3" Style="{StaticResource TextBlockStyleRX}"/>
+                    <TextBlock Text="RMC" Grid.Column="4" Style="{StaticResource TextBlockStyleRX}"/>
+                    <TextBlock Text="VBW" Grid.Column="5" Style="{StaticResource TextBlockStyleRX}"/>
+                    <TextBlock Text="HDT" Grid.Column="6" Style="{StaticResource TextBlockStyleRX}"/>
+
+                    <TextBlock Text="ALB" Grid.Column="8" Style="{StaticResource TextBlockStyleTX}"/>
+                    <TextBlock Text="MWV" Grid.Column="9" Style="{StaticResource TextBlockStyleTX}"/>
+                    <TextBlock Text="XDR" Grid.Column="10" Style="{StaticResource TextBlockStyleTX}"/>
+                    <TextBlock Text="MWD" Grid.Column="11" Style="{StaticResource TextBlockStyleTX}"/>
+                </Grid>
+
+                <cc:PortSettingsRow Grid.Row="1" x:Name="rowX8" PortName="X8(232)"/>
+                <cc:PortSettingsRow Grid.Row="2" x:Name="rowX4" PortName="X4(Eth)"/>
+                <cc:PortSettingsRow Grid.Row="3" x:Name="rowX2" PortName="X2"/>
+                <cc:PortSettingsRow Grid.Row="4" x:Name="rowX3" PortName="X3"/>
+                <cc:PortSettingsRow Grid.Row="5" x:Name="rowX5" PortName="X5"/>
+                <cc:PortSettingsRow Grid.Row="6" x:Name="rowX6" PortName="X6"/>
+                <cc:PortSettingsRow Grid.Row="7" x:Name="rowX7" PortName="X7"/>
+
+            </Grid>
 
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Button x:Name="WriteConfigurationBtn" Content="Записать" Click="WriteConfigurationBtn_Click" Style="{StaticResource ButtonStyle}"/>
-            <Button Grid.Column="1" x:Name="ReadConfigurationBtn" Content="Прочитать" Click="ReadConfigurationBtn_Click" Style="{StaticResource ButtonStyle}"/>
-            <Button Grid.Column="2" x:Name="EscapeBtn" Content="Выход" Click="EscapeBtn_Click" Style="{StaticResource ButtonStyle}"/>
+                <Button Grid.Column="0" x:Name="WriteConfigurationBtn" Content="Записать" Click="WriteConfigurationBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
+                <Button Grid.Column="1" x:Name="ReadConfigurationBtn" Content="Прочитать" Click="ReadConfigurationBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
+                <Button Grid.Column="2" x:Name="EscapeBtn" Content="Выход" Click="EscapeBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

@@ -45,6 +45,12 @@ namespace Capriz_WPF.CustomControls
         Configuration conf;
         private DispatcherTimer timerClock;
 
+        private int _clickCount;
+        private DateTime _lastClickTime = DateTime.MinValue;
+
+        private const int REQUIRED_CLICKS = 3;
+        private const int CLICK_TIMEOUT_MS = 800;
+
         public CustomWindPanel()
         {
             InitializeComponent();
@@ -325,6 +331,7 @@ namespace Capriz_WPF.CustomControls
         {
             status = "1";
             toolTipText = "";
+
             if (data == null)
             {
                 status = "/";
@@ -332,20 +339,77 @@ namespace Capriz_WPF.CustomControls
                 return new List<string> { status, toolTipText };
             }
 
-            toolTipText += "Статус датчика температуры ДМП-1 №1: " + data.StatusTemp1 + "\r\n";
-            toolTipText += "Статус датчика температуры ДМП-1 №2: " + data.StatusTemp2 + "\r\n";
-            toolTipText += "Статус датчика влажности ДМП-1 №1: " + data.StatusHum1 + "\r\n";
-            toolTipText += "Статус датчика влажности ДМП-1 №2: " + data.StatusHum2 + "\r\n";
-            toolTipText += "Статус датчика ветра ДМП-1 №1: " + data.StatusWind1 + "\r\n";
-            toolTipText += "Статус датчика ветра ДМП-1 №2: " + data.StatusWind2 + "\r\n";
-            toolTipText += "Статус датчика ветра WMT-702: " + data.StatusWindWMT + "\r\n";
-            toolTipText += "Статус датчика атмосферного давления  ДМП-1 №1: " + data.StatusPressure1 + "\r\n";
-            toolTipText += "Статус датчика атмосферного давления ДМП-1 №2: " + data.StatusPressure2 + "\r\n";
-            toolTipText += "Ошибки по прибору SKYDEX 15: " + data.StatusSKYDEX + "\r\n";
-            toolTipText += "Количество слоёв облаков: " + data.AmountClouds + "\r\n";
-            toolTipText += "Ошибки по датчику ДМДВ: " + data.StatusDMDV + "\r\n";
 
+            //toolTipText += "Статус датчика температуры ДМП-1 №1: " + data.StatusTemp1 + "\r\n";
+            //toolTipText += "Статус датчика температуры ДМП-1 №2: " + data.StatusTemp2 + "\r\n";
+            //toolTipText += "Статус датчика влажности ДМП-1 №1: " + data.StatusHum1 + "\r\n";
+            //toolTipText += "Статус датчика влажности ДМП-1 №2: " + data.StatusHum2 + "\r\n";
+            //toolTipText += "Статус датчика ветра ДМП-1 №1: " + data.StatusWind1 + "\r\n";
+            //toolTipText += "Статус датчика ветра ДМП-1 №2: " + data.StatusWind2 + "\r\n";
+            //toolTipText += "Статус датчика ветра WMT-702: " + data.StatusWindWMT + "\r\n";
+            //toolTipText += "Статус датчика атмосферного давления  ДМП-1 №1: " + data.StatusPressure1 + "\r\n";
+            //toolTipText += "Статус датчика атмосферного давления ДМП-1 №2: " + data.StatusPressure2 + "\r\n";
+            //toolTipText += "Ошибки по прибору SKYDEX 15: " + data.StatusSKYDEX + "\r\n";
+            //toolTipText += "Количество слоёв облаков: " + data.AmountClouds + "\r\n";
+            //toolTipText += "Ошибки по датчику ДМДВ: " + data.StatusDMDV + "\r\n";
 
+            Check01(data.StatusTemp1, "Ошибка по датчику температуры ДМП-1 №1");
+            Check01(data.StatusTemp2, "Ошибка по датчику температуры ДМП-1 №2");
+            Check01(data.StatusHum1, "Ошибка по датчику влажности ДМП-1 №1");
+            Check01(data.StatusHum2, "Ошибка по датчику влажности ДМП-1 №2");
+            Check01(data.StatusWind1, "Ошибка по датчику ветра ДМП-1 №1");
+            Check01(data.StatusWind2, "Ошибка по датчику ветра ДМП-1 №2");
+            Check01(data.StatusWindWMT, "Ошибка по датчику ветра WMT-702");
+            Check01(data.StatusPressure1, "Ошибка по датчику атмосферного давления ДМП-1 №1");
+            Check01(data.StatusPressure2, "Ошибка по датчику атмосферного давления ДМП-1 №2");
+
+            switch ((data.StatusSKYDEX ?? "").Trim())
+            {
+                case "A":
+                    status = "0";
+                    toolTipText += "Авария по прибору SKYDEX-15;\r\n";
+                    break;
+                case "W":
+                    status = "0";
+                    toolTipText += "Тревога по прибору SKYDEX-15;\r\n";
+                    break;
+                case "0":
+                default:
+                    // норма — ничего не пишем
+                    break;
+            }
+
+            if(data.AmountClouds == "0")
+            {
+                status = "0";
+                toolTipText += "Облака не обнаружены\r\n";
+            }
+
+            switch ((data.StatusDMDV ?? "").Trim())
+            {
+                case "1":
+                    status = "0";
+                    toolTipText += "Ошибка оборудования по датчику\r\nметеорологической дальности видимости;\r\n";
+                    break;
+                case "2":
+                    status = "0";
+                    toolTipText += "Предупреждение по оборудованию датчика\r\nметеорологической дальности видимости;\r\n";
+                    break;
+                case "3":
+                    status = "0";
+                    toolTipText += "Тревога по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n";
+                    break;
+                case "4":
+                    status = "0";
+                    toolTipText += "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n";
+                    break;
+                case "0":
+                default:
+                    // норма — ничего не пишем
+                    break;
+            }
+
+            #region oldstatusses
             //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "1"))
             //{
             //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
@@ -435,14 +499,32 @@ namespace Capriz_WPF.CustomControls
             //        (data.StatusDMDV == "4") ? "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" : "";
             //}
 
+            #endregion
 
-            if (data.ShipSpeed == "Н.Д.") status = "0";
-            toolTipText += (data.ShipSpeed == "Н.Д.") ? "Нет скорости корабля;\r\n" : "";
 
-            if (data.CourseShip == "Н.Д.") status = "0";
-            toolTipText += (data.CourseShip == "Н.Д.") ? "Нет курса корабля;\r\n" : "";
+            if (data.ShipSpeed == "Н.Д.")
+            {
+                status = "0";
+                toolTipText += "Нет скорости корабля;\r\n";
+            }
+
+            if (data.CourseShip == "Н.Д.")
+            {
+                status = "0";
+                toolTipText += "Нет курса корабля;\r\n";
+            }
+
 
             return new List<string> { status, toolTipText };
+        }
+
+        private void Check01(string value, string errorMessage)
+        {
+            if ((value ?? "").Trim() == "0")
+            {
+                status = "0";
+                toolTipText += errorMessage + ";\r\n";
+            }
         }
 
         private void WindTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -547,9 +629,18 @@ namespace Capriz_WPF.CustomControls
 
         private void SPBU_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 3)
+            e.Handled = true;
+
+            var now = DateTime.Now;
+            if ((now - _lastClickTime).TotalMilliseconds > CLICK_TIMEOUT_MS)
+                _clickCount = 0;
+
+            _clickCount++;
+            _lastClickTime = now;
+
+            if (_clickCount >= REQUIRED_CLICKS)
             {
-                e.Handled = true;
+                _clickCount = 0;
                 _main.OpenConfigurator();
             }
         }

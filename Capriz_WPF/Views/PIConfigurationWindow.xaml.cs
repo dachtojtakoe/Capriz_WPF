@@ -54,26 +54,6 @@ namespace Capriz_WPF.Views
                 }
             }), System.Windows.Threading.DispatcherPriority.Background);
         }
-        //private bool TryOpenPort()
-        //{
-        //    //string portName = "COM" + (comPortCombo.SelectedIndex + 1);
-        //    string portName = "COM" + 2;
-        //    int baud = 9600; // uoCheckBox.IsChecked == true ? 9600 : 115200;
-
-        //    try
-        //    {
-        //        _proto.Close();
-        //        _proto.Open(portName, baud);
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        System.Windows.MessageBox.Show(
-        //            "COM порт отсутствует в системе или указан неверно!",
-        //            "Конфигуратор ПИ", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-        //}
 
         private void WriteConfigurationBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -123,30 +103,10 @@ namespace Capriz_WPF.Views
                 for (int i = 0; i < _rows.Length && i < data.BaudPerPort.Length; i++)
                 {
                     _rows[i].BaudIndex = data.BaudPerPort[i];
-                    _rows[i].RxIndex = data.RxPerPort[i];   // см. замечание ниже
+                    _rows[i].RxIndex = data.RxPerPort[i];
                     _rows[i].TxMask = data.TxPerPort[i];
                 }
             });
         }
-
-        //private void OnPacketReceived(byte[] p)
-        //{
-        //    if (!PIConfiguratorProtocol.TryParseResponse(p, out var data)) return;
-
-        //    Dispatcher.Invoke(() =>
-        //    {
-        //        // Глобальные ComboBox'ы
-        //        windTypeCombo.SelectedIndex = data.WindTypeIndex;
-        //        windAverageCombo.SelectedIndex = data.AveragingIndex;
-
-        //        // 7 строк
-        //        for (int i = 0; i < _rows.Length && i < data.BaudPerPort.Length; i++)
-        //        {
-        //            _rows[i].BaudIndex = data.BaudPerPort[i];
-        //            _rows[i].RxIndex = data.RxPerPort[i];
-        //            _rows[i].TxMask = data.TxPerPort[i];
-        //        }
-        //    });
-        //}
     }
 }

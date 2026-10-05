@@ -6,11 +6,114 @@
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              x:Name="root"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="470">
+             d:DesignHeight="50" d:DesignWidth="700">
+
+    <UserControl.Resources>
+        <Style x:Key="CBStyle" TargetType="CheckBox">
+            <Setter Property="Width" Value="34"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border Background="Transparent" SnapsToDevicePixels="True">
+                            <Border x:Name="Box" Width="28" Height="28" CornerRadius="3" BorderBrush="#FF3D6087" BorderThickness="2" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Path x:Name="Check" Data="M 3,9 L 8, 14 L 17, 4" Stroke="#FF3D6087" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Check" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="#FF6FB3FF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Box" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+
+                            <Trigger Property="Tag" Value="round">
+                                <Setter TargetName="Box" Property="CornerRadius" Value="15"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton SnapsToDevicePixels="True" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Border"  Grid.ColumnSpan="2" Background="Transparent" BorderBrush="Transparent" BorderThickness="1"/>
+                                            <Polyline Points="0,0 7,9 14,0" Stroke="#FF3D6087" StrokeThickness="2" Margin="0,2,8,0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" StrokeLineJoin="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                            <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="White" BorderBrush="#d9d9d9" BorderThickness="1" CornerRadius="5" />
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="ComboBoxItemTemplate">
+            <TextBlock Text="{Binding}" Padding="5,0" VerticalAlignment="Center" />
+        </DataTemplate>
+
+        <Style x:Key="ComboBoxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="ContentTemplate" Value="{StaticResource ComboBoxItemTemplate}" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#e5f7ff" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -23,40 +126,22 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Text="{Binding PortName, ElementName=root}" VerticalAlignment="Center" Margin="10,0,0,0"/>
-        <ComboBox x:Name="baudCombo"
-                  Grid.Column="1"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  SelectedIndex="{Binding BaudIndex, ElementName=root,
-                                          Mode=TwoWay,
-                                          UpdateSourceTrigger=PropertyChanged}"/>
-                  <!--Style="{StaticResource CustomComboBox}"-->
-                  <!--ItemContainerStyle="{StaticResource CustomComboBoxItem}"-->
-        <CheckBox x:Name="recvVTG" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding RxVTG, ElementName=root, Mode=TwoWay}"
-                  Checked="RecvCheckBox_Checked"/>
-        <CheckBox x:Name="recvVHW" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding RxVHW, ElementName=root, Mode=TwoWay}"
-                  Checked="RecvCheckBox_Checked"/>
-        <CheckBox x:Name="recvRMC" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding RxRMC, ElementName=root, Mode=TwoWay}"
-                  Checked="RecvCheckBox_Checked"/>
-        <CheckBox x:Name="recvVBW" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding RxVBW, ElementName=root, Mode=TwoWay}"
-                  Checked="RecvCheckBox_Checked"/>
-        <CheckBox x:Name="recvHDT" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding RxHDT, ElementName=root, Mode=TwoWay}"
-                  Checked="RecvCheckBox_Checked"/>
+        <TextBlock Grid.Column="0" Text="{Binding PortName, ElementName=root}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
+        
+        <Border Width="110" Height="38" CornerRadius="5" Grid.Column="1" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3" >
+            <ComboBox x:Name="baudCombo" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedIndex="{Binding BaudIndex, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxTemplate}" ItemTemplate="{StaticResource ComboBoxItemTemplate}" ItemContainerStyle="{StaticResource ComboBoxItemStyle}"/>
+        </Border>
+        
+        <CheckBox x:Name="recvVTG" d:IsChecked="True" Tag="round" Grid.Column="2" IsChecked="{Binding RxVTG, ElementName=root, Mode=TwoWay}" Checked="RecvCheckBox_Checked" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="recvVHW" Tag="round" Grid.Column="3" IsChecked="{Binding RxVHW, ElementName=root, Mode=TwoWay}" Checked="RecvCheckBox_Checked" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="recvRMC" Tag="round" Grid.Column="4" IsChecked="{Binding RxRMC, ElementName=root, Mode=TwoWay}" Checked="RecvCheckBox_Checked" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="recvVBW" Tag="round" Grid.Column="5" IsChecked="{Binding RxVBW, ElementName=root, Mode=TwoWay}" Checked="RecvCheckBox_Checked" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="recvHDT" Tag="round" Grid.Column="6" IsChecked="{Binding RxHDT, ElementName=root, Mode=TwoWay}" Checked="RecvCheckBox_Checked" Style="{StaticResource CBStyle}"/>
 
-        <CheckBox x:Name="sendALB" Grid.Column="8"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding TxALB, ElementName=root, Mode=TwoWay}"/>
-        <CheckBox x:Name="sendMWV" Grid.Column="9"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding TxMWV, ElementName=root, Mode=TwoWay}"/>
-        <CheckBox x:Name="sendXDR" Grid.Column="10"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding TxXDR, ElementName=root, Mode=TwoWay}"/>
-        <CheckBox x:Name="sendMWD" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Center"
-                  IsChecked="{Binding TxMWD, ElementName=root, Mode=TwoWay}"/>
+        <CheckBox x:Name="sendALB" Grid.Column="8"  IsChecked="{Binding TxALB, ElementName=root, Mode=TwoWay}" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="sendMWV" Grid.Column="9"  IsChecked="{Binding TxMWV, ElementName=root, Mode=TwoWay}" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="sendXDR" Grid.Column="10" IsChecked="{Binding TxXDR, ElementName=root, Mode=TwoWay}" Style="{StaticResource CBStyle}"/>
+        <CheckBox x:Name="sendMWD" Grid.Column="11" IsChecked="{Binding TxMWD, ElementName=root, Mode=TwoWay}" Style="{StaticResource CBStyle}"/>
         
     </Grid>
 </UserControl>
