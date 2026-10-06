@@ -367,11 +367,11 @@ namespace Capriz_WPF.CustomControls
             {
                 case "A":
                     status = "0";
-                    toolTipText += "Авария по прибору SKYDEX-15;\r\n";
+                    toolTipText += "Авария по прибору SKYDEX-15\r\n";
                     break;
                 case "W":
                     status = "0";
-                    toolTipText += "Тревога по прибору SKYDEX-15;\r\n";
+                    toolTipText += "Тревога по прибору SKYDEX-15\r\n";
                     break;
                 case "0":
                 default:
@@ -379,29 +379,27 @@ namespace Capriz_WPF.CustomControls
                     break;
             }
 
-            if(data.AmountClouds == "0")
-            {
-                status = "0";
-                toolTipText += "Облака не обнаружены\r\n";
-            }
+            //if(data.AmountClouds == "0")
+            //{
+            //    status = "0";
+            //    toolTipText += "Облака не обнаружены\r\n";
+            //}
+
+            string DMDVerror = "Авария по датчику метеорологической\r\nдальности видимости:\r\n";
 
             switch ((data.StatusDMDV ?? "").Trim())
             {
                 case "1":
                     status = "0";
-                    toolTipText += "Ошибка оборудования по датчику\r\nметеорологической дальности видимости;\r\n";
+                    toolTipText += DMDVerror + "Грязная линза передатчика\r\n";
                     break;
                 case "2":
                     status = "0";
-                    toolTipText += "Предупреждение по оборудованию датчика\r\nметеорологической дальности видимости;\r\n";
+                    toolTipText += DMDVerror + "Неисправен ИК-диод\r\n";
                     break;
                 case "3":
                     status = "0";
-                    toolTipText += "Тревога по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n";
-                    break;
-                case "4":
-                    status = "0";
-                    toolTipText += "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n";
+                    toolTipText += DMDVerror + "Грязная линза приемника\r\n";
                     break;
                 case "0":
                 default:

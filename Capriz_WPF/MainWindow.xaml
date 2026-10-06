@@ -58,7 +58,7 @@
             <EventSetter Event="MouseEnter" Handler="CustomButton_MouseEnter"/>
             <EventSetter Event="MouseLeave" Handler="CustomButton_MouseLeave"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,1,0,0"/>
+            <!--<Setter Property="Margin" Value="0,1,0,0"/>-->
 
         </Style>
 
@@ -233,46 +233,51 @@
             <RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="997.5" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>
             <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1212" Height="800" Visibility="Visible"/>
 
-            <ItemsControl HorizontalAlignment="Right" Width="66">
-                <CustomControls:CustomButton x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Margin="0" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>
-                <CustomControls:CustomButton x:Name="searchBtn" Tag="CustomToolTip2" ImageSource="{StaticResource search1}" Command="{StaticResource btnOpen_Click}" Style="{StaticResource CustomButtonStyle}"/>
-                <CustomControls:CustomButton x:Name="usbBtn" Tag="CustomToolTip3" ImageSource="{StaticResource usb2}" Command="{StaticResource btnSave_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="47" ImageHeight="47" />
-                <CustomControls:CustomButton x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnGrid_Click}" Style="{StaticResource CustomButtonStyle}" />
-                <CustomControls:CustomButton x:Name="tempBtn" Tag="CustomToolTip5" ImageSource="{StaticResource temp1}" Command="{StaticResource btnChT_Click}" Style="{StaticResource CustomButtonStyle}" />
-                <CustomControls:CustomButton x:Name="humBtn" Tag="CustomToolTip6" ImageSource="{StaticResource hum1}" Command="{StaticResource btnChH_Click}" Style="{StaticResource CustomButtonStyle}"/>
-                <CustomControls:CustomButton x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
-                <CustomControls:CustomButton x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
-                <CustomControls:CustomButton x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
-                <CustomControls:CustomButton x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
-                <CustomControls:CustomButton x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
-                <!--<CustomControls:CustomButton x:Name="infoBtn" Tag="CustomToolTip12" ImageSource="{StaticResource info21}"  Command="{StaticResource btnVers_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="44" ImageHeight="44"/>-->
-                <!--<Grid Width="66" Height="66" Margin="0,1,0,0">
-                    <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3">
-                        <Rectangle.Stroke>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FF1E465B"/>
-                                    <GradientStop Offset="1" Color="#FF3D6087"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Rectangle.Stroke>
-                        <Rectangle.Fill>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FF3D6087"/>
-                                    <GradientStop Offset="1" Color="#FF002852"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    
-                    <Ellipse x:Name="DataSost" Width="45" Height="45" Stroke="AliceBlue" StrokeThickness="5" HorizontalAlignment="Center" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" />
+            <Grid HorizontalAlignment="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-                </Grid>-->
+                <CustomControls:CustomButton Grid.Row="0" x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Margin="0" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton Grid.Row="2" x:Name="searchBtn" Tag="CustomToolTip2" ImageSource="{StaticResource search1}" Command="{StaticResource btnOpen_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton Grid.Row="4" x:Name="usbBtn" Tag="CustomToolTip3" ImageSource="{StaticResource usb2}" Command="{StaticResource btnSave_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="47" ImageHeight="47" />
+                <CustomControls:CustomButton Grid.Row="6" x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnGrid_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton Grid.Row="8" x:Name="tempBtn" Tag="CustomToolTip5" ImageSource="{StaticResource temp1}" Command="{StaticResource btnChT_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton Grid.Row="10" x:Name="humBtn" Tag="CustomToolTip6" ImageSource="{StaticResource hum1}" Command="{StaticResource btnChH_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton Grid.Row="12" x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton Grid.Row="14" x:Name="windBtn" Tag="CustomToolTip8" ImageSource="{StaticResource Wind1}" Command="{StaticResource btnChW_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton Grid.Row="16" x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
+                <CustomControls:CustomButton Grid.Row="18" x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
+                <CustomControls:CustomButton Grid.Row="20" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
 
-                <CustomControls:CustomBottomDataPanel x:Name="customBottomDataPanel1" Margin="0,1,0,0" Width="66" Height="66"/>
+                <CustomControls:CustomBottomDataPanel Grid.Row="22" x:Name="customBottomDataPanel1" Width="66" Height="66"/>
 
-            </ItemsControl>
+            </Grid>
+            <!--<ItemsControl HorizontalAlignment="Right" Width="66">-->
+
+            <!--</ItemsControl>-->
 
             <CustomControls:CustomToolTip x:Name="CustomToolTip1" ToolTipText="Табло с текущими&#x0d;метеоданными" Margin="0,3,72,0" ToolTipWidth ="157" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip2" ToolTipText="Просмотр&#x0d;данных" Margin="0,68,72,0" ToolTipWidth ="98" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10" Cursor="Hand"/>
