@@ -675,6 +675,7 @@ namespace Capriz_WPF.Database
 
                 int delimeter = /*days > 60 ? 90 : days > 30 ? 54 :*/ days > 7 ? 18 : days > 1 ? 9 : days == 1 ? 3 : hours > 12 ? 2 : 1;
                 int minRowsForDelimiter = delimeter * 10;
+                delimeter = 1;
                 if (delimeter != 1)
                 {
                     command.CommandText = $@"

@@ -511,12 +511,12 @@ namespace Capriz_WPF.CustomControls
 
         public void SaveChart(string ChartName)
         {
-            var pngExporter = new OxyPlot.Wpf.PngExporter { Width = 1200, Height = 850 };
+            var pngExporter = new OxyPlot.SkiaSharp.PngExporter { Width = 1200, Height = 850 };
             pngExporter.ExportToFile(plotModel, DataFile.ChartPath(ChartName, "png"));
 
             using (var stream = File.Create(DataFile.ChartPath(ChartName, "svg")))
             {
-                var exporter = new OxyPlot.Wpf.SvgExporter { Width = 1527, Height = 1080 };
+                var exporter = new OxyPlot.SkiaSharp.SvgExporter { Width = 1527, Height = 1080 };
                 exporter.Export(plotModel, stream);
             }
         }
