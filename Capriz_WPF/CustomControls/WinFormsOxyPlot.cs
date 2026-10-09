@@ -11,20 +11,20 @@ namespace Capriz_WPF.CustomControls
 {
     public partial class WinFormsOxyPlot : UserControl
     {
-        public OxyPlot.WindowsForms.PlotView PlotView { get; private set; }
+        //public OxyPlot.WindowsForms.PlotView PlotView { get; private set; }
 
         public WinFormsOxyPlot()
         {
             InitializeComponent();
 
-            PlotView = new OxyPlot.WindowsForms.PlotView
-            {
-                Dock = DockStyle.Fill
-            };
+            //PlotView = new OxyPlot.WindowsForms.PlotView
+            //{
+            //    Dock = DockStyle.Fill
+            //};
 
-            //PlotView.BackColor = Color.LightBlue;
+            ////PlotView.BackColor = Color.LightBlue;
 
-            this.Controls.Add(PlotView);
+            //this.Controls.Add(PlotView);
         }
     }
 }

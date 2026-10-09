@@ -3,7 +3,7 @@ using OxyPlot;
 using OxyPlot.Annotations;
 using OxyPlot.Axes;
 using OxyPlot.Series;
-using OxyPlot.WindowsForms;
+//using OxyPlot.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +21,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Forms.Integration;
+//using System.Windows.Forms;
+//using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -33,6 +33,8 @@ using System.Xml;
 using static Capriz_WPF.MainWindow;
 using PrintDialog = System.Windows.Controls.PrintDialog;
 using UserControl = System.Windows.Controls.UserControl;
+
+using OxyPlot.Wpf;
 
 namespace Capriz_WPF.CustomControls
 {
@@ -69,8 +71,8 @@ namespace Capriz_WPF.CustomControls
 
             plotModel = new PlotModel { Title = "Data Chart" };
             plotModel.TitleFontSize = 24;
-            PlotViewWinForms.PlotView.Model = plotModel;
-            PlotViewWinForms.PlotView.Model.Background = OxyColor.FromRgb(13, 52, 93);
+            PlotViewWpf.Model = plotModel;
+            PlotViewWpf.Model.Background = OxyColor.FromRgb(13, 52, 93);
             ChangeCursor();
 
             InitializePlotModel();
@@ -449,7 +451,7 @@ namespace Capriz_WPF.CustomControls
         private void ChangeCursor()
         {
             var myController = new PlotController();
-            PlotViewWinForms.PlotView.Controller = myController;
+            PlotViewWpf.Controller = myController;
             if (cursorMode == 1)
             {
                 myController.BindMouseDown(OxyMouseButton.Left, OxyPlot.PlotCommands.PanAt);
@@ -493,18 +495,30 @@ namespace Capriz_WPF.CustomControls
 
         }
 
+        //public void SaveChart(string ChartName)
+        //{
+        //    var pngExporter = new OxyPlot.WindowsForms.PngExporter { Width = 1200, Height = 850 };
+        //    OxyPlot.WindowsForms.ExporterExtensions.ExportToFile(pngExporter, plotModel, DataFile.ChartPath(ChartName, "png"));
+        //    //Process.Start(DataFile.ChartPath(ChartName));
+
+        //    using (var stream = File.Create(DataFile.ChartPath(ChartName, "svg")))
+        //    {
+        //        var exporter = new OxyPlot.WindowsForms.SvgExporter { Width = 1527, Height = 1080 };
+        //        exporter.Export(plotModel, stream);
+        //    }
+        //    //Process.Start(DataFile.ChartPath(ChartName));
+        //}
+
         public void SaveChart(string ChartName)
         {
-            var pngExporter = new OxyPlot.WindowsForms.PngExporter { Width = 1200, Height = 850 };
-            OxyPlot.WindowsForms.ExporterExtensions.ExportToFile(pngExporter, plotModel, DataFile.ChartPath(ChartName, "png"));
-            //Process.Start(DataFile.ChartPath(ChartName));
+            var pngExporter = new OxyPlot.Wpf.PngExporter { Width = 1200, Height = 850 };
+            pngExporter.ExportToFile(plotModel, DataFile.ChartPath(ChartName, "png"));
 
             using (var stream = File.Create(DataFile.ChartPath(ChartName, "svg")))
             {
-                var exporter = new OxyPlot.WindowsForms.SvgExporter { Width = 1527, Height = 1080 };
+                var exporter = new OxyPlot.Wpf.SvgExporter { Width = 1527, Height = 1080 };
                 exporter.Export(plotModel, stream);
             }
-            //Process.Start(DataFile.ChartPath(ChartName));
         }
 
         private void btnOk_Click(object sender, EventArgs e)
