@@ -64,6 +64,7 @@
         <Grid Grid.Column="1">
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
@@ -81,46 +82,49 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <local:CustomButtonText Grid.Row="0" x:Name="ZoomIn" Style="{StaticResource CommonButtonStyle}" BtnText="+" CommandText="{StaticResource ZoomIn_Click}" VerticalAlignment="Top"/>
-            <local:CustomButtonText Grid.Row="2" x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-" CommandText="{StaticResource ZoomOut_Click}" VerticalAlignment="Top"/>
-            <local:CustomButtonText Grid.Row="4" x:Name="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}" VerticalAlignment="Top" BtnFontSize="21" BtnFontWeight="Normal"/>
+            <local:CustomButtonText Grid.Row="1" x:Name="ZoomIn" Style="{StaticResource CommonButtonStyle}" BtnText="+" CommandText="{StaticResource ZoomIn_Click}" VerticalAlignment="Top"/>
+            <local:CustomButtonText Grid.Row="3" x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-" CommandText="{StaticResource ZoomOut_Click}" VerticalAlignment="Top"/>
+            <local:CustomButtonText Grid.Row="5" x:Name="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}" VerticalAlignment="Top" BtnFontSize="21" BtnFontWeight="Normal"/>
 
-            <local:CustomButton Grid.Row="6" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Cursor="Hand"  ImageWidth="39" ImageHeight="39"/>
+            <local:CustomButton Grid.Row="7" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Cursor="Hand"  ImageWidth="39" ImageHeight="39"/>
 
 
-            <local:CustomButtonText Grid.Row="8" x:Name="PanTop" Style="{StaticResource CommonButtonStyle}" BtnText="↑" CommandText="{StaticResource PanTop_Click}"/>
-            <local:CustomButtonText Grid.Row="10" x:Name="PanLeft" Style="{StaticResource CommonButtonStyle}" BtnText="←" CommandText="{StaticResource PanLeft_Click}"/>
-            <local:CustomButtonText Grid.Row="12" x:Name="PanCenter" Style="{StaticResource CommonButtonStyle}" BtnText="○" CommandText="{StaticResource PanCenter_Click}"/>
-            <local:CustomButtonText Grid.Row="14" x:Name="PanRight" Style="{StaticResource CommonButtonStyle}" BtnText="→" CommandText="{StaticResource PanRight_Click}"/>
-            <local:CustomButtonText Grid.Row="16" x:Name="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓" CommandText="{StaticResource PanBottom_Click}"/>
+            <local:CustomButtonText Grid.Row="9" x:Name="PanTop" Style="{StaticResource CommonButtonStyle}" BtnText="↑" CommandText="{StaticResource PanTop_Click}"/>
+            <local:CustomButtonText Grid.Row="11" x:Name="PanLeft" Style="{StaticResource CommonButtonStyle}" BtnText="←" CommandText="{StaticResource PanLeft_Click}"/>
+            <local:CustomButtonText Grid.Row="13" x:Name="PanCenter" Style="{StaticResource CommonButtonStyle}" BtnText="○" CommandText="{StaticResource PanCenter_Click}"/>
+            <local:CustomButtonText Grid.Row="15" x:Name="PanRight" Style="{StaticResource CommonButtonStyle}" BtnText="→" CommandText="{StaticResource PanRight_Click}"/>
+            <local:CustomButtonText Grid.Row="17" x:Name="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓" CommandText="{StaticResource PanBottom_Click}"/>
         </Grid>
 
-        <Grid x:Name="panelInformation" HorizontalAlignment="Right" VerticalAlignment="Center"  Height="292" Width="465" Visibility="Hidden" Grid.ColumnSpan="2">
-            <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3"
-           Margin="0,1,0,0"
-           HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0" Color="#FF1E465B"/>
-                            <GradientStop Offset="1" Color="#FF3D6087"/>
-                        </GradientStopCollection>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <LinearGradientBrush>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0" Color="#FF3D6087"/>
-                            <GradientStop Offset="1" Color="#FF002852"/>
-                        </GradientStopCollection>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock x:Name="lblText" TextAlignment="Left" Text="Имя файла" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" Width="424" Height="173" FontFamily="Microsoft Sans Serif" Margin="0,40,0,0"/>
-            <local:CustomButtonText HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="66" Height="53"/>
-        </Grid>
+        <Popup x:Name="panelInformationPopup" Placement="Center" PlacementTarget="{Binding ElementName=PlotViewWinForms}" AllowsTransparency="True" StaysOpen="False" Focusable="False" PopupAnimation="None">
+            <Grid Width="465" Height="342" Margin="10">
+                <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Margin="0,1,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Rectangle.Stroke>
+                        <LinearGradientBrush>
+                            <GradientStopCollection>
+                                <GradientStop Offset="0" Color="#FF1E465B"/>
+                                <GradientStop Offset="1" Color="#FF3D6087"/>
+                            </GradientStopCollection>
+                        </LinearGradientBrush>
+                    </Rectangle.Stroke>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush>
+                            <GradientStopCollection>
+                                <GradientStop Offset="0" Color="#FF3D6087"/>
+                                <GradientStop Offset="1" Color="#FF002852"/>
+                            </GradientStopCollection>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
 
+                <TextBlock x:Name="lblText" TextAlignment="Left" Text="Экспорт изображений графика завершен" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16pt" Foreground="White" FontWeight="Bold" Width="424" Height="253" FontFamily="Microsoft Sans Serif" Margin="0,40,0,0"/>
+
+                <local:CustomButtonText HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="66" Height="53"/>
+            </Grid>
+        </Popup>
+        
     </Grid>
 </UserControl>

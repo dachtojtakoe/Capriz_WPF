@@ -70,9 +70,22 @@ namespace Capriz_WPF.Data
                 Directory.CreateDirectory(Path.Combine(chartsDirectory, format));
             }
 
-            string filePath = Path.Combine(chartsDirectory, format, $"{ChartName}-{DateTime.Now.ToString("dd.MM.yyyy HH.mm.ss")}.{format}");
+            string filePath = Path.Combine(chartsDirectory, format, $"{ChartName}-{DateTime.Now.ToString("dd.MM.yyyy_HH.mm.ss")}.{format}");
             return filePath;
         }
+
+        static public string StatusReportPath(string ReportName, string format)
+        {
+            string reportsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "StatusJournals");
+            string formatDirectory  = Path.Combine(reportsDirectory, format);
+
+            if (!Directory.Exists(formatDirectory))
+                Directory.CreateDirectory(formatDirectory);
+
+            string fileName = $"{ReportName}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{format}";
+            return Path.Combine(formatDirectory, fileName);
+        }
+
         //static public string ChartPath(string ChartName) => Path.Combine(Directory.GetCurrentDirectory() +
         //    Path.DirectorySeparatorChar + "Charts" + Path.DirectorySeparatorChar,
         //    $"{ChartName}-{DateTime.Now.ToString("dd.MM.yyyy HH.mm.ss")}.pdf");

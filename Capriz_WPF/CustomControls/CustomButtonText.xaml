@@ -9,7 +9,7 @@
 
     <UserControl.Resources>
         <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
-            <Border x:Name="Border" BorderThickness="3" CornerRadius="10">
+            <Border x:Name="Border" BorderThickness="3" CornerRadius="10" Padding="{TemplateBinding Padding}">
                 <Border.BorderBrush>
                     <LinearGradientBrush>
                         <GradientStopCollection>
@@ -76,7 +76,7 @@
     
     <Grid>
         <Grid>
-            <Button x:Name="CustomButtonControlText" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderBrush="Transparent" >
+            <Button x:Name="CustomButtonControlText" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderBrush="Transparent" Padding="10">
                 <TextBlock x:Name="ButtonText" Text="{Binding BtnText}" FontFamily="Microsoft Sans Serif" FontSize="{Binding BtnFontSize}" Foreground="AliceBlue" FontWeight="{Binding BtnFontWeight}" />
             </Button>
         </Grid>

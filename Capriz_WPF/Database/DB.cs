@@ -675,7 +675,6 @@ namespace Capriz_WPF.Database
 
                 int delimeter = /*days > 60 ? 90 : days > 30 ? 54 :*/ days > 7 ? 18 : days > 1 ? 9 : days == 1 ? 3 : hours > 12 ? 2 : 1;
                 int minRowsForDelimiter = delimeter * 10;
-                delimeter = 1;
                 if (delimeter != 1)
                 {
                     command.CommandText = $@"
@@ -709,6 +708,59 @@ namespace Capriz_WPF.Database
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(data);
             return data;
+        }
+
+        static public DataTable GetStatusesFiltered(string dtFrom, string dtTo)
+        {
+            command.CommandText = $@"
+            SELECT DateTime,
+                   StatusTemp1, StatusTemp2,
+                   StatusHum1, StatusHum2,
+                   StatusWind1, StatusWind2, StatusWindWMT,
+                   StatusPressure1, StatusPressure2,
+                   StatusSKYDEX, AmountClouds, StatusDMDV
+            FROM Data
+            WHERE datetime >= '{dtFrom}' AND datetime <= '{dtTo}'
+            ORDER BY DateTime";
+
+            DataTable data = new DataTable();
+            using (var adapter = new SQLiteDataAdapter(command))
+            {
+                adapter.Fill(data);
+            }
+            return data;
+        }
+
+        static public List<Data.Data> GetStatusesList(string dtFrom, string dtTo)
+        {
+            var table = GetStatusesFiltered(dtFrom, dtTo);
+            var list = new List<Data.Data>();
+
+            var props = typeof(Data.Data).GetProperties()
+                .Where(p => p.Name != "Date" && p.Name != "Time")
+                .ToArray();
+
+            foreach (DataRow row in table.Rows)
+            {
+                var d = new Data.Data();
+
+                // Спец-обработка DateTime → Date + Time
+                var dt = Convert.ToDateTime(row["DateTime"]);
+                d.Date = dt.ToString("yyyy-MM-dd");
+                d.Time = dt.ToString("HH:mm:ss");
+
+                // Остальные поля
+                foreach (var prop in props)
+                {
+                    if (!table.Columns.Contains(prop.Name)) continue;
+                    var val = row[prop.Name];
+                    prop.SetValue(d, val == DBNull.Value ? null : val.ToString());
+                }
+
+                list.Add(d);
+            }
+
+            return list;
         }
 
         static public string GetFirstDate(string column = null)

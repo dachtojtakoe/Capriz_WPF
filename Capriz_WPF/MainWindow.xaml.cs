@@ -63,7 +63,8 @@ namespace Capriz_WPF
             customWindPanel1 = 0,
             customGrid1 = 1,
             customChart1 = 2,
-            customTerminal = 3
+            customTerminal = 3,
+            journal = 4
         };
    
         private DispatcherTimer _timer;
@@ -582,6 +583,8 @@ namespace Capriz_WPF
             isPanelOpened = false;
         }
 
+       
+
         #region ButtonTooltipsVisibility
 
         private void CustomButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -665,6 +668,12 @@ namespace Capriz_WPF
                 ShowGrid(btnDateFrom.BtnText, btnDateTo.BtnText);
             if (ViewNow == (int)_typeWindow.customChart1)
                 ShowChart(btnDateFrom.BtnText, btnDateTo.BtnText);
+            if (ViewNow == (int)_typeWindow.journal)
+            {
+                ExportJournal(btnDateFrom.BtnText, btnDateTo.BtnText);
+                _customWindPanel1.Visibility = Visibility.Visible;
+                ViewNow = (int)_typeWindow.customWindPanel1;
+            }
 
             btnPeriodClicked = 0;
             SetButtonFirstColor(btn6H);
@@ -951,10 +960,68 @@ namespace Capriz_WPF
             }
         }
 
-        private void btnGrid_Click(object sender, EventArgs e)
+        private void btnStatusJournal_Click(object sender, EventArgs e)
         {
             if (isPanelOpened)
-                ShowGridPanel();
+            {
+                ShowJournalPanel();
+            }
+        }
+
+        private void ShowJournalPanel()
+        {
+            int oldView = ViewNow;
+            ViewNow = (int)_typeWindow.journal;
+
+            string firstRowDateTime = DB.GetFirstDate() == null ? null : DB.GetFirstDate();
+            string lastRowDateTime = DB.GetLastDate() == null ? null : DB.GetLastDate();
+
+            if ((firstRowDateTime == null) || (lastRowDateTime == null))
+            {
+                HideAllPanels();
+                _customWindPanel1.Visibility = Visibility.Visible;
+                ViewNow = (int)_typeWindow.customWindPanel1;
+                lblText.Text = "\r\nНет данных!";
+                lblText.TextAlignment = TextAlignment.Center;
+                ShowHideInfoPanel();
+                //ViewNow = oldView;
+                return;
+            }
+
+            DtMin = Convert.ToDateTime(firstRowDateTime);
+            DtMax = Convert.ToDateTime(lastRowDateTime);
+
+            HideAllPanels();
+            ShowHideDatePanel(firstRowDateTime, lastRowDateTime);
+            isPanelOpened = false;
+        }
+
+        private void ExportJournal(string dtFrom, string dtTo)
+        {
+            try
+            {
+                var records = DB.GetStatusesList(Convert.ToDateTime(dtFrom).ToString("yyyy-MM-dd HH:mm:ss"), Convert.ToDateTime(dtTo).ToString("yyyy-MM-dd HH:mm:ss"));
+
+                if (records == null || records.Count == 0)
+                {
+                    System.Windows.MessageBox.Show("Нет данных для экспорта", "Экспорт",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                string file = DataFile.StatusReportPath("StatusJournal", "pdf");
+                StatusReportExporter.Export(records, file);
+
+                //Показываем путь в панели и открываем Popup
+                lblText.Text = "Журнал сохранён:" + Environment.NewLine + Environment.NewLine + file;
+                ShowHideInfoPanel();
+
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Ошибка экспорта: " + ex.Message, "Экспорт",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnChT_Click(object sender, EventArgs e)
@@ -1030,28 +1097,39 @@ namespace Capriz_WPF
             }
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
+
+        private void btnStartDeletion_Click(object sender, EventArgs e)
         {
-            if (isPanelOpened)
-            {
-                if (ViewNow == (int)_typeWindow.customChart1)
-                {
-                    customChart1.SaveChart(ChartNow);
-                }
-                else
-                {
-                    if (ViewNow == (int)_typeWindow.customGrid1)
-                    {
-                        HideAllPanels();
-                        _customWindPanel1.Visibility = Visibility.Visible;
-                        ViewNow = (int)_typeWindow.customWindPanel1;
-                    }
-                    lblText.Text = "\r\nВ данной версии программы предусмотрено\r\n только сохнанение графиков.";
-                    lblText.TextAlignment = TextAlignment.Center;
-                    ShowHideInfoPanel();
-                }
-            }
+            panelDeletion.Visibility = Visibility.Visible;
         }
+
+        private void btnCancelDeletion_Click(object sender, EventArgs e)
+        {
+            panelDeletion.Visibility = Visibility.Hidden;
+        }
+
+        //private void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    if (isPanelOpened)
+        //    {
+        //        if (ViewNow == (int)_typeWindow.customChart1)
+        //        {
+        //            customChart1.SaveChart(ChartNow);
+        //        }
+        //        else
+        //        {
+        //            if (ViewNow == (int)_typeWindow.customGrid1)
+        //            {
+        //                HideAllPanels();
+        //                _customWindPanel1.Visibility = Visibility.Visible;
+        //                ViewNow = (int)_typeWindow.customWindPanel1;
+        //            }
+        //            lblText.Text = "\r\nВ данной версии программы предусмотрено\r\n только сохнанение графиков.";
+        //            lblText.TextAlignment = TextAlignment.Center;
+        //            ShowHideInfoPanel();
+        //        }
+        //    }
+        //}
 
         public void OpenConfigurator()
         {

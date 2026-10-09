@@ -61,6 +61,8 @@ namespace Capriz_WPF.CustomControls
             }
         }
 
+        string currentChart = "chart";
+
         public CustomChart()
         {
             InitializeComponent();
@@ -138,6 +140,7 @@ namespace Capriz_WPF.CustomControls
 
         public void AllDtPointsToChart(string chParam)
         {
+            currentChart = chParam;
             //ClearPlotData(PlotViewWinForms.PlotView.Model);
             plotModel.Annotations.Clear();
 
@@ -487,29 +490,31 @@ namespace Capriz_WPF.CustomControls
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            string path = DataFile.ChartPath(currentChart, "png");
+            string path2 = DataFile.ChartPath(currentChart, "svg");
 
-            SaveChart("asd");
-            panelInformation.Visibility = Visibility.Visible;
+            SaveChart(currentChart);
 
+            lblText.Text = "График сохранён:" + Environment.NewLine + Environment.NewLine + path + Environment.NewLine + Environment.NewLine + path2;
+
+            panelInformationPopup.IsOpen = true;
         }
 
         public void SaveChart(string ChartName)
         {
             var pngExporter = new OxyPlot.WindowsForms.PngExporter { Width = 1200, Height = 850 };
             OxyPlot.WindowsForms.ExporterExtensions.ExportToFile(pngExporter, plotModel, DataFile.ChartPath(ChartName, "png"));
-            //Process.Start(DataFile.ChartPath(ChartName));
 
             using (var stream = File.Create(DataFile.ChartPath(ChartName, "svg")))
             {
                 var exporter = new OxyPlot.WindowsForms.SvgExporter { Width = 1527, Height = 1080 };
                 exporter.Export(plotModel, stream);
             }
-            //Process.Start(DataFile.ChartPath(ChartName));
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            panelInformation.Visibility = Visibility.Hidden;
+            panelInformationPopup.IsOpen = false;
         }
 
         //private void btnPrint_Click(object sender, EventArgs e)

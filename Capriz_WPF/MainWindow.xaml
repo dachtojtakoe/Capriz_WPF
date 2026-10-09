@@ -9,7 +9,7 @@
         Title="Capriz"
         Height="800" Width="1280"
         WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize">
-    <!--WindowState="Maximized"-->
+        <!--WindowState="Maximized"-->
     <!--Topmost="True"-->
     <!--Height="800" Width="1280"-->
 
@@ -32,7 +32,7 @@
         <RoutedCommand x:Key="btnTablo_Click"/>
         <RoutedCommand x:Key="btnOpen_Click"/>
         <RoutedCommand x:Key="btnSave_Click"/>
-        <RoutedCommand x:Key="btnGrid_Click"/>
+        <RoutedCommand x:Key="btnStatusJournal_Click"/>
         <RoutedCommand x:Key="btnChT_Click"/>
         <RoutedCommand x:Key="btnChH_Click"/>
         <RoutedCommand x:Key="btnChP_Click"/>
@@ -42,7 +42,7 @@
 
         <RoutedCommand x:Key="btnChOp_Click"/>
         <RoutedCommand x:Key="btnTerm_Click"/>
-        <RoutedCommand x:Key="btnPrint_Click"/>
+        <!--<RoutedCommand x:Key="btnPrint_Click"/>-->
         <RoutedCommand x:Key="btnVers_Click"/>
 
         <RoutedCommand x:Key="btnOk_Click"/>
@@ -56,6 +56,9 @@
 
         <RoutedCommand x:Key="btnCancel_Click"/>
         <RoutedCommand x:Key="btnApprove_Click"/>
+        
+        <RoutedCommand x:Key="btnStartDeletion_Click"/>
+        <RoutedCommand x:Key="btnCancelDeletion_Click"/>
 
         <Style x:Key="CustomButtonStyle" TargetType="CustomControls:CustomButton">
             <EventSetter Event="MouseEnter" Handler="CustomButton_MouseEnter"/>
@@ -205,7 +208,7 @@
         <CommandBinding Command="{StaticResource btnTablo_Click}" Executed="btnTablo_Click"/>
         <CommandBinding Command="{StaticResource btnOpen_Click}" Executed="btnOpen_Click"/>
         <CommandBinding Command="{StaticResource btnSave_Click}" Executed="btnSave_Click"/>
-        <CommandBinding Command="{StaticResource btnGrid_Click}" Executed="btnGrid_Click"/>
+        <CommandBinding Command="{StaticResource btnStatusJournal_Click}" Executed="btnStatusJournal_Click"/>
         <CommandBinding Command="{StaticResource btnChT_Click}" Executed="btnChT_Click"/>
         <CommandBinding Command="{StaticResource btnChH_Click}" Executed="btnChH_Click"/>
         <CommandBinding Command="{StaticResource btnChP_Click}" Executed="btnChP_Click"/>
@@ -215,7 +218,7 @@
 
         <CommandBinding Command="{StaticResource btnChOp_Click}" Executed="btnChOp_Click"/>
         <CommandBinding Command="{StaticResource btnTerm_Click}" Executed="btnTerm_Click"/>
-        <CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>
+        <!--<CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>-->
         <!--<CommandBinding Command="{StaticResource btnVers_Click}" Executed="btnVers_Click"/>-->
 
         <CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>
@@ -229,6 +232,9 @@
 
         <CommandBinding Command="{StaticResource btnApprove_Click}" Executed="btnApprove_Click"/>
         <CommandBinding Command="{StaticResource btnCancel_Click}" Executed="btnCancel_Click"/>
+
+        <CommandBinding Command="{StaticResource btnStartDeletion_Click}" Executed="btnStartDeletion_Click"/>
+        <CommandBinding Command="{StaticResource btnCancelDeletion_Click}" Executed="btnCancelDeletion_Click"/>
     </Window.CommandBindings>
 
 
@@ -269,14 +275,15 @@
                 <CustomControls:CustomButton Grid.Row="0" x:Name="settBtn" Tag="CustomToolTip1" ImageSource="{StaticResource sett1}" Margin="0" Command="{StaticResource btnTablo_Click}" Style="{StaticResource CustomButtonStyle}"/>
                 <CustomControls:CustomButton Grid.Row="2" x:Name="searchBtn" Tag="CustomToolTip2" ImageSource="{StaticResource search1}" Command="{StaticResource btnOpen_Click}" Style="{StaticResource CustomButtonStyle}"/>
                 <CustomControls:CustomButton Grid.Row="4" x:Name="usbBtn" Tag="CustomToolTip3" ImageSource="{StaticResource usb2}" Command="{StaticResource btnSave_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="47" ImageHeight="47" />
-                <CustomControls:CustomButton Grid.Row="6" x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnGrid_Click}" Style="{StaticResource CustomButtonStyle}" />
+                <CustomControls:CustomButton Grid.Row="6" x:Name="GridBtn" Tag="CustomToolTip4" ImageSource="{StaticResource jrnl1}" Command="{StaticResource btnStatusJournal_Click}" Style="{StaticResource CustomButtonStyle}" />
                 <CustomControls:CustomButton Grid.Row="8" x:Name="tempBtn" Tag="CustomToolTip5" ImageSource="{StaticResource temp1}" Command="{StaticResource btnChT_Click}" Style="{StaticResource CustomButtonStyle}" />
                 <CustomControls:CustomButton Grid.Row="10" x:Name="humBtn" Tag="CustomToolTip6" ImageSource="{StaticResource hum1}" Command="{StaticResource btnChH_Click}" Style="{StaticResource CustomButtonStyle}"/>
                 <CustomControls:CustomButton Grid.Row="12" x:Name="pressBtn" Tag="CustomToolTip7" ImageSource="{StaticResource press1}" Command="{StaticResource btnChP_Click}" Style="{StaticResource CustomButtonStyle}" />
                 <CustomControls:CustomButton Grid.Row="14" x:Name="windBtn" Tag="CustomToolTip8" Command="{StaticResource btnNGO_Click}" Style="{StaticResource CustomButtonStyle}" />
                 <CustomControls:CustomButton Grid.Row="16" x:Name="visBtn" Tag="CustomToolTip9" ImageSource="{StaticResource vis1}" Command="{StaticResource btnChOp_Click}" Style="{StaticResource CustomButtonStyle}"/>
                 <CustomControls:CustomButton Grid.Row="18" x:Name="terminalBtn" Tag="CustomToolTip10" ImageSource="{StaticResource terminal2}"  Command="{StaticResource btnTerm_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
-                <CustomControls:CustomButton Grid.Row="20" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
+
+                <CustomControls:CustomButton Grid.Row="20" x:Name="printBtn" Tag="CustomToolTip11" Command="{StaticResource btnStartDeletion_Click}" Style="{StaticResource CustomButtonStyle}" ImageWidth="39" ImageHeight="39"/>
 
                 <CustomControls:CustomBottomDataPanel Grid.Row="22" x:Name="customBottomDataPanel1" Width="66" Height="66"/>
 
@@ -288,20 +295,30 @@
             <CustomControls:CustomToolTip x:Name="CustomToolTip1" ToolTipText="Табло с текущими&#x0d;метеоданными" Margin="0,3,72,0" ToolTipWidth ="157" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip2" ToolTipText="Просмотр&#x0d;данных" Margin="0,68,72,0" ToolTipWidth ="98" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10" Cursor="Hand"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip3" ToolTipText="Сохранение данных&#x0d;на USB накопитель" Margin="0,134,72,0" ToolTipWidth ="173" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-            <CustomControls:CustomToolTip x:Name="CustomToolTip4" ToolTipText="Отображение данных&#x0d;в табличном виде" Margin="0,200,72,0" ToolTipWidth ="182" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip4" ToolTipText="Экспорт журнала&#x0d;состояний датчиков" Margin="0,200,72,0" ToolTipWidth ="172" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip5" ToolTipText="График&#x0d;температуры&#x0d;воздуха" Margin="0,267,72,0" ToolTipWidth ="120" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip6" ToolTipText="График&#x0d;влажности&#x0d;воздуха" Margin="0,333,72,0" ToolTipWidth ="106" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip7" ToolTipText="График&#x0d;атмосферного&#x0d;давления" Margin="0,400,72,0" ToolTipWidth ="133" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip8" ToolTipText="График НГО&#x0d;нижнего слоя" Margin="0,466,72,0" ToolTipWidth ="113" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip9" ToolTipText="График&#x0d;метеорологической&#x0d;видимости" Margin="0,532,72,0" ToolTipWidth ="166" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip10" ToolTipText="Терминальное&#x0d;отображение&#x0d;данных" Margin="0,599,72,0" ToolTipWidth ="133" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-            <CustomControls:CustomToolTip x:Name="CustomToolTip11" ToolTipText="Сохранение&#x0d;графика" Margin="0,665,72,0" ToolTipWidth ="106" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
+            <CustomControls:CustomToolTip x:Name="CustomToolTip11" ToolTipText="Удаление&#x0d;архивных&#x0d;данных" Margin="0,665,72,0" ToolTipWidth ="90" ToolTipHeight="80" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
             <CustomControls:CustomToolTip x:Name="CustomToolTip12" ToolTipText="Версия&#x0d;программы" Margin="0,725,72,0" ToolTipWidth ="106" ToolTipHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
 
             <ItemsControl x:Name="panelInformation" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
                     <TextBlock x:Name="lblText" TextAlignment="Left" Text="Имя файла" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" Width="424" Height="173" FontFamily="Microsoft Sans Serif" Margin="0,40,0,0"/>
                     <CustomControls:CustomButtonText HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="66" Height="53"/>
+                </Grid>
+            </ItemsControl>
+
+            <ItemsControl x:Name="panelDeletion" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden" d:Visibility="Visible">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
+                    <TextBlock TextAlignment="Left" Text="Удаление архивных данных" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,20,0,0"/>
+                    
+                    <CustomControls:CustomButtonText HorizontalAlignment="Center" VerticalAlignment="Center" BtnText="Удалить данные старше 180 суток" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand"/>
+                    <CustomControls:CustomButtonText HorizontalAlignment="Left" VerticalAlignment="Bottom" BtnText="Удалить все данные" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand"/>
+                    <CustomControls:CustomButtonText HorizontalAlignment="Right" VerticalAlignment="Bottom" BtnText="Отмена" Margin="13,13" CommandText="{StaticResource btnCancelDeletion_Click}" Cursor="Hand"/>
                 </Grid>
             </ItemsControl>
 
@@ -359,6 +376,7 @@
             <ItemsControl x:Name="panelCustomChart" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource ItemsControlTemplateSolidBackground}" Height="733" Width="1212" Visibility="Hidden">
                 <CustomControls:CustomChart x:Name="customChart1" Width="1199" Height="721" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
             </ItemsControl>
+
 
             <!--<ItemsControl x:Name="panelSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
