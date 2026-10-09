@@ -97,7 +97,7 @@
             <local:CustomButtonText Grid.Row="16" x:Name="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓" CommandText="{StaticResource PanBottom_Click}"/>
         </Grid>
 
-        <Grid x:Name="panelInformation" HorizontalAlignment="Right" VerticalAlignment="Center"  Height="292" Width="465" Visibility="Visible" Grid.ColumnSpan="2">
+        <Grid x:Name="panelInformation" HorizontalAlignment="Right" VerticalAlignment="Center"  Height="292" Width="465" Visibility="Hidden" Grid.ColumnSpan="2">
             <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3"
            Margin="0,1,0,0"
            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
