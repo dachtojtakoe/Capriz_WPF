@@ -12,14 +12,20 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="DataSpeed" Grid.Row="0" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18pt" Foreground="{Binding Foreground, ElementName=root}" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+           FontWeight="Bold" FontFamily="Microsoft Sans Serif"
+           TextAlignment="Center"
+           Foreground="{Binding Foreground, ElementName=root}">
+            <Run x:Name="DataSpeed" Text="Н.Д." FontSize="22pt"/>
+            <Run x:Name="DataSpeedLabel" Text="" FontSize="16pt"/>
+        </TextBlock>
 
-        <TextBlock x:Name="lbl" Grid.Row="1" Grid.Column="1" Text="{Binding Text, ElementName=root}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock x:Name="lbl" Grid.Row="1" Grid.Column="1" Text="{Binding Text, ElementName=root}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="12pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
 
-        <TextBlock x:Name="DataDir" Grid.Row="2" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18pt" Foreground="{Binding Foreground, ElementName=root}" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
+        <TextBlock x:Name="DataDir" Grid.Row="2" Grid.Column="1" Text="Н.Д." HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22pt" Foreground="{Binding Foreground, ElementName=root}" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>
     </Grid>
 </UserControl>

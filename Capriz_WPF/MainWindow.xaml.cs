@@ -200,11 +200,11 @@ namespace Capriz_WPF
             {
                 Dispatcher.BeginInvoke((MethodInvoker)delegate
                 {
-                    if (ViewNow == (int)_typeWindow.customTerminal)
-                    {
+                    //if (ViewNow == (int)_typeWindow.customTerminal)
+                    //{
                         richTextboxClear();
                         richTextBoxMessage.AppendText(str);
-                    }
+                    //}
                    // richTextBoxMessage.AppendText(str);
 
                     //if (isScrollToEnd)
@@ -231,7 +231,7 @@ namespace Capriz_WPF
 
         public void WriteFile(string param)
         {
-            if ((DateTime.Now.Minute) % 10 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
+            if ((DateTime.Now.Minute) % 2 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
             //if (DateTime.Now.Second % 5 == 0)   //Записываем в файл каждые 10 минут
             {
                 try
@@ -980,6 +980,15 @@ namespace Capriz_WPF
             if (isPanelOpened)
             {
                 ChartNow = "Speed_I";
+                ShowChartPanel();
+            }
+        }
+
+        private void btnNGO_Click(object sender, EventArgs e)
+        {
+            if (isPanelOpened)
+            {
+                ChartNow = "NGO1";
                 ShowChartPanel();
             }
         }

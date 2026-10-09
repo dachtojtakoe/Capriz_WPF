@@ -6,13 +6,15 @@
              xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
              mc:Ignorable="d" 
              xmlns:oxy="http://oxyplot.org/wpf"
-             d:DesignHeight="717" d:DesignWidth="983"
+             d:DesignHeight="721" d:DesignWidth="1199"
              x:Name="PlotWindow"
              xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:winFormsOxyPlot="clr-namespace:Capriz_WPF.CustomControls;assembly=Capriz_WPF">
 
     <UserControl.Resources>
+        <BitmapImage x:Key="saveChart" UriSource="/Resources/SaveChart.png"/>
+
         <RoutedCommand x:Key="ZoomIn_Click"/>
         <RoutedCommand x:Key="ZoomOut_Click"/>
         <RoutedCommand x:Key="ChangeCursor_Click"/>
@@ -21,6 +23,9 @@
         <RoutedCommand x:Key="PanTop_Click"/>
         <RoutedCommand x:Key="PanBottom_Click"/>
         <RoutedCommand x:Key="PanCenter_Click"/>
+
+        <RoutedCommand x:Key="btnPrint_Click"/>
+        <RoutedCommand x:Key="btnOk_Click"/>
 
         <Style x:Key="CommonButtonStyle" TargetType="local:CustomButtonText">
             <Setter Property="BtnFontSize" Value="27"/>
@@ -40,23 +45,82 @@
         <CommandBinding Command="{StaticResource PanTop_Click}" Executed="PanTop_Click"/>
         <CommandBinding Command="{StaticResource PanBottom_Click}" Executed="PanBottom_Click"/>
         <CommandBinding Command="{StaticResource PanCenter_Click}" Executed="PanCenter_Click"/>
+
+        <CommandBinding Command="{StaticResource btnPrint_Click}" Executed="btnPrint_Click"/>
+
+        <CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>
     </UserControl.CommandBindings>
 
     <Grid>
-        <wfi:WindowsFormsHost Width="903" Height="717" HorizontalAlignment="Left" Margin="4,1,0,0">
-            <local:WinFormsOxyPlot x:Name="PlotViewWinForms" Width="903" Height="717"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1128"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <wfi:WindowsFormsHost Grid.Column="0" Width="1128" Height="721" HorizontalAlignment="Left" Margin="4,1,0,0">
+            <local:WinFormsOxyPlot x:Name="PlotViewWinForms" Width="1128" Height="721"/>
         </wfi:WindowsFormsHost>
 
-        <!-- Верхние кнопки (Zoom) -->
-        <local:CustomButtonText x:Name="ZoomIn" Style="{StaticResource CommonButtonStyle}" BtnText="+" CommandText="{StaticResource ZoomIn_Click}" VerticalAlignment="Top" Margin="0,31,0,0"/>
-        <local:CustomButtonText x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-" CommandText="{StaticResource ZoomOut_Click}" VerticalAlignment="Top" Margin="0,97,0,0"/>
-        <local:CustomButtonText x:Name="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}" VerticalAlignment="Top" Margin="0,163,0,0" BtnFontSize="21" BtnFontWeight="Normal"/>
+        <Grid Grid.Column="1">
 
-        <!-- Нижние кнопки панорамирования -->
-        <local:CustomButtonText x:Name="PanTop" Style="{StaticResource CommonButtonStyle}" BtnText="↑" CommandText="{StaticResource PanTop_Click}" Margin="0,0,0,292"/>
-        <local:CustomButtonText x:Name="PanLeft" Style="{StaticResource CommonButtonStyle}" BtnText="←" CommandText="{StaticResource PanLeft_Click}" Margin="0,0,0,226"/>
-        <local:CustomButtonText x:Name="PanCenter" Style="{StaticResource CommonButtonStyle}" BtnText="○" CommandText="{StaticResource PanCenter_Click}" Margin="0,0,0,159"/>
-        <local:CustomButtonText x:Name="PanRight" Style="{StaticResource CommonButtonStyle}" BtnText="→" CommandText="{StaticResource PanRight_Click}" Margin="0,0,0,93"/>
-        <local:CustomButtonText x:Name="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓" CommandText="{StaticResource PanBottom_Click}" Margin="0,0,0,27"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <local:CustomButtonText Grid.Row="0" x:Name="ZoomIn" Style="{StaticResource CommonButtonStyle}" BtnText="+" CommandText="{StaticResource ZoomIn_Click}" VerticalAlignment="Top"/>
+            <local:CustomButtonText Grid.Row="2" x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-" CommandText="{StaticResource ZoomOut_Click}" VerticalAlignment="Top"/>
+            <local:CustomButtonText Grid.Row="4" x:Name="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}" VerticalAlignment="Top" BtnFontSize="21" BtnFontWeight="Normal"/>
+
+            <local:CustomButton Grid.Row="6" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Cursor="Hand"  ImageWidth="39" ImageHeight="39"/>
+
+
+            <local:CustomButtonText Grid.Row="8" x:Name="PanTop" Style="{StaticResource CommonButtonStyle}" BtnText="↑" CommandText="{StaticResource PanTop_Click}"/>
+            <local:CustomButtonText Grid.Row="10" x:Name="PanLeft" Style="{StaticResource CommonButtonStyle}" BtnText="←" CommandText="{StaticResource PanLeft_Click}"/>
+            <local:CustomButtonText Grid.Row="12" x:Name="PanCenter" Style="{StaticResource CommonButtonStyle}" BtnText="○" CommandText="{StaticResource PanCenter_Click}"/>
+            <local:CustomButtonText Grid.Row="14" x:Name="PanRight" Style="{StaticResource CommonButtonStyle}" BtnText="→" CommandText="{StaticResource PanRight_Click}"/>
+            <local:CustomButtonText Grid.Row="16" x:Name="PanBottom" Style="{StaticResource CommonButtonStyle}" BtnText="↓" CommandText="{StaticResource PanBottom_Click}"/>
+        </Grid>
+
+        <Grid x:Name="panelInformation" HorizontalAlignment="Right" VerticalAlignment="Center"  Height="292" Width="465" Visibility="Visible" Grid.ColumnSpan="2">
+            <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3"
+           Margin="0,1,0,0"
+           HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF1E465B"/>
+                            <GradientStop Offset="1" Color="#FF3D6087"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="#FF3D6087"/>
+                            <GradientStop Offset="1" Color="#FF002852"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock x:Name="lblText" TextAlignment="Left" Text="Имя файла" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" Width="424" Height="173" FontFamily="Microsoft Sans Serif" Margin="0,40,0,0"/>
+            <local:CustomButtonText HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="13,13" CommandText="{StaticResource btnOk_Click}" Cursor="Hand" Width="66" Height="53"/>
+        </Grid>
+
     </Grid>
 </UserControl>

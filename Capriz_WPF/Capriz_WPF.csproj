@@ -418,6 +418,24 @@
   <ItemGroup>
     <Resource Include="Resources\SPBU2.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\spbu3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\spbu4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\photos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\final_transaparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icesea.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SPBU22.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

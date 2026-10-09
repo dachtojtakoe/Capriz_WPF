@@ -74,7 +74,7 @@ namespace Capriz_WPF.Data
             if (!CheckCrc(b)) return "";
 
             var sb = new StringBuilder(FrameSize * 2);
-            sb.Append("$ALB").Append('\x02');
+            sb.Append("$ALB").Append('\t');
 
             // 1-6 погода
             sb.Append(F(b, 6, 5)).Append('\t');
@@ -155,9 +155,11 @@ namespace Capriz_WPF.Data
             sb.Append(F(b, 388, 6)).Append('\t');
             sb.Append(F(b, 394, 6));
 
-            sb.Append('\x03').Append('*')
-              .Append((char)b[400]).Append((char)b[401])
-              .Append('\r').Append('\n');
+            sb.Append('\x03');
+            sb.Append('*');
+            sb.Append((char)b[401]);
+            sb.Append((char)b[402]);
+            sb.Append('\r').Append('\n');
 
             return sb.ToString();
         }
@@ -169,7 +171,8 @@ namespace Capriz_WPF.Data
             {"Humidity","Влажность воздуха, %"},
             {"PressureGPa","Атмосферное давление, гПа"},
             {"Speed_I","Скорость истинного ветра, м/с"},
-            {"Visibility10","Метеорологическая дальность видимости за 10 мин, м" }
+            {"Visibility10","Метеорологическая дальность видимости за 10 мин, м" },
+            {"NGO1","НГО нижнего слоя, м" }
         };
 
         private static Dictionary<string, string> nameColumnsBack = new Dictionary<string, string>()

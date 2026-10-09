@@ -1,5 +1,6 @@
-﻿using System;
+﻿using Capriz_WPF.Common;
 using Capriz_WPF.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,13 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Threading;
-using Capriz_WPF.Common;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Capriz_WPF.CustomControls
 {
@@ -48,8 +49,8 @@ namespace Capriz_WPF.CustomControls
         private int _clickCount;
         private DateTime _lastClickTime = DateTime.MinValue;
 
-        private const int REQUIRED_CLICKS = 3;
-        private const int CLICK_TIMEOUT_MS = 800;
+        private const int REQUIRED_CLICKS = 5;
+        private const int CLICK_TIMEOUT_MS = 1000;
 
         public CustomWindPanel()
         {
@@ -129,6 +130,22 @@ namespace Capriz_WPF.CustomControls
                 {
                     if (_main != null)
                         _main.customBottomDataPanel1.SetDataToSost(SetStatus(null));
+
+                    WindDataWMT.ClearFields();
+                    WindDataDMP1.ClearFields();
+                    WindDataDMP2.ClearFields();
+
+                    WindRoundDataWMT.ClearData();
+                    WindRoundDataDMP1.ClearData();
+                    WindRoundDataDMP2.ClearData();
+
+                    customDataPanel.ClearFields();
+
+                    DataCurs.Text = "Н.Д.";
+                    DataSpeed.Text = "Н.Д.";
+                    DataLat.Text = "Н.Д.";
+                    DataLon.Text = "Н.Д.";
+
 
                     //customWindDataNew1.ClearFields();
 
@@ -298,7 +315,14 @@ namespace Capriz_WPF.CustomControls
                             }
                         }
 
-                        customDataPanel.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3, data.Hm0, data.Hmax });
+                        int skydexIndex = -1;
+                        try
+                        {
+                            skydexIndex = Convert.ToInt32(data.AmountClouds);
+                        }
+                        catch { }
+
+                        customDataPanel.SetDataToFields(new List<string>() { data.Temperature, data.Humidity, data.PressureRtSt, data.PressureGPa, data.BarTend, data.Trend, data.AmountClouds, data.Visibility1, data.Visibility10, data.NGO1, data.NGO2, data.NGO3, data.Hm0, data.Hmax }, skydexIndex);
 
                         string lat = (string.IsNullOrEmpty(data.LatDeg) || data.LatDeg == "Н.Д.")
                             ? "Н.Д."
@@ -536,9 +560,17 @@ namespace Capriz_WPF.CustomControls
 
         private void TurnOffRoundWindData()
         {
-            WindRoundDataWMT.BrushColor = Brushes.Gray;
-            WindRoundDataDMP1.BrushColor = Brushes.Gray;
-            WindRoundDataDMP2.BrushColor = Brushes.Gray;
+            //WindRoundDataWMT.BrushColor = Brushes.Gray;
+            //WindRoundDataDMP1.BrushColor = Brushes.Gray;
+            //WindRoundDataDMP2.BrushColor = Brushes.Gray;
+
+            WindRoundDataWMT.Opacity = 0.5;
+            WindRoundDataDMP1.Opacity = 0.5;
+            WindRoundDataDMP2.Opacity = 0.5;
+
+            EllipseWMT.Opacity = 0.5;
+            EllipseDMP1.Opacity = 0.5;
+            EllipseDMP2.Opacity = 0.5;
 
             WindRoundDataWMT.ClearData();
             WindRoundDataDMP1.ClearData();
@@ -555,9 +587,17 @@ namespace Capriz_WPF.CustomControls
 
         private void TurnOnRoundWindData()
         {
-            WindRoundDataWMT.BrushColor = Brushes.AliceBlue;
-            WindRoundDataDMP1.BrushColor = Brushes.AliceBlue;
-            WindRoundDataDMP2.BrushColor = Brushes.AliceBlue;
+            //WindRoundDataWMT.BrushColor = Brushes.AliceBlue;
+            //WindRoundDataDMP1.BrushColor = Brushes.AliceBlue;
+            //WindRoundDataDMP2.BrushColor = Brushes.AliceBlue;
+
+            WindRoundDataWMT.Opacity = 1;
+            WindRoundDataDMP1.Opacity = 1;
+            WindRoundDataDMP2.Opacity = 1;
+
+            EllipseWMT.Opacity = 0.8;
+            EllipseDMP1.Opacity = 0.8;
+            EllipseDMP2.Opacity = 0.8;
 
             WindParamsCombo.IsEnabled = true;
         }
@@ -628,13 +668,19 @@ namespace Capriz_WPF.CustomControls
         private void SPBU_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
-
             var now = DateTime.Now;
+
+            ClicksTextBox.Text = _clickCount.ToString();
+
+            if (_clickCount == 1)
+            {
+                _lastClickTime = now;
+            }
+
             if ((now - _lastClickTime).TotalMilliseconds > CLICK_TIMEOUT_MS)
                 _clickCount = 0;
 
             _clickCount++;
-            _lastClickTime = now;
 
             if (_clickCount >= REQUIRED_CLICKS)
             {

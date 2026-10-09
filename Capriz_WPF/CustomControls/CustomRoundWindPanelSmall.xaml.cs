@@ -36,7 +36,7 @@ namespace Capriz_WPF.CustomControls
         }
 
         public static readonly DependencyProperty BrushColorProperty =
-            DependencyProperty.Register(nameof(BrushColor), typeof(Brush), typeof(CustomRoundWindPanelSmall), new PropertyMetadata(Brushes.Gray));
+            DependencyProperty.Register(nameof(BrushColor), typeof(Brush), typeof(CustomRoundWindPanelSmall), new PropertyMetadata(Brushes.AliceBlue));
 
         public Brush BrushColor
         {
@@ -139,7 +139,7 @@ namespace Capriz_WPF.CustomControls
 
                         var centerX = 245;
                         var centerY = 245;
-                        var radius = 180.5;
+                        var radius = 178;
 
                         var startPoint = new Point(centerX + radius * Math.Cos((begin_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((begin_sec - 90) * Math.PI / 180));
                         var endPoint = new Point(centerX + radius * Math.Cos((end_sec - 90) * Math.PI / 180), centerY + radius * Math.Sin((end_sec - 90) * Math.PI / 180));
@@ -167,7 +167,7 @@ namespace Capriz_WPF.CustomControls
                 Int32.TryParse(_valueDir_mid.Trim(), out result);
                 if (result >= 0)
                 {
-                    var averageLineGeometry = new LineGeometry(new Point(245, 73), new Point(245, 57));
+                    var averageLineGeometry = new LineGeometry(new Point(245, 78.5), new Point(245, 57));
                     AverageAngle.Angle = result;
                     AverageLine = averageLineGeometry;
                 }

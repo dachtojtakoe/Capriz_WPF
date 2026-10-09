@@ -88,7 +88,7 @@
         <Grid Width="490" Height="490">
 
 
-            <Path Stroke="Green" StrokeThickness="17" Data="{Binding WindDirectionPath}" Opacity="0.7" Panel.ZIndex="5">
+            <Path Stroke="#58d758" StrokeThickness="24" Data="{Binding WindDirectionPath}" Opacity="0.7" Panel.ZIndex="5">
                 <Path.RenderTransform>
                     <RotateTransform Angle="0" />
                 </Path.RenderTransform>
@@ -102,7 +102,7 @@
             </Path>
 
             <Ellipse Width="383" Height="383" Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="3"/>
-            <Ellipse Width="343.5" Height="343.5" Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="3"/>
+            <Ellipse Width="333" Height="333" Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="3"/>
 
             <Grid x:Name="TypicalAngles">
                 <TextBlock Text="0" Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0"/>
@@ -148,7 +148,7 @@
                     <DataTemplate>
                         <Path Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="4">
                             <Path.Data>
-                                <LineGeometry StartPoint="0,-191" EndPoint="0,-171"/>
+                                <LineGeometry StartPoint="0,-191" EndPoint="0,-165"/>
                             </Path.Data>
                             <Path.RenderTransform>
                                 <RotateTransform CenterX="0" CenterY="0" Angle="{Binding}"/>
@@ -169,7 +169,7 @@
                     <DataTemplate>
                         <Path Stroke="{Binding BrushColor, ElementName=root, FallbackValue=AliceBlue}" StrokeThickness="1">
                             <Path.Data>
-                                <LineGeometry StartPoint="0,-191" EndPoint="0,-171"/>
+                                <LineGeometry StartPoint="0,-191" EndPoint="0,-165"/>
                             </Path.Data>
                             <Path.RenderTransform>
                                 <RotateTransform CenterX="0" CenterY="0" Angle="{Binding}"/>

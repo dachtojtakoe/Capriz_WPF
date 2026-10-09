@@ -1,36 +1,38 @@
-﻿using System;
+﻿using Capriz_WPF.Data;
+using OxyPlot;
+using OxyPlot.Annotations;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot.WindowsForms;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
-using System.Drawing.Printing;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
+using System.Printing;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.ComponentModel;
-using OxyPlot.Axes;
-using OxyPlot;
-using OxyPlot.Annotations;
-using OxyPlot.Series;
-using OxyPlot.WindowsForms;
-using System.Windows.Forms.Integration;
-using System.Printing;
-using System.Runtime.Serialization.Formatters;
-using System.Diagnostics;
-using System.Windows.Forms;
-using System.IO;
-using UserControl = System.Windows.Controls.UserControl;
-using Capriz_WPF.Data;
-using System.Windows.Markup;
+using System.Xml;
+using static Capriz_WPF.MainWindow;
 using PrintDialog = System.Windows.Controls.PrintDialog;
-using System.Drawing.Imaging;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace Capriz_WPF.CustomControls
 {
@@ -40,7 +42,6 @@ namespace Capriz_WPF.CustomControls
 
         public int PointsCount { get; set; }
         public static PlotModel plotModel { get; set; }
-
 
         private double _initialXMin;
         private double _initialXMax;
@@ -100,7 +101,7 @@ namespace Capriz_WPF.CustomControls
                 MajorGridlineThickness = 0.5,
                 MajorGridlineStyle = LineStyle.Dash,
                 FontWeight = OxyPlot.FontWeights.Bold,
-                IntervalLength = 100,
+                IntervalLength = 110,
                 FontSize = 18
 
             };
@@ -483,6 +484,15 @@ namespace Capriz_WPF.CustomControls
             }
         }
 
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+            SaveChart("asd");
+            panelInformation.Visibility = Visibility.Visible;
+
+        }
+
         public void SaveChart(string ChartName)
         {
             var pngExporter = new OxyPlot.WindowsForms.PngExporter { Width = 1200, Height = 850 };
@@ -496,6 +506,34 @@ namespace Capriz_WPF.CustomControls
             }
             //Process.Start(DataFile.ChartPath(ChartName));
         }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            panelInformation.Visibility = Visibility.Hidden;
+        }
+
+        //private void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    if (isPanelOpened)
+        //    {
+        //        if (ViewNow == (int)_typeWindow.customChart1)
+        //        {
+        //            customChart1.SaveChart(ChartNow);
+        //        }
+        //        else
+        //        {
+        //            if (ViewNow == (int)_typeWindow.customGrid1)
+        //            {
+        //                HideAllPanels();
+        //                _customWindPanel1.Visibility = Visibility.Visible;
+        //                ViewNow = (int)_typeWindow.customWindPanel1;
+        //            }
+        //            lblText.Text = "\r\nВ данной версии программы предусмотрено\r\n только сохнанение графиков.";
+        //            lblText.TextAlignment = TextAlignment.Center;
+        //            ShowHideInfoPanel();
+        //        }
+        //    }
+        //}
     }
 }
 

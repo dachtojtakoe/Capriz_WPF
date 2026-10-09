@@ -43,22 +43,24 @@ namespace Capriz_WPF.CustomControls
         {
             InitializeComponent();
             //textBlocks = new List<TextBlock>() { DataMinSpeed, DataMidSpeed, DataMaxSpeed, DataMinDir, DataMidDir, DataMaxDir};
-            textBlocks = new List<TextBlock>() { DataSpeed, DataDir };
+            //textBlocks = new List<TextBlock>() { DataSpeed, DataDir };
         }
 
         public void SetDataToFields(List<string> data)
         {
             //lbl.Text = data[0];
-            DataSpeed.Text = data[0] + " м/с";
-            DataDir.Text = data[1] + " °";
+            DataSpeed.Text = data[0];
+            DataSpeedLabel.Text = "м/c";
+            DataDir.Text = data[1] + "°";
             //for (int i = 0; i < textBlocks.Count; i++)
             //    textBlocks[i].Text = data[i+1];
         }
 
         public void ClearFields()
         {
-            for (int i = 0; i < textBlocks.Count; i++)
-                textBlocks[i].Text = "Н.Д.";
+            DataSpeed.Text = "Н.Д.";
+            DataSpeedLabel.Text = "";
+            DataDir.Text =  "Н.Д.";
         }
     }
 }

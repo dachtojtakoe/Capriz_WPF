@@ -60,22 +60,13 @@
                         <Grid>
                             <Border x:Name="Border"
                             BorderThickness="3"
-                            CornerRadius="10">
+                            CornerRadius="10"
+                                     Opacity="0.8">
                                 <Border.BorderBrush>
-                                    <LinearGradientBrush>
-                                        <GradientStopCollection>
-                                            <GradientStop Offset="0" Color="#FF1E465B"/>
-                                            <GradientStop Offset="1" Color="#FF3D6087"/>
-                                        </GradientStopCollection>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="#0a365e"/>
                                 </Border.BorderBrush>
                                 <Border.Background>
-                                    <LinearGradientBrush>
-                                        <GradientStopCollection>
-                                            <GradientStop Offset="0" Color="#FF3D6087"/>
-                                            <GradientStop Offset="1" Color="#FF002852"/>
-                                        </GradientStopCollection>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="#0c3d6a"/>
                                 </Border.Background>
                             </Border>
 
@@ -190,43 +181,55 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="2"/>
+                <!--<ColumnDefinition Width="2"/>-->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="1">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Black"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="0.9">
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="#FF3D6087"/>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="pack://application:,,,/Capriz_WPF;component/Resources/SPBU2.jpg" Stretch="UniformToFill" />
+                </Rectangle.Fill>
+            </Rectangle>
+
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="3" Grid.RowSpan="5">
-                    <Rectangle.Stroke>
-                        <SolidColorBrush Color="#FF3D6087"/>
-                    </Rectangle.Stroke>
-                    <Rectangle.Fill>
-                        <SolidColorBrush Color="#0d345d"/>
-                    </Rectangle.Fill>
-                </Rectangle>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
 
-                <!--<Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3"
-           Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="0.2">
-                    <Rectangle.Stroke>
-                        <SolidColorBrush Color="#FF3D6087"/>
-                    </Rectangle.Stroke>
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="pack://application:,,,/Capriz_WPF;component/Resources/spbu.jpg"
-                    Stretch="UniformToFill"/>
-                    </Rectangle.Fill>
-                </Rectangle>-->
+                    <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="0.3">
+                        <Rectangle.Stroke>
+                            <SolidColorBrush Color="#FF3D6087"/>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="#0d345d"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
 
-                <Viewbox Stretch="Fill"
+
+
+                    <!--<Viewbox Stretch="Fill"
                     Grid.ColumnSpan="3" Grid.RowSpan="5">
                     <Canvas Width="1000" Height="729">
                         <Path Stroke="#FF3D6087"
@@ -244,71 +247,135 @@
                                 A 185,185 0 0 1 360,265 Z"/>
                             </Path.Data>
                             <Path.Fill>
-                                <ImageBrush ImageSource="pack://application:,,,/Capriz_WPF;component/Resources/spbu.jpg" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="/Resources/final_transaparent.png" Viewport="0.25, 0.3, 0.45, 0.45"/>
                             </Path.Fill>
                         </Path>
                     </Canvas>
-                </Viewbox>
+                </Viewbox>-->
 
-                <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel>
-                        <TextBlock Text="Параметры ветра" Style="{StaticResource LabelTextBlockBig}" Margin="24,20,0,10" HorizontalAlignment="Left"/>
+                        <StackPanel>
+                            <TextBlock Text="Параметры ветра" Style="{StaticResource LabelTextBlockBig}" Margin="24,20,0,10" HorizontalAlignment="Left" Visibility="Collapsed"/>
 
-                        <ComboBox x:Name="WindTypeCombo"
+                            <ComboBox x:Name="WindTypeCombo"
                           Grid.Column="1"
                           Style="{StaticResource CustomComboBox}"
                           ItemContainerStyle="{StaticResource CustomComboBoxItem}"
                           SelectedIndex="0"
                           SelectionChanged="WindTypeCombo_SelectionChanged">
-                            <ComboBoxItem Content="Кажущийся ветер"/>
-                            <ComboBoxItem Content="Истинный ветер"/>
-                        </ComboBox>
+                                <ComboBoxItem Content="Кажущийся ветер"/>
+                                <ComboBoxItem Content="Истинный ветер"/>
+                            </ComboBox>
 
-                        <ComboBox x:Name="WindAverageCombo"
+                            <ComboBox x:Name="WindAverageCombo"
                           Grid.Column="1"
                           Style="{StaticResource CustomComboBox}"
                           ItemContainerStyle="{StaticResource CustomComboBoxItem}"
                           SelectedIndex="0"
                           SelectionChanged="WindAverageCombo_SelectionChanged">
-                            <ComboBoxItem Content="Мгновенные значения"/>
-                            <ComboBoxItem Content="2 минуты"/>
-                            <ComboBoxItem Content="10 минут"/>
-                        </ComboBox>
+                                <ComboBoxItem Content="Мгновенные значения"/>
+                                <ComboBoxItem Content="2 минуты"/>
+                                <ComboBoxItem Content="10 минут"/>
+                            </ComboBox>
 
-                        <ComboBox x:Name="WindParamsCombo"
+                            <ComboBox x:Name="WindParamsCombo"
                           IsEnabled="False"
                           Grid.Column="1"
                           Style="{StaticResource CustomComboBox}"
                           ItemContainerStyle="{StaticResource CustomComboBoxItem}"
                           SelectedIndex="1"
                           SelectionChanged="WindParamsCombo_SelectionChanged">
-                            <ComboBoxItem Content="Минимальные значения"/>
-                            <ComboBoxItem Content="Средние значения"/>
-                            <ComboBoxItem Content="Максимальные значения"/>
-                        </ComboBox>
-                    </StackPanel>
-                </Grid>
+                                <ComboBoxItem Content="Минимальные значения"/>
+                                <ComboBoxItem Content="Средние значения"/>
+                                <ComboBoxItem Content="Максимальные значения"/>
+                            </ComboBox>
 
-                <Grid Grid.Column="2" Margin="0,56,5,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="4*"/>
-                    </Grid.ColumnDefinitions>
+                            <!--<Grid Height="66">
+                                <Rectangle Grid.Column="1" Grid.Row="2" RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.8">
+                                    <Rectangle.Stroke>
+                                        <SolidColorBrush Color="#0a365e"/>
+                                    </Rectangle.Stroke>
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="#0c3d6a"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="66"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="66"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="66"/>
-                    </Grid.RowDefinitions>
+                                <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" VerticalAlignment="Center">
 
-                    <Rectangle Grid.Column="1" RadiusX="10" RadiusY="10" StrokeThickness="3">
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                        <TextBlock Text="Курс, °" Style="{StaticResource LabelTextBlockAvg}"/>
+                                        <TextBlock Text="Н.Д." x:Name="DataCurs" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <TextBlock Text="Скорость, уз" Style="{StaticResource LabelTextBlockAvg}"/>
+                                        <TextBlock Text="Н.Д." x:Name="DataSpeed" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>-->
+
+                            <!--<Grid Height="66" Margin="0,5,0,0">
+                                <Rectangle Grid.Column="1" Grid.Row="4" RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.8">
+                                    <Rectangle.Stroke>
+                                        <SolidColorBrush Color="#0a365e"/>
+                                    </Rectangle.Stroke>
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="#0c3d6a"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <StackPanel Grid.Column="1" Grid.Row="4" Margin="20,0,0,0" VerticalAlignment="Center">
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                        <TextBlock Text="Широта" Style="{StaticResource LabelTextBlockAvg}"/>
+                                        <TextBlock Text="Н.Д." x:Name="DataLat" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Text="Долгота" Style="{StaticResource LabelTextBlockAvg}"/>
+                                        <TextBlock Text="Н.Д." x:Name="DataLon" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>-->
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Margin="0,56,5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="66"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="66"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="66"/>
+                        </Grid.RowDefinitions>
+
+                        <!--<Rectangle Grid.Column="1" RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.8">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                                    <GradientStop Offset="1" Color="#FF1E465B"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FF002852"/>
+                                    <GradientStop Offset="1" Color="#FF3D6087"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>-->
+
+                        <!--<Rectangle Grid.Column="1" Grid.Row="2" RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.8">
                         <Rectangle.Stroke>
                             <LinearGradientBrush>
                                 <GradientStopCollection>
@@ -327,7 +394,7 @@
                         </Rectangle.Fill>
                     </Rectangle>
 
-                    <Rectangle Grid.Column="1" Grid.Row="2" RadiusX="10" RadiusY="10" StrokeThickness="3">
+                    <Rectangle Grid.Column="1" Grid.Row="4" RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.8">
                         <Rectangle.Stroke>
                             <LinearGradientBrush>
                                 <GradientStopCollection>
@@ -344,30 +411,11 @@
                                 </GradientStopCollection>
                             </LinearGradientBrush>
                         </Rectangle.Fill>
-                    </Rectangle>
-
-                    <Rectangle Grid.Column="1" Grid.Row="4" RadiusX="10" RadiusY="10" StrokeThickness="3">
-                        <Rectangle.Stroke>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FF3D6087"/>
-                                    <GradientStop Offset="1" Color="#FF1E465B"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Rectangle.Stroke>
-                        <Rectangle.Fill>
-                            <LinearGradientBrush>
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="#FF002852"/>
-                                    <GradientStop Offset="1" Color="#FF3D6087"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
+                    </Rectangle>-->
 
 
 
-                    <StackPanel Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
+                        <!--<StackPanel Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
                             <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center"/>
                             <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
@@ -377,9 +425,9 @@
                             <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center"/>
                             <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" HorizontalAlignment="Left" TextWrapping="Wrap" Text="XX:XX:XX" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
                         </StackPanel>
-                    </StackPanel>
+                    </StackPanel>-->
 
-                    <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" VerticalAlignment="Center">
+                        <!--<StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" VerticalAlignment="Center">
 
                         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
                             <TextBlock Text="Курс, °" Style="{StaticResource LabelTextBlockAvg}"/>
@@ -400,74 +448,162 @@
                             <TextBlock Text="Долгота" Style="{StaticResource LabelTextBlockAvg}"/>
                             <TextBlock Text="Н.Д." x:Name="DataLon" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
                         </StackPanel>
+                    </StackPanel>-->
+
+                    </Grid>
+
+                    <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="WMT702" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
+
+                    <!--<local:CustomWindPanelInstantHorizontal Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>-->
+
+                    <!--<TextBlock Margin="0,0,50,15" Grid.Row="3" Grid.Column="0" Text="ДМП№1" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
+                    <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,0,0,0"  />-->
+
+                    <!--<TextBlock Margin="50,0,0,15" Grid.Row="3" Grid.Column="2" Text="ДМП№2" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
+
+                    <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,0"/>-->
+                    <Ellipse x:Name="EllipseWMT" Grid.ColumnSpan="3" Grid.Row="0" StrokeThickness="8" Width="300" Height="300" Opacity="0.5">
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="#0a365e"/>
+                        </Ellipse.Stroke>
+                        <Ellipse.Fill>
+                            <SolidColorBrush Color="#0c3d6a"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <local:CustomRoundWindPanelSmall x:Name="WindRoundDataWMT" Grid.Column="0" Grid.Row="0" Opacity="0.5" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Height="280"/>
+                    <local:CustomWindDataSmall x:Name="WindDataWMT" Text="WMT-702" Margin="10" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
+
+                    <Ellipse x:Name="EllipseDMP1" Grid.Column="0" Grid.Row="1" StrokeThickness="8" Width="300" Height="300" Opacity="0.5">
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="#0a365e"/>
+                        </Ellipse.Stroke>
+                        <Ellipse.Fill>
+                            <SolidColorBrush Color="#0c3d6a"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP1" Grid.Column="0" Grid.Row="1" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Height="280"/>
+                    <local:CustomWindDataSmall x:Name="WindDataDMP1" Text="ДМП-1 №1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
+
+                    <!--<Ellipse Grid.Column="2" Grid.Row="1" StrokeThickness="8" Width="340" Height="340">
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="#FF3D6087"/>
+                    </Ellipse.Stroke>
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#0c3d6a"/>
+                    </Ellipse.Fill>
+                </Ellipse>-->
+
+
+                    <!--<Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,40">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="66"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Column="1" RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.8">
+                            <Rectangle.Stroke>
+                                <LinearGradientBrush>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0" Color="#FF3D6087"/>
+                                        <GradientStop Offset="1" Color="#FF1E465B"/>
+                                    </GradientStopCollection>
+                                </LinearGradientBrush>
+                            </Rectangle.Stroke>
+                            <Rectangle.Fill>
+                                <LinearGradientBrush>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0" Color="#FF002852"/>
+                                        <GradientStop Offset="1" Color="#FF3D6087"/>
+                                    </GradientStopCollection>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <StackPanel Grid.Column="1" Margin="20,0" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" HorizontalAlignment="Left" TextWrapping="Wrap" Text="XX:XX:XX" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>-->
+
+                    <Ellipse x:Name="EllipseDMP2" Grid.Column="2" Grid.Row="1" StrokeThickness="8" Width="300" Height="300" Opacity="0.5">
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="#0a365e"/>
+                        </Ellipse.Stroke>
+                        <Ellipse.Fill>
+                            <SolidColorBrush Color="#0c3d6a"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP2" Grid.Column="2" Opacity="0.5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Height="280"/>
+                    <local:CustomWindDataSmall x:Name="WindDataDMP2" Text="ДМП-1 №2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Rectangle RadiusX="10" RadiusY="10" StrokeThickness="3" Opacity="0.5" Grid.ColumnSpan="3">
+                        <Rectangle.Stroke>
+                            <SolidColorBrush Color="#FF3D6087"/>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="#0d345d"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <StackPanel Grid.Column="0" Grid.Row="2" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock Text="Курс, °" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataCurs" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="Скорость, уз" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataSpeed" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
                     </StackPanel>
 
+                    <StackPanel Grid.Column="1" Grid.Row="4" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock Text="Широта" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataLat" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="Долгота" Style="{StaticResource LabelTextBlockAvg}"/>
+                            <TextBlock Text="Н.Д." x:Name="DataLon" Style="{StaticResource NoDataTextBlockAvg}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3" Margin="20,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Дата" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="DataDate" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" TextWrapping="Wrap" Text="XX.XX.XX" HorizontalAlignment="Left" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Style="{StaticResource LabelTextBlockAvg}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="DataTime" Style="{StaticResource NoDataTextBlockAvg}" Cursor="Hand" HorizontalAlignment="Left" TextWrapping="Wrap" Text="XX:XX:XX" Margin="10,0,0,0" MouseDown="DataTime_MouseDown"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
 
-                <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="WMT702" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
-
-                <!--<local:CustomWindPanelInstantHorizontal Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>-->
-
-                <!--<TextBlock Margin="0,0,50,15" Grid.Row="3" Grid.Column="0" Text="ДМП№1" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
-                <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,0,0,0"  />-->
-
-                <!--<TextBlock Margin="50,0,0,15" Grid.Row="3" Grid.Column="2" Text="ДМП№2" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20pt" Foreground="White" FontWeight="Bold" TextAlignment="Center" FontFamily="Microsoft Sans Serif"/>-->
-
-                <!--<local:CustomWindDataInstant Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,0"/>-->
-                <Ellipse Grid.ColumnSpan="3" Grid.Row="0" StrokeThickness="3" Width="230" Height="230">
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="#FF3D6087"/>
-                    </Ellipse.Stroke>
-                    <Ellipse.Fill>
-                        <SolidColorBrush Color="#0c3d6a"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataWMT" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="330"/>
-                <local:CustomWindDataSmall x:Name="WindDataWMT" Text="WMT702" Margin="10" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
-
-                <Ellipse Grid.Column="0" Grid.Row="1" StrokeThickness="3" Width="230" Height="230">
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="#FF3D6087"/>
-                    </Ellipse.Stroke>
-                    <Ellipse.Fill>
-                        <SolidColorBrush Color="#0c3d6a"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP1" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="330"/>
-                <local:CustomWindDataSmall x:Name="WindDataDMP1" Text="ДМП1№1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
-
-                <Ellipse Grid.Column="2" Grid.Row="1" StrokeThickness="3" Width="230" Height="230">
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="#FF3D6087"/>
-                    </Ellipse.Stroke>
-                    <Ellipse.Fill>
-                        <SolidColorBrush Color="#0c3d6a"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="330"/>
-                <local:CustomWindDataSmall x:Name="WindDataDMP2" Text="ДМП1№2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
-
-
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="4*"/>
-                    </Grid.RowDefinitions>
-
-                </Grid>
             </Grid>
 
             <Grid Grid.Column="2" Grid.RowSpan="3">
-                <local:CustomDataPanel x:Name="customDataPanel"/>
+                <local:CustomDataPanel x:Name="customDataPanel" MouseDown="SPBU_MouseLeftButtonDown" />
+                <TextBlock x:Name="ClicksTextBox" Foreground="AliceBlue" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30" FontSize="14pt"/>
             </Grid>
-
-            <!--<Grid Grid.Row="2">
-                <local:CustomBottomDataPanel x:Name="customBottomDataPanel1" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
-            </Grid>-->
-
         </Grid>
     </Grid>
 </UserControl>
