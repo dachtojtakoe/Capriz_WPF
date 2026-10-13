@@ -33,6 +33,7 @@
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="Height" Value="64"/>
             <Setter Property="Width" Value="64"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
 
@@ -89,7 +90,7 @@
             <local:CustomButtonText Grid.Row="3" x:Name="ZoomOut" Style="{StaticResource CommonButtonStyle}" BtnText="-" CommandText="{StaticResource ZoomOut_Click}" VerticalAlignment="Top"/>
             <local:CustomButtonText Grid.Row="5" x:Name="CursorMode" Style="{StaticResource CommonButtonStyle}" BtnText="XY" CommandText="{StaticResource ChangeCursor_Click}" VerticalAlignment="Top" BtnFontSize="21" BtnFontWeight="Normal"/>
 
-            <local:CustomButton Grid.Row="7" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Cursor="Hand"  ImageWidth="39" ImageHeight="39"/>
+            <local:CustomButton HorizontalAlignment="Right" Grid.Row="7" x:Name="printBtn" Tag="CustomToolTip11" ImageSource="{StaticResource saveChart}" Command="{StaticResource btnPrint_Click}" Cursor="Hand"  ImageWidth="39" ImageHeight="39"/>
 
 
             <local:CustomButtonText Grid.Row="9" x:Name="PanTop" Style="{StaticResource CommonButtonStyle}" BtnText="↑" CommandText="{StaticResource PanTop_Click}"/>

@@ -1,0 +1,100 @@
+﻿<Window x:Class="Capriz_WPF.CustomControls.CustomMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Capriz_WPF.CustomControls"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Microsoft Sans Serif" FontSize="16">
+
+    <Window.Resources>
+        <RoutedCommand x:Key="YesBtn_Click"/>
+        <RoutedCommand x:Key="NoBtn_Click"/>
+        <RoutedCommand x:Key="OkBtn_Click"/>
+        <RoutedCommand x:Key="CancelBtn_Click"/>
+
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource YesBtn_Click}" Executed="YesBtn_Click"/>
+        <CommandBinding Command="{StaticResource NoBtn_Click}" Executed="NoBtn_Click"/>
+        <CommandBinding Command="{StaticResource OkBtn_Click}" Executed="OkBtn_Click"/>
+        <CommandBinding Command="{StaticResource CancelBtn_Click}" Executed="CancelBtn_Click"/>
+
+    </Window.CommandBindings>
+    
+    <Border BorderThickness="3" CornerRadius="10" MinWidth="380" MaxWidth="560" Padding="0">
+        <Border.BorderBrush>
+            <LinearGradientBrush>
+                <GradientStopCollection>
+                    <GradientStop Offset="0" Color="#FF1E465B"/>
+                    <GradientStop Offset="1" Color="#FF3D6087"/>
+                </GradientStopCollection>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStopCollection>
+                    <GradientStop Offset="0" Color="#FF3D6087"/>
+                    <GradientStop Offset="1" Color="#FF002852"/>
+                </GradientStopCollection>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="TitleText" Grid.Column="0" Text="Заголовок" Foreground="AliceBlue" FontWeight="Bold" FontSize="16pt" Margin="16,12,0,8" VerticalAlignment="Center"/>
+                <Button x:Name="CloseBtn" Grid.Column="1" Content="✕" Click="CloseBtn_Click"
+                        Width="36" Height="36" Margin="0,6,6,0"
+                        Background="Transparent" BorderThickness="0"
+                        Foreground="AliceBlue" FontSize="16" Cursor="Hand"/>
+            </Grid>
+
+            <!-- Контент -->
+            <Grid Grid.Row="1" Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="IconCircle" Grid.Column="0"
+                        Width="48" Height="48" CornerRadius="24"
+                        Background="Orange"
+                        VerticalAlignment="Center">
+                    <TextBlock x:Name="IconText" Text="!" FontSize="30" FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <TextBlock x:Name="MessageText" Grid.Column="2"
+                           Text="Текст сообщения"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center"
+                           Foreground="AliceBlue" FontSize="16pt"
+                           LineHeight="22"/>
+            </Grid>
+
+            <!-- Кнопки -->
+            <StackPanel x:Name="ButtonsPanel" Grid.Row="2" Orientation="Horizontal"
+                        HorizontalAlignment="Right" Margin="16,0,16,16">
+                <local:CustomButtonText x:Name="YesBtn"     BtnText="Да"      Width="110" Height="50" Margin="6,0,0,0" Cursor="Hand" CommandText="{StaticResource YesBtn_Click}"/>
+                <local:CustomButtonText x:Name="NoBtn"      BtnText="Нет"     Width="110" Height="50" Margin="6,0,0,0" Cursor="Hand" CommandText="{StaticResource NoBtn_Click}"/>
+                <local:CustomButtonText x:Name="OkBtn"      BtnText="OK"      Width="110" Height="50" Margin="6,0,0,0" Cursor="Hand" CommandText="{StaticResource OkBtn_Click}"/>
+                <local:CustomButtonText x:Name="CancelBtn"  BtnText="Отмена"  Width="110" Height="50" Margin="6,0,0,0" Cursor="Hand" CommandText="{StaticResource CancelBtn_Click}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

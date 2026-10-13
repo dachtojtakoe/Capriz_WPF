@@ -42,31 +42,36 @@ namespace Capriz_WPF.Database
         {
             if (!Connect("DataBase.sqlite")) return;
 
+            command = new SQLiteCommand(connection);
+
+            // 1. Прагмы — СРАЗУ после открытия
+            command.CommandText = "PRAGMA journal_mode=DELETE";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "PRAGMA busy_timeout = 5000";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "PRAGMA synchronous=NORMAL";
+            command.ExecuteNonQuery();
+
+            // 2. Создаём таблицу
             var props = typeof(Data.Data).GetProperties()
                 .Where(p => p.Name != "Date" && p.Name != "Time").ToArray();
 
             var cols = string.Join(", ", props.Select(p => $"[{p.Name}] TEXT"));
 
-            command = new SQLiteCommand(connection)
-            {
-                CommandText = $@"
+            command.CommandText = $@"
                 CREATE TABLE IF NOT EXISTS [Data] (
                     [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
-                    [DateTime] Datetime,
+                    [DateTime] DATETIME,
                     {cols}
-                );"
-            };
+                );";
             command.ExecuteNonQuery();
 
-            //command.CommandText = @"
-            //    CREATE TRIGGER IF NOT EXISTS DeleteOldData
-            //    AFTER INSERT ON Data
-            //    BEGIN
-            //        DELETE FROM Data WHERE DateTime < datetime('now', '-3 months');
-            //    END;";
-            //command.ExecuteNonQuery();
+            // 3. Индекс на DateTime — ускоряет запросы и удаление по дате
+            command.CommandText = "CREATE INDEX IF NOT EXISTS idx_data_datetime ON Data(DateTime)";
+            command.ExecuteNonQuery();
         }
-
 
         static public void TestWrite(bool BD)
         {
@@ -761,6 +766,66 @@ namespace Capriz_WPF.Database
             }
 
             return list;
+        }
+
+        static public int DeleteDataOlderThan(int days)
+        {
+            try
+            {
+                // SQLite понимает datetime('now', '-180 days') в формате 'YYYY-MM-DD HH:MM:SS'
+                command.CommandText = $@"
+            DELETE FROM Data
+            WHERE datetime < datetime('now', '-{days} days', 'localtime')";
+
+                int deleted = command.ExecuteNonQuery();
+                DataDelegates.EventHandlerStr($"Удалено записей старше {days} дней: {deleted}");
+                return deleted;
+            }
+            catch (Exception ex)
+            {
+                DataDelegates.EventHandlerStr("DeleteDataOlderThan: " + ex.Message);
+                return -1;
+            }
+        }
+
+        static public int DeleteAllData()
+        {
+            try
+            {
+                // Сначала считаем, сколько было
+                command.CommandText = "SELECT COUNT(*) FROM Data";
+                long before = Convert.ToInt64(command.ExecuteScalar());
+
+                // Удаляем всё
+                command.CommandText = "DELETE FROM Data";
+                command.ExecuteNonQuery();
+
+                // Сбрасываем AUTOINCREMENT (если используется)
+                command.CommandText = "DELETE FROM sqlite_sequence WHERE name='Data'";
+                try { command.ExecuteNonQuery(); } catch { /* таблицы sqlite_sequence может не быть */ }
+
+                DataDelegates.EventHandlerStr($"Удалено всех записей: {before}");
+                return (int)before;
+            }
+            catch (Exception ex)
+            {
+                DataDelegates.EventHandlerStr("DeleteAllData: " + ex.Message);
+                return -1;
+            }
+        }
+
+        static public void VacuumDatabase()
+        {
+            try
+            {
+                command.CommandText = "VACUUM";
+                command.ExecuteNonQuery();
+                DataDelegates.EventHandlerStr("VACUUM выполнен");
+            }
+            catch (Exception ex)
+            {
+                DataDelegates.EventHandlerStr("Vacuum: " + ex.Message);
+            }
         }
 
         static public string GetFirstDate(string column = null)

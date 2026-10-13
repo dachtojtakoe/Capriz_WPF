@@ -363,7 +363,6 @@ namespace Capriz_WPF.CustomControls
                 return new List<string> { status, toolTipText };
             }
 
-
             //toolTipText += "Статус датчика температуры ДМП-1 №1: " + data.StatusTemp1 + "\r\n";
             //toolTipText += "Статус датчика температуры ДМП-1 №2: " + data.StatusTemp2 + "\r\n";
             //toolTipText += "Статус датчика влажности ДМП-1 №1: " + data.StatusHum1 + "\r\n";
@@ -669,8 +668,6 @@ namespace Capriz_WPF.CustomControls
         {
             e.Handled = true;
             var now = DateTime.Now;
-
-            ClicksTextBox.Text = _clickCount.ToString();
 
             if (_clickCount == 1)
             {

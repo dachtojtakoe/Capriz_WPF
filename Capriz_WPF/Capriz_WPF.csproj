@@ -182,8 +182,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\PIConfiguratorProtocol.cs" />
+    <Compile Include="Common\RuntimeState.cs" />
     <Compile Include="Common\StatusConverter.cs" />
     <Compile Include="Common\StatusReportExporter.cs" />
+    <Compile Include="CustomControls\CustomCircularProgress.xaml.cs">
+      <DependentUpon>CustomCircularProgress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\CustomMessageBox.xaml.cs">
+      <DependentUpon>CustomMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\PortSettingsRow.xaml.cs">
       <DependentUpon>PortSettingsRow.xaml</DependentUpon>
     </Compile>
@@ -214,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomControls\CustomCircularProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\CustomDataPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControls\CustomGridOld.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\CustomMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -431,28 +446,13 @@
     <Resource Include="Resources\SaveChart.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\ngo.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\spbu.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\SPBU2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\spbu3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\spbu4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\photos.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\final_transaparent.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\icesea.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\SPBU22.jpg" />
+    <Resource Include="Resources\trash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

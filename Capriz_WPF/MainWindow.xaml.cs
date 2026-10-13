@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -58,6 +59,8 @@ namespace Capriz_WPF
 
         string _nameCurrentFile = "";
 
+        private CancellationTokenSource _copyCts;
+
         public enum _typeWindow : int
         {
             customWindPanel1 = 0,
@@ -66,7 +69,7 @@ namespace Capriz_WPF
             customTerminal = 3,
             journal = 4
         };
-   
+
         private DispatcherTimer _timer;
         private CustomToolTip _currentToolTip;
 
@@ -136,7 +139,7 @@ namespace Capriz_WPF
                 _iniFile.Write("DMDV", "1");
                 _iniFile.Write("COM", "1");
             }
-               
+
             _iniFile.Read("DSNV1");
             _config.SetData(new List<string>{ _iniFile.Read("DSNV1"), _iniFile.Read("DSNV2"), _iniFile.Read("DSNV3"),
                 _iniFile.Read("DTVV1"), _iniFile.Read("DTVV2"), _iniFile.Read("DAD"), _iniFile.Read("DVGO"),  _iniFile.Read("DMDV")});
@@ -203,10 +206,10 @@ namespace Capriz_WPF
                 {
                     //if (ViewNow == (int)_typeWindow.customTerminal)
                     //{
-                        richTextboxClear();
-                        richTextBoxMessage.AppendText(str);
+                    richTextboxClear();
+                    richTextBoxMessage.AppendText(str);
                     //}
-                   // richTextBoxMessage.AppendText(str);
+                    // richTextBoxMessage.AppendText(str);
 
                     //if (isScrollToEnd)
                     //    richTextBoxMessage.ScrollToEnd();
@@ -232,14 +235,18 @@ namespace Capriz_WPF
 
         public void WriteFile(string param)
         {
+            if (RuntimeState.IsDataWritingPaused)
+                return;
+
             if ((DateTime.Now.Minute) % 2 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
-            //if (DateTime.Now.Second % 5 == 0)   //Записываем в файл каждые 10 минут
+            //if (DateTime.Now.Second % 1 == 0)   //Записываем в файл каждые 10 минут
             {
                 try
                 {
                     Dispatcher.BeginInvoke((MethodInvoker)delegate
                     {
-
+                        if (RuntimeState.IsDataWritingPaused)
+                            return;
                         //for (int i = 1; i < 91; i++)
                         //{
                         //    DateTime currentTime = new DateTime(2024, 8, 1);
@@ -280,7 +287,7 @@ namespace Capriz_WPF
             if (customGrid1.Visibility == Visibility.Visible)
             {
                 customGrid1.Visibility = Visibility.Hidden;
-            }            
+            }
             if (panelCustomGrid.Visibility == Visibility.Visible)
             {
                 panelCustomGrid.Visibility = Visibility.Hidden;
@@ -301,10 +308,10 @@ namespace Capriz_WPF
             {
                 dateTimePanel.Visibility = Visibility.Hidden;
             }
-            if(richTextBoxMessage.Visibility == Visibility.Visible)
+            if (richTextBoxMessage.Visibility == Visibility.Visible)
             {
                 richTextBoxMessage.Visibility = Visibility.Hidden;
-            }           
+            }
             //if(panelSettings.Visibility == Visibility.Visible)
             //{
             //    panelSettings.Visibility = Visibility.Hidden;
@@ -366,9 +373,11 @@ namespace Capriz_WPF
                 HideAllPanels();
                 _customWindPanel1.Visibility = Visibility.Visible;
                 ViewNow = (int)_typeWindow.customWindPanel1;
-                lblText.Text = "\r\nНет данных!";
-                lblText.TextAlignment = TextAlignment.Center;
-                ShowHideInfoPanel();
+                CustomMessageBox.Show("Нет данных!", icon: MessageBoxImage.Asterisk);
+
+                //lblText.Text = "\r\nНет данных!";
+                //lblText.TextAlignment = TextAlignment.Center;
+                //ShowHideInfoPanel();
                 //ViewNow = oldView;
                 return;
             }
@@ -425,59 +434,188 @@ namespace Capriz_WPF
             ShowHideInfoPanel();
         }
 
+        //private string GetRemoteDevice()
+        //{
+        //    var temp = "";
+        //    foreach (DriveInfo drive in DriveInfo.GetDrives())
+        //    {
+        //        if (drive.DriveType == DriveType.Removable)
+        //        {
+        //            temp += drive.Name;
+        //            return temp;
+        //        }
+        //    }
+        //    if (temp == "")
+        //    {
+        //        foreach (DriveInfo drive in DriveInfo.GetDrives())
+        //        {
+        //            if (drive.Name != "C:\\")
+        //            {
+        //                temp += drive.Name;
+        //                return temp;
+        //            }
+        //        }
+        //    }
+        //    return temp;
+        //}
+
         private string GetRemoteDevice()
         {
-            var temp = "";
-            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            string systemRoot = System.IO.Path.GetPathRoot(Environment.SystemDirectory); // "C:\"
+
+            // 1) Сначала съёмные диски — приоритет
+            foreach (var drive in DriveInfo.GetDrives())
             {
-                if (drive.DriveType == DriveType.Removable)
-                {
-                    temp += drive.Name;
-                    return temp;
-                }
+                if (drive.DriveType == DriveType.Removable && drive.IsReady)
+                    return drive.Name;   // "E:\"
             }
-            if(temp == "")
+
+            // 2) Иначе любой не-системный готовый диск (кроме CD/DVD)
+            foreach (var drive in DriveInfo.GetDrives())
             {
-                foreach (DriveInfo drive in DriveInfo.GetDrives())
-                {
-                    if (drive.Name != "C:\\")
-                    {
-                        temp += drive.Name;
-                        return temp;
-                    }
-                }
+                if (drive.Name == systemRoot) continue;
+                if (drive.DriveType == DriveType.CDRom) continue;
+                if (!drive.IsReady) continue;
+                return drive.Name;
             }
-            return temp;
+
+            return "";
         }
 
-        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs = false, bool overwrite = true)
+        //private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs = false, bool overwrite = true)
+        //{
+        //    DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+        //    DirectoryInfo[] dirs = dir.GetDirectories();
+        //    if (!dir.Exists)
+        //    {
+        //        throw new DirectoryNotFoundException(
+        //            "Папка c данными  не существует или не может быть найдена: "
+        //            + sourceDirName);
+        //    }
+        //    if (!Directory.Exists(destDirName))
+        //    {
+        //        Directory.CreateDirectory(destDirName);
+        //    }
+        //    FileInfo[] files = dir.GetFiles();
+        //    foreach (FileInfo file in files)
+        //    {
+        //        string temppath = System.IO.Path.Combine(destDirName, file.Name);
+        //        file.CopyTo(temppath, overwrite);//false
+        //    }
+        //    if (copySubDirs)
+        //    {
+        //        foreach (DirectoryInfo subdir in dirs)
+        //        {
+        //            string temppath = System.IO.Path.Combine(destDirName, subdir.Name);
+        //            DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+        //        }
+        //    }
+        //}
+
+        private async Task CopyDirectoryAsync(string sourceDir, string destDir,
+                                              IProgress<int> progress = null,
+                                              CancellationToken ct = default)
         {
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-            DirectoryInfo[] dirs = dir.GetDirectories();
-            if (!dir.Exists)
+            await Task.Run(() =>
             {
-                throw new DirectoryNotFoundException(
-                    "Папка c данными  не существует или не может быть найдена: "
-                    + sourceDirName);
-            }
-            if (!Directory.Exists(destDirName))
-            {
-                Directory.CreateDirectory(destDirName);
-            }
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string temppath = System.IO.Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, overwrite);//false
-            }
-            if (copySubDirs)
-            {
-                foreach (DirectoryInfo subdir in dirs)
+                // Общее количество файлов (включая подпапки) — для корректного прогресса
+                int total = 0;
+                try
                 {
-                    string temppath = System.IO.Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                    total = Directory.EnumerateFiles(sourceDir, "*", SearchOption.AllDirectories).Count();
                 }
+                catch { }
+
+                if (total == 0)
+                {
+                    progress?.Report(100);
+                    return;
+                }
+
+                int copied = 0;
+                CopyRecursive(sourceDir, destDir, ref copied, total, progress, ct);
+            }, ct);
+        }
+
+        private void CopyRecursive(string sourceDir, string destDir, ref int copied, int total, IProgress<int> progress, CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+
+            var dir = new DirectoryInfo(sourceDir);
+            if (!dir.Exists) throw new DirectoryNotFoundException(sourceDir);
+
+            Directory.CreateDirectory(destDir);
+
+            foreach (var file in dir.GetFiles())
+            {
+                ct.ThrowIfCancellationRequested();
+                string target = System.IO.Path.Combine(destDir, file.Name);
+                file.CopyTo(target, true);
+                copied++;
+                progress?.Report((int)(100.0 * copied / total));
             }
+
+            foreach (var subdir in dir.GetDirectories())
+            {
+                ct.ThrowIfCancellationRequested();
+                CopyRecursive(subdir.FullName, System.IO.Path.Combine(destDir, subdir.Name), ref copied, total, progress, ct);
+            }
+        }
+
+        private string GetUniqueFolderPath(string targetRoot, string baseName)
+        {
+            string path = System.IO.Path.Combine(targetRoot, baseName);
+            if (!Directory.Exists(path)) return path;
+
+            int n = 2;
+            while (true)
+            {
+                string candidate = System.IO.Path.Combine(targetRoot, $"{baseName}_{n}");
+                if (!Directory.Exists(candidate)) return candidate;
+                n++;
+            }
+        }
+
+        private bool HasEnoughSpace(string sourceDir, string targetRoot, out string error)
+        {
+            error = "";
+            try
+            {
+                var drive = new DriveInfo(System.IO.Path.GetPathRoot(targetRoot));
+                long needed = GetDirectorySize(sourceDir);
+                if (drive.AvailableFreeSpace < needed * 1.05)   // +5% запас
+                {
+                    error = $"Недостаточно места на {drive.Name}\r\n" +
+                            $"Требуется: {FormatBytes(needed)}\r\n" +
+                            $"Свободно:   {FormatBytes(drive.AvailableFreeSpace)}";
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return false;
+            }
+        }
+
+        private long GetDirectorySize(string path)
+        {
+            long size = 0;
+            foreach (var f in Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories))
+            {
+                try { size += new FileInfo(f).Length; } catch { }
+            }
+            return size;
+        }
+
+        private string FormatBytes(long bytes)
+        {
+            string[] units = { "Б", "КБ", "МБ", "ГБ", "ТБ" };
+            double size = bytes;
+            int i = 0;
+            while (size >= 1024 && i < units.Length - 1) { size /= 1024; i++; }
+            return $"{size:0.0} {units[i]}";
         }
 
         #region GetMinMaxDT
@@ -523,7 +661,7 @@ namespace Capriz_WPF
 
         public void ShowHideDatePanelOLD()
         {
-            if(dateTimePanel.Visibility == Visibility.Hidden)
+            if (dateTimePanel.Visibility == Visibility.Hidden)
             {
                 dateTimePanel.Visibility = Visibility.Visible;
                 btnDateFrom.BtnText = GetMinDateDt;
@@ -583,7 +721,7 @@ namespace Capriz_WPF
             isPanelOpened = false;
         }
 
-       
+
 
         #region ButtonTooltipsVisibility
 
@@ -634,7 +772,7 @@ namespace Capriz_WPF
             {
                 _currentToolTip.Visibility = Visibility.Hidden;
                 _timer.Stop();
-                _currentToolTip = null; 
+                _currentToolTip = null;
             }
         }
 
@@ -670,6 +808,7 @@ namespace Capriz_WPF
                 ShowChart(btnDateFrom.BtnText, btnDateTo.BtnText);
             if (ViewNow == (int)_typeWindow.journal)
             {
+                lblDateTimeText.Text = lblDateTimeText.Text.Replace("экспорта", "отображения");
                 ExportJournal(btnDateFrom.BtnText, btnDateTo.BtnText);
                 _customWindPanel1.Visibility = Visibility.Visible;
                 ViewNow = (int)_typeWindow.customWindPanel1;
@@ -689,6 +828,8 @@ namespace Capriz_WPF
             dateTimePanel.Visibility = Visibility.Hidden;
             _customWindPanel1.Visibility = Visibility.Visible;
             ViewNow = (int)_typeWindow.customWindPanel1;
+
+            lblDateTimeText.Text = lblDateTimeText.Text.Replace("экспорта", "отображения");
 
             btnPeriodClicked = 0;
             SetButtonFirstColor(btn6H);
@@ -884,7 +1025,7 @@ namespace Capriz_WPF
         private void btnlblDateTo_Click(object sender, EventArgs e)
         {
             if (ViewNow == (int)_typeWindow.customChart1)
-            { 
+            {
                 panelCustomChart.Visibility = Visibility.Hidden;
                 //customChart1.Visibility = Visibility.Hidden;
             }
@@ -922,42 +1063,184 @@ namespace Capriz_WPF
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (isPanelOpened)
+            if (!isPanelOpened) return;
+
+            HideAllPanels();
+            _customWindPanel1.Visibility = Visibility.Visible;
+            ViewNow = (int)_typeWindow.customWindPanel1;
+
+            string sourceDir = Directory.GetCurrentDirectory();
+            string baseName = sourceDir.Substring(sourceDir.LastIndexOf('\\') + 1);
+
+            // 1) Ищем диск
+            string destRoot = GetRemoteDevice();
+            if (string.IsNullOrEmpty(destRoot))
             {
-                HideAllPanels();
-                _customWindPanel1.Visibility = Visibility.Visible;
-                ViewNow = (int)_typeWindow.customWindPanel1;
+                CustomMessageBox.Show(
+                    "Внешнего диска в системе не найдено\r\nВставьте USB-устройство!",
+                    "Копирование",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
 
-                string sourceDirName = Directory.GetCurrentDirectory();
-                string nameDir = sourceDirName.Substring(sourceDirName.LastIndexOf('\\') + 1);
+            // 2) Проверяем свободное место
+            if (!HasEnoughSpace(sourceDir, destRoot, out string spaceError))
+            {
+                CustomMessageBox.Show(
+                    "Недостаточно места на диске:\r\n\r\n" + spaceError,
+                    "Копирование",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
 
-                string destDirName = GetRemoteDevice();
+            // 3) Спрашиваем подтверждение о диске
+            var confirm = CustomMessageBox.Show(
+                $"Будет скопирована папка с данными на диск {destRoot}\r\n\r\nПродолжить?",
+                "Подтверждение копирования",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
 
-                if (destDirName != "")
+            if (confirm != MessageBoxResult.Yes) return;
+
+            var warning = CustomMessageBox.Show(
+                "На время копирования запись новых данных будет приостановлена.\r\n\r\n" +
+                "Продолжить?",
+                "Внимание",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (warning != MessageBoxResult.Yes) return;
+
+            // 4) Проверяем, существует ли папка
+            string finalDest = System.IO.Path.Combine(destRoot, baseName);
+            if (Directory.Exists(finalDest))
+            {
+                var overwriteChoice = CustomMessageBox.Show(
+                    $"Папка \"{baseName}\" уже существует на {destRoot}\r\n\r\n" +
+                    "Да — заменить содержимое\r\n" +
+                    "Нет — создать новую папку рядом",
+                    "Папка уже существует",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Warning);
+
+                if (overwriteChoice == MessageBoxResult.Cancel) return;
+
+                if (overwriteChoice == MessageBoxResult.No)
                 {
-                    try
-                    {
-                        DirectoryCopy(sourceDirName, destDirName + nameDir, true);
-                        lblText.Text = "Копирование папки с данными завершено\r\nПапка с данными расположена в " + destDirName + nameDir;
-                        lblText.TextAlignment = TextAlignment.Center;
-                        ShowHideInfoPanel();
-                    }
-                    catch
-                    {
-                        lblText.Text = "На данный внешний диск не может быть осуществлена запись\r\n\r\nВставьте другое USB устройство!";
-                        lblText.TextAlignment = TextAlignment.Center;
-                        ShowHideInfoPanel();
-                    }
+                    // Создаём capriz_2, capriz_3 и т.д.
+                    finalDest = GetUniqueFolderPath(destRoot, baseName);
                 }
                 else
                 {
-                    lblText.Text = "Внешнего диска в системе не найдено или на него не может быть осуществлена запись\r\nВставьте другое USB устройство!";
-                    lblText.TextAlignment = TextAlignment.Center;
-                    ShowHideInfoPanel();
+                    // Yes — заменяем. Удаляем старую папку
+                    try { await DeleteDirectoryAsync(finalDest); }
+                    catch (Exception ex)
+                    {
+                        CustomMessageBox.Show(
+                            "Не удалось удалить существующую папку:\r\n" + ex.Message,
+                            "Ошибка",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        return;
+                    }
                 }
             }
+
+            _copyCts = new CancellationTokenSource();
+            copyProgress.CancelRequested += OnCopyCancelRequested;
+
+            // Ставим паузу
+            RuntimeState.IsDataWritingPaused = true;
+            copyProgress.Value = 0;
+            copyProgress.Visibility = Visibility.Visible;
+            usbBtn.IsEnabled = false;
+
+            bool cancelled = false;
+
+            // 5) Копируем асинхронно
+            try
+            {
+                var progress = new Progress<int>(p => copyProgress.Value = p);
+                await CopyDirectoryAsync(sourceDir, finalDest, progress, _copyCts.Token);
+
+                CustomMessageBox.Show(
+                    "Копирование папки с данными завершено.\r\n\r\n" +
+                    $"Папка расположена в:\r\n{finalDest}",
+                    "Готово",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (OperationCanceledException)
+            {
+                cancelled = true;
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show(
+                    "Ошибка при копировании:\r\n\r\n" + ex.Message,
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                RuntimeState.IsDataWritingPaused = false;
+
+                copyProgress.Visibility = Visibility.Collapsed;
+                usbBtn.IsEnabled = true;
+
+                copyProgress.CancelRequested -= OnCopyCancelRequested;
+                _copyCts?.Dispose();
+                _copyCts = null;
+            }
+
+            if (cancelled)
+            {
+                var clean = CustomMessageBox.Show(
+                    "Копирование отменено.\r\n\r\n" +
+                    "Удалить частично скопированные данные на внешнем диске?",
+                    "Отмена",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (clean == MessageBoxResult.Yes)
+                {
+                    try { await DeleteDirectoryAsync(finalDest); }
+                    catch (Exception ex)
+                    {
+                        CustomMessageBox.Show(
+                            "Не удалось удалить частичные данные:\r\n" + ex.Message,
+                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+        }
+
+        private void OnCopyCancelRequested(object sender, EventArgs e)
+        {
+            if (_copyCts == null || _copyCts.IsCancellationRequested) return;
+
+            var result = CustomMessageBox.Show(
+                "Отменить копирование папки с данными?",
+                "Подтверждение отмены",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+                _copyCts.Cancel();
+        }
+
+        private async Task DeleteDirectoryAsync(string path)
+        {
+            await Task.Run(() =>
+            {
+                if (Directory.Exists(path))
+                    Directory.Delete(path, true);
+            });
         }
 
         private void btnStatusJournal_Click(object sender, EventArgs e)
@@ -981,9 +1264,11 @@ namespace Capriz_WPF
                 HideAllPanels();
                 _customWindPanel1.Visibility = Visibility.Visible;
                 ViewNow = (int)_typeWindow.customWindPanel1;
-                lblText.Text = "\r\nНет данных!";
-                lblText.TextAlignment = TextAlignment.Center;
-                ShowHideInfoPanel();
+                CustomMessageBox.Show("Нет данных!", icon: MessageBoxImage.Asterisk);
+
+                //lblText.Text = "\r\nНет данных!";
+                //lblText.TextAlignment = TextAlignment.Center;
+                //ShowHideInfoPanel();
                 //ViewNow = oldView;
                 return;
             }
@@ -992,6 +1277,7 @@ namespace Capriz_WPF
             DtMax = Convert.ToDateTime(lastRowDateTime);
 
             HideAllPanels();
+            lblDateTimeText.Text = lblDateTimeText.Text.Replace("отображения", "экспорта");
             ShowHideDatePanel(firstRowDateTime, lastRowDateTime);
             isPanelOpened = false;
         }
@@ -1012,10 +1298,8 @@ namespace Capriz_WPF
                 string file = DataFile.StatusReportPath("StatusJournal", "pdf");
                 StatusReportExporter.Export(records, file);
 
-                //Показываем путь в панели и открываем Popup
-                lblText.Text = "Журнал сохранён:" + Environment.NewLine + Environment.NewLine + file;
-                ShowHideInfoPanel();
-
+                CustomMessageBox.Show($"Журнал сохранён: {Environment.NewLine + Environment.NewLine + file}",
+                    "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -1100,12 +1384,90 @@ namespace Capriz_WPF
 
         private void btnStartDeletion_Click(object sender, EventArgs e)
         {
-            panelDeletion.Visibility = Visibility.Visible;
+            if (isPanelOpened)
+            {
+                HideAllPanels();
+                panelDeletion.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnCancelDeletion_Click(object sender, EventArgs e)
         {
+            EndDeletion();
+        }
+
+        private void EndDeletion()
+        {
             panelDeletion.Visibility = Visibility.Hidden;
+
+            _customWindPanel1.Visibility = Visibility.Visible;
+            ViewNow = (int)_typeWindow.customWindPanel1;
+            isPanelOpened = true;
+        }
+
+        private void btnDeleteOldData_Click(object sender, EventArgs e)
+        {
+            var result = CustomMessageBox.Show(
+                 "Удалить все записи старше 180 суток?\n\nДействие необратимо.",
+                 "Подтверждение удаления",
+                 MessageBoxButton.YesNo,
+                 MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes) return;
+
+            int deleted = DB.DeleteDataOlderThan(180);
+
+            if (deleted >= 0)
+            {
+                CustomMessageBox.Show($"Удалено записей: {deleted}",
+                    "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                if (deleted > 10000)
+                    DB.VacuumDatabase();
+            }
+            else
+            {
+                CustomMessageBox.Show("Ошибка удаления. См. лог.",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            EndDeletion();
+        }
+
+        private void btnDeleteAllData_Click(object sender, EventArgs e)
+        {
+            var result = CustomMessageBox.Show(
+                   "Удалить ВСЕ данные из базы?\n\nЭто действие необратимо!",
+                   "Подтверждение полной очистки",
+                   MessageBoxButton.YesNo,
+                   MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes) return;
+
+            // Двойное подтверждение для особо опасного действия
+            var result2 = CustomMessageBox.Show(
+                "Точно удалить все данные?\n\nВосстановление невозможно.",
+                "Последнее подтверждение",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Stop);
+
+            if (result2 != MessageBoxResult.Yes) return;
+
+            int deleted = DB.DeleteAllData();
+
+            if (deleted >= 0)
+            {
+                DB.VacuumDatabase();
+                CustomMessageBox.Show($"Удалено всех записей: {deleted}",
+                    "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                CustomMessageBox.Show("Ошибка удаления. См. лог.",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            EndDeletion();
         }
 
         //private void btnPrint_Click(object sender, EventArgs e)

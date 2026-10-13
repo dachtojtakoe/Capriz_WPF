@@ -196,7 +196,7 @@
                     <SolidColorBrush Color="#FF3D6087"/>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
-                    <ImageBrush ImageSource="pack://application:,,,/Capriz_WPF;component/Resources/SPBU2.jpg" Stretch="UniformToFill" />
+                    <ImageBrush ImageSource="pack://application:,,,/Capriz_WPF;component/Resources/spbu.jpg" Stretch="UniformToFill" />
                 </Rectangle.Fill>
             </Rectangle>
 
@@ -602,7 +602,6 @@
 
             <Grid Grid.Column="2" Grid.RowSpan="3">
                 <local:CustomDataPanel x:Name="customDataPanel" MouseDown="SPBU_MouseLeftButtonDown" />
-                <TextBlock x:Name="ClicksTextBox" Foreground="AliceBlue" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30" FontSize="14pt"/>
             </Grid>
         </Grid>
     </Grid>

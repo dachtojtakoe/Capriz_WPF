@@ -47,23 +47,32 @@ namespace Capriz_WPF.Common
             switch (value.Trim())
             {
                 case "0": return "Норма";
-                case "1": return "Ошибка оборудования";
-                case "2": return "Предупреждение по оборудованию";
-                case "3": return "Тревога по обратному рассеянию";
+                case "1": return "Грязная линза передатчика";
+                case "2": return "Неисправен ИК-диод";
+                case "3": return "Грязная линза приемника";
                 case "/": return "Отключён";
                 default: return value.Trim();
             }
         }
 
         /// <summary>
-        /// Количество слоёв облаков: 0..5.
+        /// Количество слоёв облаков (0..5) → человекочитаемый текст.
         /// </summary>
         public static string AmountCloudsToText(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return "Н.Д.";
             if (!int.TryParse(value.Trim(), out int n)) return value.Trim();
-            if (n < 0 || n > 5) return value.Trim();
-            return n.ToString();
+
+            switch (n)
+            {
+                case 0: return "Облака не обнаружены";
+                case 1: return "1 слой";
+                case 2: return "2 слоя";
+                case 3: return "3 слоя";
+                case 4: return "Сплошной покров и не обнаружено нижнего края облака";
+                case 5: return "Обнаружен прозрачный покров";
+                default: return value.Trim();
+            }
         }
 
         /// <summary>
