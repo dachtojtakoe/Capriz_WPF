@@ -70,5 +70,7 @@
         <Popup x:Name="CustomToolTipPopup" Width="166" Height="40" PlacementRectangle="-126,-44,0,0" Placement="Relative" PlacementTarget="{Binding ElementName=DataSost}" IsOpen="False" AllowsTransparency="True">
             <local:CustomToolTip x:Name="CustomToolTip1" ToolTipWidth="166" ToolTipHeight="40" ToolTipText="Нет данных с БПР-1" ToolTipTextForeground="red" ToolTipBorderColor="red" Visibility="Hidden"/>
         </Popup>
+        
+        <local:CustomErrorPanel x:Name="errorPanel"/>
     </Grid>
 </UserControl>

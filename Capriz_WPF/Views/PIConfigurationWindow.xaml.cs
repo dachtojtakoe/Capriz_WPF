@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using Capriz_WPF.CustomControls;
-using Capriz_WPF.Common;
 
 namespace Capriz_WPF.Views
 {

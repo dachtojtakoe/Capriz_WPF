@@ -116,6 +116,14 @@ namespace Capriz_WPF.CustomControls
                     //System.Windows.MessageBox.Show(initialPlacementRectangle.X.ToString());
 
                 }
+
+                if (errorPanel.IsOpen)
+                {
+                    if (!string.IsNullOrEmpty(data[1]))
+                        errorPanel.RefreshErrors(data[1]);
+                    else
+                        errorPanel.HideErrors();   // ошибок больше нет — закрываем
+                }
             }
         }
 
@@ -160,12 +168,23 @@ namespace Capriz_WPF.CustomControls
             }
         }
 
+        //private void DataSost_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    isMouseEnter = true;
+        //    SetDataToSost(mydata);
+        //    CustomToolTipPopup.IsOpen = true;
+        //    timer.Start();
+        //}
+
         private void DataSost_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            isMouseEnter = true;
-            SetDataToSost(mydata);
-            CustomToolTipPopup.IsOpen = true;
-            timer.Start();
+            if (mydata == null || mydata.Count < 2 || string.IsNullOrEmpty(mydata[1]))
+                return;
+
+            if (errorPanel.IsOpen)
+                errorPanel.HideErrors();
+            else
+                errorPanel.ShowErrors(mydata[1]);
         }
 
         //private void DataTime_MouseDown(object sender, MouseButtonEventArgs e)

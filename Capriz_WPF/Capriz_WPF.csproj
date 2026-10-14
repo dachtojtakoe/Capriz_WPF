@@ -188,6 +188,9 @@
     <Compile Include="CustomControls\CustomCircularProgress.xaml.cs">
       <DependentUpon>CustomCircularProgress.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\CustomErrorPanel.xaml.cs">
+      <DependentUpon>CustomErrorPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\CustomMessageBox.xaml.cs">
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControls\CustomDateTimePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\CustomErrorPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
