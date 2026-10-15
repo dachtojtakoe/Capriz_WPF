@@ -7,9 +7,9 @@
         xmlns:CustomControls="clr-namespace:Capriz_WPF.CustomControls" x:Class="Capriz_WPF.MainWindow"
         mc:Ignorable="d"
         Title="Capriz"
-        Height="800" Width="1280"
+    Height="800" Width="1280"
         WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" ResizeMode="NoResize">
-    <!--WindowState="Maximized"-->
+        <!--WindowState="Maximized"-->
     <!--Topmost="True"-->
     <!--Height="800" Width="1280"-->
 
@@ -251,7 +251,18 @@
         <!--<Grid x:Name="grid" Background="Gray">-->
         <Grid >
 
-            <RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="1212" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>
+            <!--<RichTextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="1212" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden"/>-->
+            <!--<TextBox x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="1212" FontSize="23" Foreground="AliceBlue" Background="Transparent" BorderThickness="0" Visibility="Hidden" IsReadOnly="True" TextWrapping="NoWrap"/>-->
+
+            <Grid x:Name="TerminalGrid" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="16" x:Name="richTextBoxMessage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800" Width="1200" FontSize="23" Foreground="AliceBlue" Background="Transparent" TextWrapping="NoWrap"/>
+                <TextBlock Margin="16" Grid.Row="1" Text="Версия программы 1.2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1200" FontSize="20" Foreground="AliceBlue" Background="Transparent" TextWrapping="NoWrap"/>
+            </Grid>
+
             <CustomControls:CustomWindPanel x:Name="_customWindPanel1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1212" Height="800" Visibility="Visible"/>
 
             <Grid HorizontalAlignment="Right">
@@ -325,7 +336,7 @@
                 </Grid>
             </ItemsControl>
 
-            <ItemsControl x:Name="panelDeletion" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden" d:Visibility="Visible">
+            <ItemsControl x:Name="panelDeletion" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource ItemsControlTemplate}" Height="292" Width="465" Visibility="Hidden">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="284">
                     <TextBlock TextAlignment="Left" Text="Удаление архивных данных" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.6pt" Foreground="White" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Margin="0,20,0,0"/>
 

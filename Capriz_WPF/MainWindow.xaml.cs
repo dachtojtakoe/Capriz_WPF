@@ -78,7 +78,7 @@ namespace Capriz_WPF
         /// </summary>
         public bool isPanelOpened = true;
 
-        private bool isScrollToEnd = true; //Автоматическое перемещение к последнему сообщению на экране терминального отображения
+        //private bool isScrollToEnd = true; //Автоматическое перемещение к последнему сообщению на экране терминального отображения
 
         public MainWindow()
         {
@@ -149,22 +149,8 @@ namespace Capriz_WPF
             string comNum = (_iniFile.Read("COM") ?? "1").Trim();
             ComPort = "COM" + comNum;
 
-            richTextBoxMessage.MouseDoubleClick += richTextboxClear_Click;
-            richTextBoxMessage.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-
-            //_dt.Columns.Add("DateTime", typeof(DateTime));
-            //_dt.Columns.Add("Temperature", typeof(int));
-
-            //for(int i = 0; i < 1000; i++)
-            //{
-            //    DataRow row = _dt.NewRow();
-            //    row["DateTime"] = new DateTime(1999, 1, 1, 0, 0, 0);
-            //    row["Temperature"] = -999;
-            //    _dt.Rows.Add(row);
-            //}
-            //customChart1.Dt = _dt;
-            //customChart1.AllDtPointsToChart("Temperature");
-            //panelCustomChart.Visibility = Visibility.Visible;
+            //richTextBoxMessage.MouseDoubleClick += richTextboxClear_Click;
+            //richTextBoxMessage.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -200,25 +186,52 @@ namespace Capriz_WPF
         #region RichTextBox Терминал
         public void ShowDataTextBox(string str)
         {
-            try
+            //if (ViewNow != (int)_typeWindow.customTerminal) return;
+            if (string.IsNullOrEmpty(str)) return;
+
+            string formatted;
+
+            // Короткое сообщение (ошибка, лог) — выводим как есть
+            if (str.Length < 50)
             {
-                Dispatcher.BeginInvoke((MethodInvoker)delegate
-                {
-                    //if (ViewNow == (int)_typeWindow.customTerminal)
-                    //{
-                    richTextboxClear();
-                    richTextBoxMessage.AppendText(str);
-                    //}
-                    // richTextBoxMessage.AppendText(str);
-
-                    //if (isScrollToEnd)
-                    //    richTextBoxMessage.ScrollToEnd();
-
-                    //if (richTextBoxMessage.Document.Blocks.Count > 200) //200 Сообщений в терминальном отображении
-                    //    richTextboxClear();
-                });
+                formatted = str;
             }
-            catch { }
+            else
+            {
+                // Длинное ALB-сообщение — разбиваем по полям
+                if (ViewNow != (int)_typeWindow.customTerminal) return;
+                formatted = FormatForDisplay(str, 11);
+            }
+
+            Dispatcher.BeginInvoke((MethodInvoker)delegate
+            {
+                richTextBoxMessage.Text = formatted;
+            });
+        }
+
+        private string FormatForDisplay(string str, int fieldsPerLine = 10)
+        {
+            if (string.IsNullOrEmpty(str)) return str;
+
+            var sb = new StringBuilder(str);
+            int tabCount = 0;
+
+            for (int i = 0; i < sb.Length; i++)
+            {
+                if (sb[i] == '\t')
+                {
+                    tabCount++;
+
+                    // Каждый N-й таб заменяем на перенос строки
+                    if (tabCount == fieldsPerLine)
+                    {
+                        sb[i] = '\n';
+                        tabCount = 0;
+                    }
+                }
+            }
+
+            return sb.ToString();
         }
 
         public void richTextboxClear_Click(object sender, MouseButtonEventArgs e)
@@ -228,7 +241,8 @@ namespace Capriz_WPF
 
         public void richTextboxClear()
         {
-            richTextBoxMessage.Document.Blocks.Clear();
+            //richTextBoxMessage.Clear();
+            //richTextBoxMessage.Document.Blocks.Clear();
         }
 
         #endregion
@@ -308,9 +322,13 @@ namespace Capriz_WPF
             {
                 dateTimePanel.Visibility = Visibility.Hidden;
             }
-            if (richTextBoxMessage.Visibility == Visibility.Visible)
+            //if (richTextBoxMessage.Visibility == Visibility.Visible)
+            //{
+            //    richTextBoxMessage.Visibility = Visibility.Hidden;
+            //}
+            if(TerminalGrid.Visibility == Visibility.Visible)
             {
-                richTextBoxMessage.Visibility = Visibility.Hidden;
+                TerminalGrid.Visibility = Visibility.Hidden;
             }
             //if(panelSettings.Visibility == Visibility.Visible)
             //{
@@ -1368,15 +1386,17 @@ namespace Capriz_WPF
             if (isPanelOpened)
             {
                 ViewNow = (int)_typeWindow.customTerminal;
-                if (richTextBoxMessage.Visibility == Visibility.Visible)
+                //if (richTextBoxMessage.Visibility == Visibility.Visible)
+                if (TerminalGrid.Visibility == Visibility.Visible)
                 {
-                    isScrollToEnd = isScrollToEnd ? false : true;
+                    //isScrollToEnd = isScrollToEnd ? false : true;
                 }
                 else
                 {
                     HideAllPanels();
-                    richTextBoxMessage.Visibility = Visibility.Visible;
-                    isScrollToEnd = true;
+                    //richTextBoxMessage.Visibility = Visibility.Visible;
+                    TerminalGrid.Visibility = Visibility.Visible;
+                    //isScrollToEnd = true;
                 }
             }
         }

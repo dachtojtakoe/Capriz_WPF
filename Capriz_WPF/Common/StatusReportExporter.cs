@@ -36,7 +36,7 @@ namespace Capriz_WPF.Common
         {
             container.Column(col =>
             {
-                col.Item().Text("Отчёт о статусах датчиков")
+                col.Item().Text("Журнал состояний датчиков")
                     .FontSize(16).Bold();
 
                 col.Item().Text($"Сформирован: {DateTime.Now:dd.MM.yyyy HH:mm:ss}")
@@ -132,7 +132,7 @@ namespace Capriz_WPF.Common
             table.Cell()
                 .BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
                 .Padding(3)
-                .AlignLeft()
+                .AlignCenter()
                 .AlignMiddle()
                 .Text(text ?? "Н.Д.");
         }

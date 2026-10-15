@@ -353,29 +353,28 @@ namespace Capriz_WPF.CustomControls
 
         private List<string> SetStatus(Data.Data data)
         {
-            status = "1";
-            toolTipText = "";
+            string status = "1";
+            var errors = new List<string>();
+
+            // Локальная функция — пишет в status и errors
+            void AddError(string message)
+            {
+                status = "0";
+                errors.Add(message);
+            }
+
+            void Check01(string value, string errorMessage)
+            {
+                if ((value ?? "").Trim() == "0")
+                    AddError(errorMessage);
+            }
 
             if (data == null)
             {
-                status = "/";
-                toolTipText = "Нет данных с БПР-1";
-                return new List<string> { status, toolTipText };
+                return new List<string> { "/", "Нет данных с БПР-1" };
             }
 
-            //toolTipText += "Статус датчика температуры ДМП-1 №1: " + data.StatusTemp1 + "\r\n";
-            //toolTipText += "Статус датчика температуры ДМП-1 №2: " + data.StatusTemp2 + "\r\n";
-            //toolTipText += "Статус датчика влажности ДМП-1 №1: " + data.StatusHum1 + "\r\n";
-            //toolTipText += "Статус датчика влажности ДМП-1 №2: " + data.StatusHum2 + "\r\n";
-            //toolTipText += "Статус датчика ветра ДМП-1 №1: " + data.StatusWind1 + "\r\n";
-            //toolTipText += "Статус датчика ветра ДМП-1 №2: " + data.StatusWind2 + "\r\n";
-            //toolTipText += "Статус датчика ветра WMT-702: " + data.StatusWindWMT + "\r\n";
-            //toolTipText += "Статус датчика атмосферного давления  ДМП-1 №1: " + data.StatusPressure1 + "\r\n";
-            //toolTipText += "Статус датчика атмосферного давления ДМП-1 №2: " + data.StatusPressure2 + "\r\n";
-            //toolTipText += "Ошибки по прибору SKYDEX 15: " + data.StatusSKYDEX + "\r\n";
-            //toolTipText += "Количество слоёв облаков: " + data.AmountClouds + "\r\n";
-            //toolTipText += "Ошибки по датчику ДМДВ: " + data.StatusDMDV + "\r\n";
-
+            // --- 0/1 датчики ---
             Check01(data.StatusTemp1, "Ошибка по датчику температуры ДМП-1 №1");
             Check01(data.StatusTemp2, "Ошибка по датчику температуры ДМП-1 №2");
             Check01(data.StatusHum1, "Ошибка по датчику влажности ДМП-1 №1");
@@ -386,158 +385,221 @@ namespace Capriz_WPF.CustomControls
             Check01(data.StatusPressure1, "Ошибка по датчику атмосферного давления ДМП-1 №1");
             Check01(data.StatusPressure2, "Ошибка по датчику атмосферного давления ДМП-1 №2");
 
+            // --- SKYDEX ---
             switch ((data.StatusSKYDEX ?? "").Trim())
             {
-                case "A":
-                    status = "0";
-                    toolTipText += "Авария по прибору SKYDEX-15\r\n";
-                    break;
-                case "W":
-                    status = "0";
-                    toolTipText += "Тревога по прибору SKYDEX-15\r\n";
-                    break;
-                case "0":
-                default:
-                    // норма — ничего не пишем
-                    break;
+                case "A": AddError("Авария по прибору SKYDEX-15"); break;
+                case "W": AddError("Тревога по прибору SKYDEX-15"); break;
             }
 
-            //if(data.AmountClouds == "0")
-            //{
-            //    status = "0";
-            //    toolTipText += "Облака не обнаружены\r\n";
-            //}
-
-            string DMDVerror = "Авария по датчику метеорологической\r\nдальности видимости:\r\n";
-
+            // --- ДМДВ ---
             switch ((data.StatusDMDV ?? "").Trim())
             {
-                case "1":
-                    status = "0";
-                    toolTipText += DMDVerror + "Грязная линза передатчика\r\n";
-                    break;
-                case "2":
-                    status = "0";
-                    toolTipText += DMDVerror + "Неисправен ИК-диод\r\n";
-                    break;
-                case "3":
-                    status = "0";
-                    toolTipText += DMDVerror + "Грязная линза приемника\r\n";
-                    break;
-                case "0":
-                default:
-                    // норма — ничего не пишем
-                    break;
+                case "1": AddError("Авария по датчику метеорологической дальности видимости: грязная линза передатчика"); break;
+                case "2": AddError("Авария по датчику метеорологической дальности видимости: неисправен ИК-диод"); break;
+                case "3": AddError("Авария по датчику метеорологической дальности видимости: грязная линза приёмника"); break;
             }
 
-            #region oldstatusses
-            //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "1"))
-            //{
-            //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
-            //    toolTipText += (data.StatusSpeed1 == "/") ? "Отключен основной канал скорости ветра;\r\n" :
-            //        (data.StatusSpeed1 == "0") ? "Авария по основному каналу скорости ветра;\r\n" : "";
-            //    if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
-            //    toolTipText += (data.StatusDirect1 == "/") ? "Отключен основной канал направления ветра;\r\n" :
-            //        (data.StatusDirect1 == "0") ? "Авария по основному каналу направления ветра;\r\n" : "";
-
-            //    if (data.StatusSpeed2 == "/" || data.StatusSpeed2 == "0") status = "0";
-            //    toolTipText += (data.StatusSpeed2 == "/") ? "Отключен резервный канал скорости ветра;\r\n" :
-            //        (data.StatusSpeed2 == "0") ? "Авария по резервному каналу скорости ветра;\r\n" : "";
-            //    if (data.StatusDirect2 == "/" || data.StatusDirect2 == "0") status = "0";
-            //    toolTipText += (data.StatusDirect2 == "/") ? "Отключен резервный канал направления ветра;\r\n" :
-            //        (data.StatusDirect2 == "0") ? "Авария по резервному каналу направления ветра;\r\n" : "";
-            //}
-
-            //if (conf.DSNV3 == "1")
-            //{
-            //    if (data.StatusSpeedNasal == "/" || data.StatusSpeedNasal == "0") status = "0";
-            //    toolTipText += (data.StatusSpeedNasal == "/") ? "Отключен канал скорости ветра ВПП;\r\n" :
-            //        (data.StatusSpeedNasal == "0") ? "Авария по каналу скорости ветра ВПП;\r\n" : "";
-            //    if (data.StatusDirectNasal == "/" || data.StatusDirectNasal == "0") status = "0";
-            //    toolTipText += (data.StatusDirectNasal == "/") ? "Отключен канал направления ветра ВПП;\r\n" :
-            //        (data.StatusDirectNasal == "0") ? "Авария по каналу направления ветра ВПП;\r\n" : "";
-            //}
-
-            //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "0") && (conf.DSNV3 == "0"))
-            //{
-            //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
-            //    toolTipText += (data.StatusSpeed1 == "/") ? "Отключен канал скорости ветра;\r\n" :
-            //        (data.StatusSpeed1 == "0") ? "Авария по каналу скорости ветра;\r\n" : "";
-            //    if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
-            //    toolTipText += (data.StatusDirect1 == "/") ? "Отключен канал направления ветра;\r\n" :
-            //        (data.StatusDirect1 == "0") ? "Авария по каналу направления ветра;\r\n" : "";
-            //}
-
-            //if ((conf.DTVV1 == "1") && (conf.DTVV2 == "1"))
-            //{
-            //    if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
-            //    toolTipText += (data.StatusTemp1 == "/") ? "Отключен основной канал температуры;\r\n" :
-            //        (data.StatusTemp1 == "0") ? "Авария по основному каналу температуры;\r\n" : "";
-            //    if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
-            //    toolTipText += (data.StatusHum1 == "/") ? "Отключен основной канал влажности;\r\n" :
-            //        (data.StatusHum1 == "0") ? "Авария по основнову каналу влажности;\r\n" : "";
-
-            //    if (data.StatusTemp2 == "/" || data.StatusTemp2 == "0") status = "0";
-            //    toolTipText += (data.StatusTemp2 == "/") ? "Отключен резервный канал температуры;\r\n" :
-            //        (data.StatusTemp2 == "0") ? "Авария по резервному каналу температуры;\r\n" : "";
-            //    if (data.StatusHum2 == "/" || data.StatusHum2 == "0") status = "0";
-            //    toolTipText += (data.StatusHum2 == "/") ? "Отключен резервный канал влажности;\r\n" :
-            //        (data.StatusHum2 == "0") ? "Авария по резервному каналу влажности;\r\n" : "";
-            //}
-
-            //if ((conf.DTVV1 == "1") && (conf.DTVV2 == "0"))
-            //{
-            //    if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
-            //    toolTipText += (data.StatusTemp1 == "/") ? "Отключен канал температуры ;\r\n" :
-            //        (data.StatusTemp1 == "0") ? "Авария по каналу температуры;\r\n" : "";
-            //    if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
-            //    toolTipText += (data.StatusHum1 == "/") ? "Отключен канал влажности;\r\n" :
-            //        (data.StatusHum1 == "0") ? "Авария по каналу влажности;\r\n" : "";
-            //}
-
-            //if (conf.DAD == "1")
-            //{
-            //    if (data.StatusPressure == "/" || data.StatusPressure == "0") status = "0";
-            //    toolTipText += (data.StatusPressure == "/") ? "Отключен канал атмосферного давления;\r\n" :
-            //        (data.StatusPressure == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
-            //}
-
-            //if (conf.DVGO == "1")
-            //{
-            //    if (data.StatusDVGO == "/" || data.StatusDVGO == "A" || data.StatusDVGO == "W") status = "0";
-            //    toolTipText += (data.StatusDVGO == "/") ? "Отключен датчик верхней границы облаков;\r\n" :
-            //        (data.StatusDVGO == "A") ? "Авария по датчику верхней границы облаков;\r\n" :
-            //        (data.StatusDVGO == "W") ? "Тревога по датчику верхней границы облаков;\r\n" : "";
-            //}
-
-            //if (conf.DMDV == "1")
-            //{
-            //    if (data.StatusDMDV == "/" || data.StatusDMDV == "1" || data.StatusDMDV == "2" || data.StatusDMDV == "3" || data.StatusDMDV == "4") status = "0";
-            //    toolTipText += (data.StatusDMDV == "/") ? "Отключен датчик метеорологической\r\nдальности видимости;\r\n" :
-            //        (data.StatusDMDV == "1") ? "Ошибка оборудования по датчику\r\nметеорологической дальности видимости;\r\n" :
-            //        (data.StatusDMDV == "2") ? "Предупреждение по оборудованию датчика\r\nметеорологической дальности видимости;\r\n" :
-            //        (data.StatusDMDV == "3") ? "Тревога по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" :
-            //        (data.StatusDMDV == "4") ? "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" : "";
-            //}
-
-            #endregion
-
-
+            // --- Судно ---
             if (data.ShipSpeed == "Н.Д.")
-            {
-                status = "0";
-                toolTipText += "Нет скорости корабля;\r\n";
-            }
+                AddError("Нет скорости корабля");
 
             if (data.CourseShip == "Н.Д.")
-            {
-                status = "0";
-                toolTipText += "Нет курса корабля;\r\n";
-            }
+                AddError("Нет курса корабля");
 
-
-            return new List<string> { status, toolTipText };
+            // Собираем: [status, err1, err2, ...]
+            var result = new List<string>(errors.Count + 1) { status };
+            result.AddRange(errors);
+            return result;
         }
+
+        //private List<string> SetStatus(Data.Data data)
+        //{
+        //    status = "1";
+        //    toolTipText = "";
+
+        //    if (data == null)
+        //    {
+        //        status = "/";
+        //        toolTipText = "Нет данных с БПР-1";
+        //        return new List<string> { status, toolTipText };
+        //    }
+
+        //    //toolTipText += "Статус датчика температуры ДМП-1 №1: " + data.StatusTemp1 + "\r\n";
+        //    //toolTipText += "Статус датчика температуры ДМП-1 №2: " + data.StatusTemp2 + "\r\n";
+        //    //toolTipText += "Статус датчика влажности ДМП-1 №1: " + data.StatusHum1 + "\r\n";
+        //    //toolTipText += "Статус датчика влажности ДМП-1 №2: " + data.StatusHum2 + "\r\n";
+        //    //toolTipText += "Статус датчика ветра ДМП-1 №1: " + data.StatusWind1 + "\r\n";
+        //    //toolTipText += "Статус датчика ветра ДМП-1 №2: " + data.StatusWind2 + "\r\n";
+        //    //toolTipText += "Статус датчика ветра WMT-702: " + data.StatusWindWMT + "\r\n";
+        //    //toolTipText += "Статус датчика атмосферного давления  ДМП-1 №1: " + data.StatusPressure1 + "\r\n";
+        //    //toolTipText += "Статус датчика атмосферного давления ДМП-1 №2: " + data.StatusPressure2 + "\r\n";
+        //    //toolTipText += "Ошибки по прибору SKYDEX 15: " + data.StatusSKYDEX + "\r\n";
+        //    //toolTipText += "Количество слоёв облаков: " + data.AmountClouds + "\r\n";
+        //    //toolTipText += "Ошибки по датчику ДМДВ: " + data.StatusDMDV + "\r\n";
+
+        //    Check01(data.StatusTemp1, "Ошибка по датчику температуры ДМП-1 №1");
+        //    Check01(data.StatusTemp2, "Ошибка по датчику температуры ДМП-1 №2");
+        //    Check01(data.StatusHum1, "Ошибка по датчику влажности ДМП-1 №1");
+        //    Check01(data.StatusHum2, "Ошибка по датчику влажности ДМП-1 №2");
+        //    Check01(data.StatusWind1, "Ошибка по датчику ветра ДМП-1 №1");
+        //    Check01(data.StatusWind2, "Ошибка по датчику ветра ДМП-1 №2");
+        //    Check01(data.StatusWindWMT, "Ошибка по датчику ветра WMT-702");
+        //    Check01(data.StatusPressure1, "Ошибка по датчику атмосферного давления ДМП-1 №1");
+        //    Check01(data.StatusPressure2, "Ошибка по датчику атмосферного давления ДМП-1 №2");
+
+        //    switch ((data.StatusSKYDEX ?? "").Trim())
+        //    {
+        //        case "A":
+        //            status = "0";
+        //            toolTipText += "Авария по прибору SKYDEX-15\r\n";
+        //            break;
+        //        case "W":
+        //            status = "0";
+        //            toolTipText += "Тревога по прибору SKYDEX-15\r\n";
+        //            break;
+        //        case "0":
+        //        default:
+        //            // норма — ничего не пишем
+        //            break;
+        //    }
+
+        //    //if(data.AmountClouds == "0")
+        //    //{
+        //    //    status = "0";
+        //    //    toolTipText += "Облака не обнаружены\r\n";
+        //    //}
+
+        //    string DMDVerror = "Авария по датчику метеорологической\r\nдальности видимости:\r\n";
+
+        //    switch ((data.StatusDMDV ?? "").Trim())
+        //    {
+        //        case "1":
+        //            status = "0";
+        //            toolTipText += DMDVerror + "Грязная линза передатчика\r\n";
+        //            break;
+        //        case "2":
+        //            status = "0";
+        //            toolTipText += DMDVerror + "Неисправен ИК-диод\r\n";
+        //            break;
+        //        case "3":
+        //            status = "0";
+        //            toolTipText += DMDVerror + "Грязная линза приемника\r\n";
+        //            break;
+        //        case "0":
+        //        default:
+        //            // норма — ничего не пишем
+        //            break;
+        //    }
+
+        //    #region oldstatusses
+        //    //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "1"))
+        //    //{
+        //    //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusSpeed1 == "/") ? "Отключен основной канал скорости ветра;\r\n" :
+        //    //        (data.StatusSpeed1 == "0") ? "Авария по основному каналу скорости ветра;\r\n" : "";
+        //    //    if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusDirect1 == "/") ? "Отключен основной канал направления ветра;\r\n" :
+        //    //        (data.StatusDirect1 == "0") ? "Авария по основному каналу направления ветра;\r\n" : "";
+
+        //    //    if (data.StatusSpeed2 == "/" || data.StatusSpeed2 == "0") status = "0";
+        //    //    toolTipText += (data.StatusSpeed2 == "/") ? "Отключен резервный канал скорости ветра;\r\n" :
+        //    //        (data.StatusSpeed2 == "0") ? "Авария по резервному каналу скорости ветра;\r\n" : "";
+        //    //    if (data.StatusDirect2 == "/" || data.StatusDirect2 == "0") status = "0";
+        //    //    toolTipText += (data.StatusDirect2 == "/") ? "Отключен резервный канал направления ветра;\r\n" :
+        //    //        (data.StatusDirect2 == "0") ? "Авария по резервному каналу направления ветра;\r\n" : "";
+        //    //}
+
+        //    //if (conf.DSNV3 == "1")
+        //    //{
+        //    //    if (data.StatusSpeedNasal == "/" || data.StatusSpeedNasal == "0") status = "0";
+        //    //    toolTipText += (data.StatusSpeedNasal == "/") ? "Отключен канал скорости ветра ВПП;\r\n" :
+        //    //        (data.StatusSpeedNasal == "0") ? "Авария по каналу скорости ветра ВПП;\r\n" : "";
+        //    //    if (data.StatusDirectNasal == "/" || data.StatusDirectNasal == "0") status = "0";
+        //    //    toolTipText += (data.StatusDirectNasal == "/") ? "Отключен канал направления ветра ВПП;\r\n" :
+        //    //        (data.StatusDirectNasal == "0") ? "Авария по каналу направления ветра ВПП;\r\n" : "";
+        //    //}
+
+        //    //if ((conf.DSNV1 == "1") && (conf.DSNV2 == "0") && (conf.DSNV3 == "0"))
+        //    //{
+        //    //    if (data.StatusSpeed1 == "/" || data.StatusSpeed1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusSpeed1 == "/") ? "Отключен канал скорости ветра;\r\n" :
+        //    //        (data.StatusSpeed1 == "0") ? "Авария по каналу скорости ветра;\r\n" : "";
+        //    //    if (data.StatusDirect1 == "/" || data.StatusDirect1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusDirect1 == "/") ? "Отключен канал направления ветра;\r\n" :
+        //    //        (data.StatusDirect1 == "0") ? "Авария по каналу направления ветра;\r\n" : "";
+        //    //}
+
+        //    //if ((conf.DTVV1 == "1") && (conf.DTVV2 == "1"))
+        //    //{
+        //    //    if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusTemp1 == "/") ? "Отключен основной канал температуры;\r\n" :
+        //    //        (data.StatusTemp1 == "0") ? "Авария по основному каналу температуры;\r\n" : "";
+        //    //    if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusHum1 == "/") ? "Отключен основной канал влажности;\r\n" :
+        //    //        (data.StatusHum1 == "0") ? "Авария по основнову каналу влажности;\r\n" : "";
+
+        //    //    if (data.StatusTemp2 == "/" || data.StatusTemp2 == "0") status = "0";
+        //    //    toolTipText += (data.StatusTemp2 == "/") ? "Отключен резервный канал температуры;\r\n" :
+        //    //        (data.StatusTemp2 == "0") ? "Авария по резервному каналу температуры;\r\n" : "";
+        //    //    if (data.StatusHum2 == "/" || data.StatusHum2 == "0") status = "0";
+        //    //    toolTipText += (data.StatusHum2 == "/") ? "Отключен резервный канал влажности;\r\n" :
+        //    //        (data.StatusHum2 == "0") ? "Авария по резервному каналу влажности;\r\n" : "";
+        //    //}
+
+        //    //if ((conf.DTVV1 == "1") && (conf.DTVV2 == "0"))
+        //    //{
+        //    //    if (data.StatusTemp1 == "/" || data.StatusTemp1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusTemp1 == "/") ? "Отключен канал температуры ;\r\n" :
+        //    //        (data.StatusTemp1 == "0") ? "Авария по каналу температуры;\r\n" : "";
+        //    //    if (data.StatusHum1 == "/" || data.StatusHum1 == "0") status = "0";
+        //    //    toolTipText += (data.StatusHum1 == "/") ? "Отключен канал влажности;\r\n" :
+        //    //        (data.StatusHum1 == "0") ? "Авария по каналу влажности;\r\n" : "";
+        //    //}
+
+        //    //if (conf.DAD == "1")
+        //    //{
+        //    //    if (data.StatusPressure == "/" || data.StatusPressure == "0") status = "0";
+        //    //    toolTipText += (data.StatusPressure == "/") ? "Отключен канал атмосферного давления;\r\n" :
+        //    //        (data.StatusPressure == "0") ? "Авария по каналу атмосферного давления;\r\n" : "";
+        //    //}
+
+        //    //if (conf.DVGO == "1")
+        //    //{
+        //    //    if (data.StatusDVGO == "/" || data.StatusDVGO == "A" || data.StatusDVGO == "W") status = "0";
+        //    //    toolTipText += (data.StatusDVGO == "/") ? "Отключен датчик верхней границы облаков;\r\n" :
+        //    //        (data.StatusDVGO == "A") ? "Авария по датчику верхней границы облаков;\r\n" :
+        //    //        (data.StatusDVGO == "W") ? "Тревога по датчику верхней границы облаков;\r\n" : "";
+        //    //}
+
+        //    //if (conf.DMDV == "1")
+        //    //{
+        //    //    if (data.StatusDMDV == "/" || data.StatusDMDV == "1" || data.StatusDMDV == "2" || data.StatusDMDV == "3" || data.StatusDMDV == "4") status = "0";
+        //    //    toolTipText += (data.StatusDMDV == "/") ? "Отключен датчик метеорологической\r\nдальности видимости;\r\n" :
+        //    //        (data.StatusDMDV == "1") ? "Ошибка оборудования по датчику\r\nметеорологической дальности видимости;\r\n" :
+        //    //        (data.StatusDMDV == "2") ? "Предупреждение по оборудованию датчика\r\nметеорологической дальности видимости;\r\n" :
+        //    //        (data.StatusDMDV == "3") ? "Тревога по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" :
+        //    //        (data.StatusDMDV == "4") ? "Предупреждение по обратному рассеянию датчика\r\nметеорологической дальности видимости;\r\n" : "";
+        //    //}
+
+        //    #endregion
+
+
+        //    if (data.ShipSpeed == "Н.Д.")
+        //    {
+        //        status = "0";
+        //        toolTipText += "Нет скорости корабля;\r\n";
+        //    }
+
+        //    if (data.CourseShip == "Н.Д.")
+        //    {
+        //        status = "0";
+        //        toolTipText += "Нет курса корабля;\r\n";
+        //    }
+
+
+        //    return new List<string> { status, toolTipText };
+        //}
 
         private void Check01(string value, string errorMessage)
         {

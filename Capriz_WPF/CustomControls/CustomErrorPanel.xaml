@@ -6,26 +6,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              x:Name="Root"
-             Width="700" Height="500">
+             Width="800" Height="620">
 
     <UserControl.Resources>
         <RoutedCommand x:Key="btnOk_Click"/>
-
     </UserControl.Resources>
 
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource btnOk_Click}" Executed="btnOk_Click"/>
     </UserControl.CommandBindings>
 
-    <Popup x:Name="ErrorPopup" Placement="Center" AllowsTransparency="True" StaysOpen="True" Focusable="False" PopupAnimation="Fade">
-        <Border BorderThickness="3" CornerRadius="10" Width="700" Height="500" Margin="20">
+    <Popup x:Name="ErrorPopup" Placement="Center" AllowsTransparency="True" Focusable="False" StaysOpen="True" PopupAnimation="None">
+        <Border BorderThickness="3" CornerRadius="10" Width="800" Height="620" Margin="20">
             <Border.BorderBrush>
-                <LinearGradientBrush>
-                    <GradientStopCollection>
-                        <GradientStop Offset="0" Color="#FFFF5050"/>
-                        <GradientStop Offset="1" Color="#FF8B1A1A"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush>
+                <SolidColorBrush Color="#FF4040"/>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush>
@@ -43,14 +37,9 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Ошибки датчиков" Foreground="#FFFFDDDD" FontWeight="Bold" FontSize="22" Margin="20,14,0,10" VerticalAlignment="Center"/>
-                    <Button Grid.Column="1" Content="✕" Click="CloseBtn_Click" Width="40" Height="40" Margin="0,8,8,0" Background="Transparent" BorderThickness="0" Foreground="#FFFFDDDD" FontSize="18" Cursor="Hand"/>
-                </Grid>
+                <Border Grid.Row="0" Background="Transparent" Padding="20,14,20,10">
+                    <TextBlock Text="Ошибки датчиков" Foreground="#FFFFDDDD" FontWeight="Bold" FontSize="22" VerticalAlignment="Center"/>
+                </Border>
 
                 <Border Grid.Row="1" Margin="20,4,20,16" Background="#40000000" CornerRadius="6">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="14">
@@ -62,8 +51,8 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="●" Foreground="#FFFF8080" FontSize="18" Margin="0,0,10,0" VerticalAlignment="Top"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding}" TextWrapping="Wrap" Foreground="#FFFFEEEE" FontSize="16" FontFamily="Microsoft Sans Serif" LineHeight="22"/>
+                                        <TextBlock Grid.Column="0" Text="●" Foreground="#FFFF8080" FontSize="18" Margin="0,0,10,8" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding}" TextWrapping="Wrap" Foreground="#FFFFEEEE" FontSize="16" FontFamily="Microsoft Sans Serif" LineHeight="22" VerticalAlignment="Center"/>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

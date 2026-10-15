@@ -23,10 +23,9 @@ namespace Capriz_WPF.CustomControls
                 }
             };
         }
-
-        public void ShowErrors(string rawText)
+        public void ShowErrors(List<string> errors)
         {
-            RefreshErrors(rawText);
+            RefreshErrors(errors);
 
             var parentWindow = Window.GetWindow(this);
             if (parentWindow != null)
@@ -35,24 +34,15 @@ namespace Capriz_WPF.CustomControls
             ErrorPopup.IsOpen = true;
         }
 
-        public void RefreshErrors(string rawText)
+        public void RefreshErrors(List<string> errors)
         {
-            var lines = (rawText ?? "")
-                .Split(new[] { "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.TrimEnd(';', ' ', '\r', '\n'))
-                .Where(s => !string.IsNullOrWhiteSpace(s))
-                .ToList();
+            if (errors == null || errors.Count == 0)
+                errors = new List<string> { "Ошибок не обнаружено" };
 
-            if (lines.Count == 0)
-                lines.Add("Ошибок не обнаружено");
-
-            ErrorsList.ItemsSource = lines;   // просто обновляем
+            ErrorsList.ItemsSource = errors;
         }
 
-        public void HideErrors()
-        {
-            ErrorPopup.IsOpen = false;
-        }
+        public void HideErrors() => ErrorPopup.IsOpen = false;
 
         public bool IsOpen => ErrorPopup.IsOpen;
 

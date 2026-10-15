@@ -64,12 +64,12 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <!--<TextBlock Style="{StaticResource CommonTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Состояние" VerticalAlignment="Center" Margin="0,0,10,0"/>-->
-            <Ellipse x:Name="DataSost" Width="45" Height="45" Stroke="AliceBlue" StrokeThickness="5" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" MouseEnter="DataSost_MouseEnter" MouseLeave="DataSost_MouseLeave" Cursor="Hand" Margin="0,0,0,0"/>
+            <Ellipse x:Name="DataSost" Width="45" Height="45" Stroke="AliceBlue" StrokeThickness="5" HorizontalAlignment="Right" MouseDown="DataSost_MouseDown" Cursor="Hand" Margin="0,0,0,0"/>
         </StackPanel>
 
-        <Popup x:Name="CustomToolTipPopup" Width="166" Height="40" PlacementRectangle="-126,-44,0,0" Placement="Relative" PlacementTarget="{Binding ElementName=DataSost}" IsOpen="False" AllowsTransparency="True">
+        <!--<Popup x:Name="CustomToolTipPopup" Width="166" Height="40" PlacementRectangle="-126,-44,0,0" Placement="Relative" PlacementTarget="{Binding ElementName=DataSost}" IsOpen="False" AllowsTransparency="True">
             <local:CustomToolTip x:Name="CustomToolTip1" ToolTipWidth="166" ToolTipHeight="40" ToolTipText="Нет данных с БПР-1" ToolTipTextForeground="red" ToolTipBorderColor="red" Visibility="Hidden"/>
-        </Popup>
+        </Popup>-->
         
         <local:CustomErrorPanel x:Name="errorPanel"/>
     </Grid>
