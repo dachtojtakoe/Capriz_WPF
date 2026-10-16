@@ -135,7 +135,7 @@
             <TextBlock d:Visibility="Collapsed" x:Name="DataNgo2" Grid.Row="19" Grid.Column="0" Style="{StaticResource CellValue}"/>
             <TextBlock d:Visibility="Collapsed" x:Name="DataNgo1" Grid.Row="19" Grid.Column="2" Style="{StaticResource CellValue}"/>
 
-            <TextBlock x:Name="SkydexIndex" Height="120" Visibility="Collapsed" d:Visibility="Visible" Grid.Row="18" Grid.Column="0" TextWrapping="Wrap" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource CellValue}"/>
+            <TextBlock x:Name="SkydexIndex" Height="163" Visibility="Collapsed" d:Visibility="Visible" Grid.Row="18" Grid.Column="0" TextWrapping="Wrap" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource CellValue}"/>
 
             <!-- ===== Пара 6: МДВ 1 мин | МДВ 10 мин ===== -->
             <TextBlock Grid.Row="9" Grid.Column="0" Text="Метеорологическая дальность видимости за 1 мин, м" Style="{StaticResource CellLabel}"/>

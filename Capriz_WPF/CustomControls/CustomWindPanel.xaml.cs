@@ -30,8 +30,8 @@ namespace Capriz_WPF.CustomControls
         byte cleanData = 0;
         string status = "";
         string toolTipText = "";
-        int currentWindAverage = 0;
-        int currentWindType = 0;
+        //int currentWindAverage = 0;
+        //int currentWindType = 0;
 
         private enum WindType { Apparent, True }
         private WindType _windType = WindType.Apparent;
@@ -334,6 +334,7 @@ namespace Capriz_WPF.CustomControls
 
                         if (data.ShipSpeed != "Н.Д.") data.ShipSpeed = (Convert.ToString(Math.Round(double.Parse(data.ShipSpeed) * 1.94384449244, 1)));
 
+                        DataCurs.Text = data.CourseShip;
                         DataCurs.Text = data.CourseShip;
                         DataSpeed.Text = data.ShipSpeed;
                         DataLat.Text = lat;

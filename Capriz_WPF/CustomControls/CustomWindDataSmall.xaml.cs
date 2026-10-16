@@ -21,8 +21,6 @@ namespace Capriz_WPF.CustomControls
     /// </summary>
     public partial class CustomWindDataSmall : UserControl
     {
-        List<TextBlock> textBlocks;
-
         public static readonly DependencyProperty LabelTextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(CustomWindDataSmall), new PropertyMetadata("Датчик"));
 
         public string Text
@@ -49,9 +47,25 @@ namespace Capriz_WPF.CustomControls
         public void SetDataToFields(List<string> data)
         {
             //lbl.Text = data[0];
-            DataSpeed.Text = data[0];
-            DataSpeedLabel.Text = "м/c";
-            DataDir.Text = data[1] + "°";
+            if (data[0] == "Н.Д.")
+            {
+                DataSpeed.Text = data[0];
+                DataSpeedLabel.Text = "";
+            }
+            else
+            {
+                DataSpeed.Text = data[0];
+                DataSpeedLabel.Text = "м/c";
+            }
+
+            if (data[1] == "Н.Д.")
+            {
+                DataDir.Text = data[1];
+            }
+            else
+            {
+                DataDir.Text = data[1] + "°";
+            }
             //for (int i = 0; i < textBlocks.Count; i++)
             //    textBlocks[i].Text = data[i+1];
         }
@@ -60,7 +74,7 @@ namespace Capriz_WPF.CustomControls
         {
             DataSpeed.Text = "Н.Д.";
             DataSpeedLabel.Text = "";
-            DataDir.Text =  "Н.Д.";
+            DataDir.Text = "Н.Д.";
         }
     }
 }
