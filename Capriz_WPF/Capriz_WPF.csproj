@@ -175,6 +175,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomControls\PortSettingsRow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -228,6 +232,9 @@
     </Compile>
     <Compile Include="CustomControls\CustomWindPanel.xaml.cs">
       <DependentUpon>CustomWindPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\PortSettingsRow.xaml.cs">
+      <DependentUpon>PortSettingsRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\WinFormsOxyPlot.cs">
       <SubType>UserControl</SubType>
