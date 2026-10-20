@@ -484,7 +484,7 @@
                     </Ellipse>
 
                     <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP1" Grid.Column="0" Grid.Row="1" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Height="280"/>
-                    <local:CustomWindDataSmall x:Name="WindDataDMP1" Text="ДМП-1 №1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
+                    <local:CustomWindDataSmall x:Name="WindDataDMP1" Text="ДМП №1" Margin="10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
 
                     <!--<Ellipse Grid.Column="2" Grid.Row="1" StrokeThickness="8" Width="340" Height="340">
                     <Ellipse.Stroke>
@@ -543,7 +543,7 @@
                     </Ellipse>
 
                     <local:CustomRoundWindPanelSmall x:Name="WindRoundDataDMP2" Grid.Column="2" Opacity="0.5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Height="280"/>
-                    <local:CustomWindDataSmall x:Name="WindDataDMP2" Text="ДМП-1 №2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
+                    <local:CustomWindDataSmall x:Name="WindDataDMP2" Text="ДМП №2" Margin="10" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="100"/>
 
                 </Grid>
 
