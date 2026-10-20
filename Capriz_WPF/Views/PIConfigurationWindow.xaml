@@ -10,7 +10,9 @@
         AllowsTransparency="True"
         Background="Transparent"
         ShowInTaskbar="False"
-        Title="Конфигуратор ПИ" Height="600" Width="750" FontSize="20" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" FontFamily="Microsoft Sans Serif">
+        Title="Конфигуратор ПИ" FontSize="20" 
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" FontFamily="Microsoft Sans Serif">
 
 	<Window.Resources>
 		<Style x:Key="TextBlockStyle" TargetType="TextBlock">
@@ -114,120 +116,122 @@
 		</Style>
 
 	</Window.Resources>
-	<Grid Background="Transparent">
-		<Rectangle StrokeThickness="3" RadiusX="10" RadiusY="10" Grid.ColumnSpan="3" Grid.RowSpan="5">
-			<Rectangle.Stroke>
-				<SolidColorBrush Color="#FF3D6087"/>
-			</Rectangle.Stroke>
-			<Rectangle.Fill>
-				<SolidColorBrush Color="#0d345d"/>
-			</Rectangle.Fill>
-		</Rectangle>
+    <Viewbox Stretch="Uniform" MaxWidth="650" MaxHeight="500">
+        <Grid Width="750" Height="600" Background="Transparent">
+            <Rectangle StrokeThickness="3" RadiusX="10" RadiusY="10" Grid.ColumnSpan="3" Grid.RowSpan="5">
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="#FF3D6087"/>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#0d345d"/>
+                </Rectangle.Fill>
+            </Rectangle>
 
-		<Grid Margin="10">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="7*"/>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-			<Grid Grid.Row="0">
-				<TextBlock Text="Конфигуратор ПИ" Style="{StaticResource TextBlockStyle}"/>
-			</Grid>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Конфигуратор ПИ" Style="{StaticResource TextBlockStyle}"/>
+                </Grid>
 
-			<Grid Grid.Row="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-				<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-					<TextBlock Text="Ветер" Style="{StaticResource TextBlockStyle}"/>
-					<Border Width="150" Height="38" CornerRadius="5" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3" >
-						<ComboBox x:Name="windTypeCombo" SelectedIndex="0" Style="{StaticResource ComboBoxTemplate}">
-							<ComboBoxItem Content="истинный" Style="{StaticResource ComboBoxItemStyle}"/>
-							<ComboBoxItem Content="кажущийся" Style="{StaticResource ComboBoxItemStyle}"/>
-						</ComboBox>
-					</Border>
-				</StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Ветер" Style="{StaticResource TextBlockStyle}"/>
+                        <Border Width="150" Height="38" CornerRadius="5" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3" >
+                            <ComboBox x:Name="windTypeCombo" SelectedIndex="0" Style="{StaticResource ComboBoxTemplate}">
+                                <ComboBoxItem Content="истинный" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="кажущийся" Style="{StaticResource ComboBoxItemStyle}"/>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
 
-				<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-					<TextBlock Text="Осреднения" Style="{StaticResource TextBlockStyle}"/>
-					<Border Width="170" Height="38" CornerRadius="5" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3">
-						<ComboBox x:Name="windAverageCombo" SelectedIndex="0" Style="{StaticResource ComboBoxTemplate}">
-							<ComboBoxItem Content="мгновенные" Style="{StaticResource ComboBoxItemStyle}"/>
-							<ComboBoxItem Content="за 2 минуты" Style="{StaticResource ComboBoxItemStyle}"/>
-							<ComboBoxItem Content="за 10 минут" Style="{StaticResource ComboBoxItemStyle}"/>
-						</ComboBox>
-					</Border>
-				</StackPanel>
-			</Grid>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Осреднения" Style="{StaticResource TextBlockStyle}"/>
+                        <Border Width="170" Height="38" CornerRadius="5" BorderBrush="#FF3D6087" BorderThickness="2" Margin="5,0,0,0" Background="#e9e9f3">
+                            <ComboBox x:Name="windAverageCombo" SelectedIndex="0" Style="{StaticResource ComboBoxTemplate}">
+                                <ComboBoxItem Content="мгновенные" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="за 2 минуты" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="за 10 минут" Style="{StaticResource ComboBoxItemStyle}"/>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
+                </Grid>
 
-			<Grid Grid.Row="2">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-				<Grid Grid.Row="0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="3*"/>
-						<ColumnDefinition Width="5*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-					</Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
 
-					<TextBlock Text="Порт ПИ" Style="{StaticResource TextBlockStyle}"/>
-					<TextBlock Text="Скорость" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
-					<TextBlock Text="VTG" Grid.Column="2" Style="{StaticResource TextBlockStyleRX}"/>
-					<TextBlock Text="VHW" Grid.Column="3" Style="{StaticResource TextBlockStyleRX}"/>
-					<TextBlock Text="RMC" Grid.Column="4" Style="{StaticResource TextBlockStyleRX}"/>
-					<TextBlock Text="VBW" Grid.Column="5" Style="{StaticResource TextBlockStyleRX}"/>
-					<TextBlock Text="HDT" Grid.Column="6" Style="{StaticResource TextBlockStyleRX}"/>
+                        <TextBlock Text="Порт ПИ" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Скорость" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="VTG" Grid.Column="2" Style="{StaticResource TextBlockStyleRX}"/>
+                        <TextBlock Text="VHW" Grid.Column="3" Style="{StaticResource TextBlockStyleRX}"/>
+                        <TextBlock Text="RMC" Grid.Column="4" Style="{StaticResource TextBlockStyleRX}"/>
+                        <TextBlock Text="VBW" Grid.Column="5" Style="{StaticResource TextBlockStyleRX}"/>
+                        <TextBlock Text="HDT" Grid.Column="6" Style="{StaticResource TextBlockStyleRX}"/>
 
-					<TextBlock Text="ALB" Grid.Column="8" Style="{StaticResource TextBlockStyleTX}"/>
-					<TextBlock Text="MWV" Grid.Column="9" Style="{StaticResource TextBlockStyleTX}"/>
-					<TextBlock Text="XDR" Grid.Column="10" Style="{StaticResource TextBlockStyleTX}"/>
-					<TextBlock Text="MWD" Grid.Column="11" Style="{StaticResource TextBlockStyleTX}"/>
-				</Grid>
+                        <TextBlock Text="ALB" Grid.Column="8" Style="{StaticResource TextBlockStyleTX}"/>
+                        <TextBlock Text="MWV" Grid.Column="9" Style="{StaticResource TextBlockStyleTX}"/>
+                        <TextBlock Text="XDR" Grid.Column="10" Style="{StaticResource TextBlockStyleTX}"/>
+                        <TextBlock Text="MWD" Grid.Column="11" Style="{StaticResource TextBlockStyleTX}"/>
+                    </Grid>
 
-				<cc:PortSettingsRow Grid.Row="1" x:Name="rowX8" PortName="X8(232)"/>
-				<cc:PortSettingsRow Grid.Row="2" x:Name="rowX4" PortName="X4(Eth)"/>
-				<cc:PortSettingsRow Grid.Row="3" x:Name="rowX2" PortName="X2"/>
-				<cc:PortSettingsRow Grid.Row="4" x:Name="rowX3" PortName="X3"/>
-				<cc:PortSettingsRow Grid.Row="5" x:Name="rowX5" PortName="X5"/>
-				<cc:PortSettingsRow Grid.Row="6" x:Name="rowX6" PortName="X6"/>
-				<cc:PortSettingsRow Grid.Row="7" x:Name="rowX7" PortName="X7"/>
+                    <cc:PortSettingsRow Grid.Row="1" x:Name="rowX8" PortName="X8(232)"/>
+                    <cc:PortSettingsRow Grid.Row="2" x:Name="rowX4" PortName="X4(Eth)"/>
+                    <cc:PortSettingsRow Grid.Row="3" x:Name="rowX2" PortName="X2"/>
+                    <cc:PortSettingsRow Grid.Row="4" x:Name="rowX3" PortName="X3"/>
+                    <cc:PortSettingsRow Grid.Row="5" x:Name="rowX5" PortName="X5"/>
+                    <cc:PortSettingsRow Grid.Row="6" x:Name="rowX6" PortName="X6"/>
+                    <cc:PortSettingsRow Grid.Row="7" x:Name="rowX7" PortName="X7"/>
 
-			</Grid>
+                </Grid>
 
 
-			<Grid Grid.Row="3">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-				<Button Grid.Column="0" x:Name="WriteConfigurationBtn" Content="Записать" Click="WriteConfigurationBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
-				<Button Grid.Column="1" x:Name="ReadConfigurationBtn" Content="Прочитать" Click="ReadConfigurationBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
-				<Button Grid.Column="2" x:Name="EscapeBtn" Content="Выход" Click="EscapeBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
-			</Grid>
-		</Grid>
-	</Grid>
+                    <Button Grid.Column="0" x:Name="WriteConfigurationBtn" Content="Записать" Click="WriteConfigurationBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
+                    <Button Grid.Column="1" x:Name="ReadConfigurationBtn" Content="Прочитать" Click="ReadConfigurationBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
+                    <Button Grid.Column="2" x:Name="EscapeBtn" Content="Выход" Click="EscapeBtn_Click" Width="150" Height="40" Style="{StaticResource ButtonStyle}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
 </Window>

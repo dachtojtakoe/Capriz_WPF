@@ -57,6 +57,9 @@
         <RoutedCommand x:Key="btnCancel_Click"/>
         <RoutedCommand x:Key="btnApprove_Click"/>
 
+        <RoutedCommand x:Key="openConfigurator_Click"/>
+
+
         <Style x:Key="CustomButtonStyle" TargetType="CustomControls:CustomButton">
             <EventSetter Event="MouseEnter" Handler="CustomButton_MouseEnter"/>
             <EventSetter Event="MouseLeave" Handler="CustomButton_MouseLeave"/>
@@ -231,6 +234,9 @@
 
         <CommandBinding Command="{StaticResource btnApprove_Click}" Executed="btnApprove_Click"/>
         <CommandBinding Command="{StaticResource btnCancel_Click}" Executed="btnCancel_Click"/>
+
+        <CommandBinding Command="{StaticResource openConfigurator_Click}" Executed="openConfigurator_Click"/>
+
     </Window.CommandBindings>
 
 
@@ -339,7 +345,7 @@
 
                 <CustomControls:CustomButtonText BtnText="Поправка" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetPresModif_Click}" Cursor="Hand" Width="100" Height="40"/>
 
-                <CustomControls:CustomButtonText BtnText="Навигация" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource btnSetNavigation_Click}" Cursor="Hand" Width="100" Height="40"/>
+                <CustomControls:CustomButtonText BtnText="Навигация" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20" CommandText="{StaticResource openConfigurator_Click}" Cursor="Hand" Width="100" Height="40"/>
             </Grid>
         </ItemsControl>
 
