@@ -364,10 +364,18 @@ namespace Capriz_WPF.CustomControls
                 errors.Add(message);
             }
 
-            void Check01(string value, string errorMessage)
+            void Check01(string value, string errorMessage, string missingMessage)
             {
-                if ((value ?? "").Trim() == "0")
+                string v = (value ?? "").Trim();
+
+                if (v == "0")
+                {
                     AddError(errorMessage);
+                }
+                else if (v == "/" || v == "Н.Д." || v == "")
+                {
+                    AddError(missingMessage);
+                }
             }
 
             if (data == null)
@@ -376,21 +384,26 @@ namespace Capriz_WPF.CustomControls
             }
 
             // --- 0/1 датчики ---
-            Check01(data.StatusTemp1, "Ошибка по датчику температуры ДМП-1 №1");
-            Check01(data.StatusTemp2, "Ошибка по датчику температуры ДМП-1 №2");
-            Check01(data.StatusHum1, "Ошибка по датчику влажности ДМП-1 №1");
-            Check01(data.StatusHum2, "Ошибка по датчику влажности ДМП-1 №2");
-            Check01(data.StatusWind1, "Ошибка по датчику ветра ДМП-1 №1");
-            Check01(data.StatusWind2, "Ошибка по датчику ветра ДМП-1 №2");
-            Check01(data.StatusWindWMT, "Ошибка по датчику ветра WMT-702");
-            Check01(data.StatusPressure1, "Ошибка по датчику атмосферного давления ДМП-1 №1");
-            Check01(data.StatusPressure2, "Ошибка по датчику атмосферного давления ДМП-1 №2");
+            Check01(data.StatusTemp1, "Ошибка по датчику температуры ДМП №1", "Нет статуса датчика температуры ДМП №1");
+            Check01(data.StatusTemp2, "Ошибка по датчику температуры ДМП №2", "Нет статуса датчика температуры ДМП №2");
+            Check01(data.StatusHum1, "Ошибка по датчику влажности ДМП №1", "Нет статуса датчика влажности ДМП №1");
+            Check01(data.StatusHum2, "Ошибка по датчику влажности ДМП №2", "Нет статуса датчика влажности ДМП №2");
+            Check01(data.StatusWind1, "Ошибка по датчику ветра ДМП №1", "Нет статуса датчика ветра ДМП №1");
+            Check01(data.StatusWind2, "Ошибка по датчику ветра ДМП №2", "Нет статуса датчика ветра ДМП №2");
+            Check01(data.StatusWindWMT, "Ошибка по датчику ветра WMT-702", "Нет статуса датчика ветра WMT-702");
+            Check01(data.StatusPressure1, "Ошибка по датчику атмосферного давления ДМП №1", "Нет статуса датчика атмосферного давления ДМП №1");
+            Check01(data.StatusPressure2, "Ошибка по датчику атмосферного давления ДМП №2", "Нет статуса датчика атмосферного давления ДМП №2");
 
             // --- SKYDEX ---
             switch ((data.StatusSKYDEX ?? "").Trim())
             {
                 case "A": AddError("Авария по прибору SKYDEX-15"); break;
                 case "W": AddError("Тревога по прибору SKYDEX-15"); break;
+                case "/":
+                case "Н.Д.":
+                case "":
+                    AddError("Нет статуса прибора SKYDEX-15");
+                    break;
             }
 
             // --- ДМДВ ---
@@ -399,13 +412,20 @@ namespace Capriz_WPF.CustomControls
                 case "1": AddError("Авария по датчику метеорологической дальности видимости: грязная линза передатчика"); break;
                 case "2": AddError("Авария по датчику метеорологической дальности видимости: неисправен ИК-диод"); break;
                 case "3": AddError("Авария по датчику метеорологической дальности видимости: грязная линза приёмника"); break;
+                case "/":
+                case "Н.Д.":
+                case "":
+                    AddError("Нет статуса датчика метеорологической дальности видимости");
+                    break;
             }
 
             // --- Судно ---
-            if (data.ShipSpeed == "Н.Д.")
+            string shipSpeed = (data.ShipSpeed ?? "").Trim();
+            if (shipSpeed == "Н.Д." || shipSpeed == "/")
                 AddError("Нет скорости корабля");
 
-            if (data.CourseShip == "Н.Д.")
+            string courseShip = (data.CourseShip ?? "").Trim();
+            if (courseShip == "Н.Д." || courseShip == "/")
                 AddError("Нет курса корабля");
 
             // Собираем: [status, err1, err2, ...]

@@ -144,9 +144,9 @@ namespace Capriz_WPF.Data
                 {
                     string raw = cols[i + 1];
                     string val;
-                    if (Columns[i].StartsWith("Status") || Columns[i] == "AmountClouds")
-                        val = raw.Contains("/") ? "/" : raw;   // статусы: / сохраняем
-                    else
+                    //if (Columns[i].StartsWith("Status") || Columns[i] == "AmountClouds")
+                    //    val = raw.Contains("/") ? "/" : raw;   // статусы: / сохраняем
+                    //else
                         val = raw.Contains("/") ? "Н.Д." : raw;
 
                     var prop = props.FirstOrDefault(p => p.Name == Columns[i]);

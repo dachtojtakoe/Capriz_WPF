@@ -82,15 +82,15 @@ namespace Capriz_WPF.Common
         {
             switch (fullName)
             {
-                case "StatusTemp1": return "Темп. ДМП-1 №1";
-                case "StatusTemp2": return "Темп. ДМП-1 №2";
-                case "StatusHum1": return "Влажн. ДМП-1 №1";
-                case "StatusHum2": return "Влажн. ДМП-1 №2";
-                case "StatusWind1": return "Ветер ДМП-1 №1";
-                case "StatusWind2": return "Ветер ДМП-1 №2";
+                case "StatusTemp1": return "Темп. ДМП №1";
+                case "StatusTemp2": return "Темп. ДМП №2";
+                case "StatusHum1": return "Влажн. ДМП №1";
+                case "StatusHum2": return "Влажн. ДМП №2";
+                case "StatusWind1": return "Ветер ДМП №1";
+                case "StatusWind2": return "Ветер ДМП №2";
                 case "StatusWindWMT": return "Ветер WMT-702";
-                case "StatusPressure1": return "Давл. ДМП-1 №1";
-                case "StatusPressure2": return "Давл. ДМП-1 №2";
+                case "StatusPressure1": return "Давл. ДМП №1";
+                case "StatusPressure2": return "Давл. ДМП №2";
                 case "StatusSKYDEX": return "SKYDEX-15";
                 case "AmountClouds": return "Слоёв облаков";
                 case "StatusDMDV": return "ДМДВ";

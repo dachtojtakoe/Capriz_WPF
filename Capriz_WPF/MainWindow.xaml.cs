@@ -253,7 +253,7 @@ namespace Capriz_WPF
                 return;
 
             if ((DateTime.Now.Minute) % 2 == 0 && (DateTime.Now.Second == 0))   //Записываем в файл каждые 10 минут
-            //if (DateTime.Now.Second % 1 == 0)   //Записываем в файл каждые 10 минут
+            //if (DateTime.Now.Second % 5 == 0)   //Записываем в файл каждые 10 минут
             {
                 try
                 {

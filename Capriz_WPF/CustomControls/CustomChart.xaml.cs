@@ -103,9 +103,8 @@ namespace Capriz_WPF.CustomControls
                 MajorGridlineThickness = 0.5,
                 MajorGridlineStyle = LineStyle.Dash,
                 FontWeight = OxyPlot.FontWeights.Bold,
-                IntervalLength = 110,
+                IntervalLength = 150,
                 FontSize = 18
-
             };
 
             plotModel.Axes.Add(dateTimeAxis);
@@ -121,7 +120,6 @@ namespace Capriz_WPF.CustomControls
                 Color = OxyColors.Orange,
                 StrokeThickness = 3,
                 MarkerSize = 6,
-                
             };
 
             series.MouseDown += Series_MouseDown;
